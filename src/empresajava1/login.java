@@ -33,15 +33,15 @@ public class login extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(1, 0, 16));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Login");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 80, 60));
 
         txtusuario.setBackground(new java.awt.Color(255, 255, 255));
         txtusuario.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        txtusuario.setForeground(new java.awt.Color(255, 255, 255));
+        txtusuario.setForeground(new java.awt.Color(0, 0, 0));
         txtusuario.setText("Usuario");
         jPanel1.add(txtusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 90, 30));
 
@@ -58,7 +58,8 @@ public class login extends javax.swing.JFrame {
         jPanel1.add(usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 150, -1));
 
         txtcontraseña.setBackground(new java.awt.Color(255, 255, 255));
-        txtcontraseña.setForeground(new java.awt.Color(255, 255, 255));
+        txtcontraseña.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        txtcontraseña.setForeground(new java.awt.Color(0, 0, 0));
         txtcontraseña.setText("Contraseña");
         jPanel1.add(txtcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 80, -1));
 
@@ -80,6 +81,7 @@ public class login extends javax.swing.JFrame {
         jPanel1.add(contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 150, -1));
 
         entrar.setBackground(new java.awt.Color(255, 102, 102));
+        entrar.setForeground(new java.awt.Color(0, 0, 0));
         entrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconlogin.png"))); // NOI18N
         entrar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/img/preesslogin.png"))); // NOI18N
         entrar.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +95,9 @@ public class login extends javax.swing.JFrame {
             }
         });
         jPanel1.add(entrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 50, 50));
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 500));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 500));
 
