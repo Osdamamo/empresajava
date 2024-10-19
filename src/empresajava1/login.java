@@ -79,6 +79,7 @@ public class login extends javax.swing.JFrame {
 
         contraseña.setBackground(new java.awt.Color(40, 34, 18));
         contraseña.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        contraseña.setForeground(new java.awt.Color(255, 255, 255));
         contraseña.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         contraseña.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -228,7 +229,7 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_barratituloMouseDragged
 
     private void xMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xMouseEntered
-       x.setForeground(Color.orange);
+       x.setForeground(new Color(255,153,51));
     }//GEN-LAST:event_xMouseEntered
 
     private void xMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xMouseExited
