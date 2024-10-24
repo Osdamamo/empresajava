@@ -237,19 +237,17 @@ public class principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Empleados1ActionPerformed
 
-    private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
-
-
-
-    }//GEN-LAST:event_AgregarActionPerformed
+    private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ModificarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_EliminarActionPerformed
 
-    private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ModificarActionPerformed
+    private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
+
+    }//GEN-LAST:event_AgregarActionPerformed
 
     /**
      * @param args the command line arguments
