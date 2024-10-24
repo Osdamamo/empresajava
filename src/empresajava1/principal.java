@@ -1,8 +1,12 @@
 
 package empresajava1;
 
-public class principal extends javax.swing.JFrame {
+import javax.swing.table.DefaultTableModel;
 
+public class principal extends javax.swing.JFrame {
+    DefaultTableModel modelo = new DefaultTableModel();
+    
+    
     public principal() {
         initComponents();
         setLocationRelativeTo(null);
@@ -17,9 +21,8 @@ public class principal extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         Tareas = new javax.swing.JButton();
         Reportes = new javax.swing.JButton();
-        Empleados = new javax.swing.JButton();
         Extraer = new javax.swing.JButton();
-        Empleados1 = new javax.swing.JButton();
+        pagos = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         Agregar = new javax.swing.JButton();
         Eliminar = new javax.swing.JButton();
@@ -29,7 +32,7 @@ public class principal extends javax.swing.JFrame {
         txttarea = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         RegistroT = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
+        tdatos = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -60,7 +63,7 @@ public class principal extends javax.swing.JFrame {
                 TareasActionPerformed(evt);
             }
         });
-        jPanel3.add(Tareas, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 110, 40));
+        jPanel3.add(Tareas, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 110, 40));
 
         Reportes.setBackground(new java.awt.Color(70, 70, 70));
         Reportes.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -71,18 +74,7 @@ public class principal extends javax.swing.JFrame {
                 ReportesActionPerformed(evt);
             }
         });
-        jPanel3.add(Reportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 110, 40));
-
-        Empleados.setBackground(new java.awt.Color(70, 70, 70));
-        Empleados.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Empleados.setForeground(new java.awt.Color(255, 255, 255));
-        Empleados.setText("Empleados");
-        Empleados.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EmpleadosActionPerformed(evt);
-            }
-        });
-        jPanel3.add(Empleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 110, 40));
+        jPanel3.add(Reportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 110, 40));
 
         Extraer.setBackground(new java.awt.Color(70, 70, 70));
         Extraer.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -93,18 +85,18 @@ public class principal extends javax.swing.JFrame {
                 ExtraerActionPerformed(evt);
             }
         });
-        jPanel3.add(Extraer, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 110, 40));
+        jPanel3.add(Extraer, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 110, 40));
 
-        Empleados1.setBackground(new java.awt.Color(70, 70, 70));
-        Empleados1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Empleados1.setForeground(new java.awt.Color(255, 255, 255));
-        Empleados1.setText("Empleados");
-        Empleados1.addActionListener(new java.awt.event.ActionListener() {
+        pagos.setBackground(new java.awt.Color(70, 70, 70));
+        pagos.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        pagos.setForeground(new java.awt.Color(255, 255, 255));
+        pagos.setText("Pagos");
+        pagos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Empleados1ActionPerformed(evt);
+                pagosActionPerformed(evt);
             }
         });
-        jPanel3.add(Empleados1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 110, 40));
+        jPanel3.add(pagos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 110, 40));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 460));
 
@@ -115,6 +107,11 @@ public class principal extends javax.swing.JFrame {
         Agregar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         Agregar.setForeground(new java.awt.Color(255, 255, 255));
         Agregar.setText("Agregar");
+        Agregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AgregarMouseClicked(evt);
+            }
+        });
         Agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AgregarActionPerformed(evt);
@@ -158,38 +155,18 @@ public class principal extends javax.swing.JFrame {
         RegistroT.setBackground(new java.awt.Color(255, 255, 255));
         RegistroT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+
             },
             new String [] {
-                "Tareas"
+                "Tarea"
             }
         ));
         jScrollPane1.setViewportView(RegistroT);
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 550, 290));
 
-        jLabel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Total de Registro"));
-        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 410, 140, 40));
+        tdatos.setBorder(javax.swing.BorderFactory.createTitledBorder("Total de Registro"));
+        jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 410, 140, 40));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 570, 460));
 
@@ -212,7 +189,8 @@ public class principal extends javax.swing.JFrame {
         txttarea.setText("");
     }
     public void mostrar(){
-                 
+                 modelo.addColumn("Tareas");
+                 RegistroT.setModel(modelo);
     }
     
     
@@ -225,17 +203,13 @@ public class principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ReportesActionPerformed
 
-    private void EmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmpleadosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EmpleadosActionPerformed
-
     private void ExtraerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExtraerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ExtraerActionPerformed
 
-    private void Empleados1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Empleados1ActionPerformed
+    private void pagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Empleados1ActionPerformed
+    }//GEN-LAST:event_pagosActionPerformed
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
         // TODO add your handling code here:
@@ -246,8 +220,18 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
-
+        
     }//GEN-LAST:event_AgregarActionPerformed
+
+    private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
+    DefaultTableModel modelo = (DefaultTableModel) RegistroT.getModel();
+    Object [] Dato = new Object [1];
+     Dato[0] = txttarea.getText();
+        
+     modelo.addRow(Dato);
+     int filast = RegistroT.getRowCount();
+     tdatos.setText("+filast");
+    }//GEN-LAST:event_AgregarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -285,21 +269,20 @@ public class principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Agregar;
     private javax.swing.JButton Eliminar;
-    private javax.swing.JButton Empleados;
-    private javax.swing.JButton Empleados1;
     private javax.swing.JButton Extraer;
     private javax.swing.JButton Modificar;
     private javax.swing.JTable RegistroT;
     private javax.swing.JButton Reportes;
     private javax.swing.JButton Tareas;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton pagos;
+    private javax.swing.JLabel tdatos;
     private javax.swing.JTextField txttarea;
     // End of variables declaration//GEN-END:variables
 }
