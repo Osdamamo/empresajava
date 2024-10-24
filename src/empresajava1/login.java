@@ -56,7 +56,7 @@ public class login extends javax.swing.JFrame {
 
         usuario.setBackground(new java.awt.Color(40, 34, 18));
         usuario.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
-        usuario.setForeground(new java.awt.Color(37, 47, 4));
+        usuario.setForeground(new java.awt.Color(255, 255, 255));
         usuario.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         usuario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         usuario.addActionListener(new java.awt.event.ActionListener() {

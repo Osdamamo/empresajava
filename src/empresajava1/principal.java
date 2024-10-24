@@ -69,6 +69,11 @@ public class principal extends javax.swing.JFrame {
         Reportes.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         Reportes.setForeground(new java.awt.Color(255, 255, 255));
         Reportes.setText("Reportes");
+        Reportes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ReportesMousePressed(evt);
+            }
+        });
         Reportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ReportesActionPerformed(evt);
@@ -232,6 +237,12 @@ public class principal extends javax.swing.JFrame {
      int filast = RegistroT.getRowCount();
      tdatos.setText(""+filast);
     }//GEN-LAST:event_AgregarMouseClicked
+
+    private void ReportesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportesMousePressed
+    reportes reportes = new reportes();
+    reportes.setVisible(true);  
+    dispose();
+    }//GEN-LAST:event_ReportesMousePressed
 
     /**
      * @param args the command line arguments
