@@ -230,7 +230,7 @@ public class principal extends javax.swing.JFrame {
         
      modelo.addRow(Dato);
      int filast = RegistroT.getRowCount();
-     tdatos.setText("+filast");
+     tdatos.setText(""+filast);
     }//GEN-LAST:event_AgregarMouseClicked
 
     /**
