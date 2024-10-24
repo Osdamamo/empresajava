@@ -4,7 +4,6 @@ package empresajava1;
 public class principal extends javax.swing.JFrame {
 
     public principal() {
-       
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -213,8 +212,7 @@ public class principal extends javax.swing.JFrame {
         txttarea.setText("");
     }
     public void mostrar(){
-
-        
+                 
     }
     
     
