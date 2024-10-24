@@ -10,6 +10,7 @@ public class principal extends javax.swing.JFrame {
     public principal() {
         initComponents();
         setLocationRelativeTo(null);
+            Agregar.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -27,7 +28,7 @@ public class principal extends javax.swing.JFrame {
         Agregar = new javax.swing.JButton();
         Eliminar = new javax.swing.JButton();
         Modificar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        Tarea = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         txttarea = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -122,7 +123,7 @@ public class principal extends javax.swing.JFrame {
                 AgregarActionPerformed(evt);
             }
         });
-        jPanel4.add(Agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 70, 20));
+        jPanel4.add(Agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 80, 20));
 
         Eliminar.setBackground(new java.awt.Color(70, 70, 70));
         Eliminar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -133,7 +134,7 @@ public class principal extends javax.swing.JFrame {
                 EliminarActionPerformed(evt);
             }
         });
-        jPanel4.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 70, 20));
+        jPanel4.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 80, 20));
 
         Modificar.setBackground(new java.awt.Color(70, 70, 70));
         Modificar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -144,11 +145,11 @@ public class principal extends javax.swing.JFrame {
                 ModificarActionPerformed(evt);
             }
         });
-        jPanel4.add(Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 70, 20));
+        jPanel4.add(Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 80, 20));
 
-        jLabel1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jLabel1.setText("Tarea:");
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+        Tarea.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Tarea.setText("Tarea:");
+        jPanel4.add(Tarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel5.add(txttarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 6, 480, 30));
@@ -196,6 +197,19 @@ public class principal extends javax.swing.JFrame {
     public void mostrar(){
                  modelo.addColumn("Tareas");
                  RegistroT.setModel(modelo);
+    }
+    
+    
+    public void validar(){
+        if(txttarea.getText().isEmpty()){
+            Tarea.setText("este dato es requerido");
+                        Agregar.setEnabled(false);
+
+        }
+        else   {
+        Agregar.setEnabled(true);
+
+        }
     }
     
     
@@ -284,8 +298,8 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JButton Modificar;
     private javax.swing.JTable RegistroT;
     private javax.swing.JButton Reportes;
+    private javax.swing.JLabel Tarea;
     private javax.swing.JButton Tareas;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
