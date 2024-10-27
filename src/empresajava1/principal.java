@@ -2,7 +2,9 @@
 package empresajava1;
 
 import java.awt.Color;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.table.DefaultTableModel;
 
@@ -266,21 +268,26 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_pagosActionPerformed
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
-        int filaSeleccionada = RegistroT.getSelectedRow();
+      int filaSeleccionada = RegistroT.getSelectedRow();
     if (filaSeleccionada >= 0) {
-        String nuevaTarea = txttarea.getText().trim();
-        if (!nuevaTarea.isEmpty()) {
-            DefaultTableModel modelo = (DefaultTableModel) RegistroT.getModel();
-            modelo.setValueAt(nuevaTarea, filaSeleccionada, 0);
+        // Obtiene la tarea actual
+        String tareaSeleccionada = (String) RegistroT.getValueAt(filaSeleccionada, 0);
+
+        // Obtiene el JFrame padre para abrir el diálogo
+        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        ModificarTarea ventana = new ModificarTarea(parentFrame, tareaSeleccionada);
+        ventana.setVisible(true);
+
+        // Obtiene la tarea modificada si el usuario guardó los cambios
+        String tareaModificada = ventana.getTareaModificada();
+        if (tareaModificada != null) {
+            RegistroT.setValueAt(tareaModificada, filaSeleccionada, 0);
             JOptionPane.showMessageDialog(this, "Tarea modificada con éxito.");
-            
-            limpiar(); // Limpiar el campo de texto después de modificar
-        } else {
-            JOptionPane.showMessageDialog(this, "El campo de tarea no puede estar vacío.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     } else {
         JOptionPane.showMessageDialog(this, "Seleccione una tarea para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
     }
+
     }//GEN-LAST:event_ModificarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
