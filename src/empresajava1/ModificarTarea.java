@@ -8,11 +8,13 @@ public class ModificarTarea extends JDialog {
     private JButton btnGuardar, btnCancelar;
     private String tareaOriginal;
     private boolean modificada = false;
-
+    
+    
     public ModificarTarea(JFrame parent, String tarea) {
         super(parent, "Modificar Tarea", true);
+       this.setUndecorated(true);
         tareaOriginal = tarea;
-
+        
         // Configuración de componentes
         txtModificar = new JTextField(tarea, 20);
              txtModificar.setPreferredSize(new Dimension(400, 30));   // Establece un tamaño preferido para el JTextField
@@ -74,5 +76,6 @@ public class ModificarTarea extends JDialog {
     // Devuelve la tarea modificada si se guardó, o null si se canceló
     public String getTareaModificada() {
         return modificada ? tareaOriginal : null;
+        
     }
 }
