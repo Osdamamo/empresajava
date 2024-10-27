@@ -10,14 +10,13 @@ import javax.swing.table.DefaultTableModel;
 
 public class principal extends javax.swing.JFrame {
     DefaultTableModel modelo = new DefaultTableModel();
-    
+   
     
     public principal() {
         initComponents();
         setLocationRelativeTo(null);
         Agregar.setBackground(Color.GREEN);
         Agregar.setForeground(Color.black); 
-        
         /*
         Esta libreria ofrece una forma de detectar cambios en tiempo real, como si estuvieras constantemente
         revisando el campo de texto con if-else, pero de manera automática y continua.        
@@ -56,6 +55,8 @@ public class principal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         RegistroT = new javax.swing.JTable();
         tdatos = new javax.swing.JLabel();
+        barratitulo = new javax.swing.JPanel();
+        x = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -69,6 +70,7 @@ public class principal extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -126,9 +128,9 @@ public class principal extends javax.swing.JFrame {
         });
         jPanel3.add(pagos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 110, 40));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 460));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 500));
 
-        jPanel4.setBackground(new java.awt.Color(184, 134, 11));
+        jPanel4.setBackground(new java.awt.Color(225, 153, 51));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Agregar.setBackground(new java.awt.Color(70, 70, 70));
@@ -145,7 +147,7 @@ public class principal extends javax.swing.JFrame {
                 AgregarActionPerformed(evt);
             }
         });
-        jPanel4.add(Agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 80, 20));
+        jPanel4.add(Agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 80, 20));
 
         Modificar.setBackground(new java.awt.Color(70, 70, 70));
         Modificar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -156,7 +158,7 @@ public class principal extends javax.swing.JFrame {
                 ModificarActionPerformed(evt);
             }
         });
-        jPanel4.add(Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 80, 20));
+        jPanel4.add(Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 80, 20));
 
         Eliminar.setBackground(new java.awt.Color(70, 70, 70));
         Eliminar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -167,7 +169,7 @@ public class principal extends javax.swing.JFrame {
                 EliminarActionPerformed(evt);
             }
         });
-        jPanel4.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 80, 20));
+        jPanel4.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 80, 20));
 
         EliminarTodo.setBackground(new java.awt.Color(70, 70, 70));
         EliminarTodo.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -178,16 +180,16 @@ public class principal extends javax.swing.JFrame {
                 EliminarTodoActionPerformed(evt);
             }
         });
-        jPanel4.add(EliminarTodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 100, 20));
+        jPanel4.add(EliminarTodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 100, 20));
 
         Tarea.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         Tarea.setText("Tarea:");
-        jPanel4.add(Tarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 100, -1));
+        jPanel4.add(Tarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 100, -1));
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel5.add(txttarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 6, 420, 30));
 
-        jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 550, 50));
+        jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 550, 50));
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Todas Las Tareas"));
 
@@ -202,12 +204,45 @@ public class principal extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(RegistroT);
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 550, 290));
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 550, 290));
 
         tdatos.setBorder(javax.swing.BorderFactory.createTitledBorder("Total de Registro"));
-        jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 410, 140, 40));
+        jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 460, 140, 40));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 570, 460));
+        barratitulo.setBackground(new java.awt.Color(225, 153, 51));
+        barratitulo.setForeground(new java.awt.Color(0, 0, 0));
+        barratitulo.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                barratituloMouseDragged(evt);
+            }
+        });
+        barratitulo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                barratituloMousePressed(evt);
+            }
+        });
+        barratitulo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        x.setBackground(new java.awt.Color(255, 255, 255));
+        x.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
+        x.setForeground(new java.awt.Color(255, 255, 255));
+        x.setText("x");
+        x.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                xMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                xMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                xMouseExited(evt);
+            }
+        });
+        barratitulo.add(x, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, -1, 30));
+
+        jPanel4.add(barratitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 30));
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 570, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -355,6 +390,27 @@ public class principal extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_EliminarTodoActionPerformed
 
+    private void xMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_xMouseClicked
+
+    private void xMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xMouseEntered
+        x.setForeground(new Color(255,153,51));
+    }//GEN-LAST:event_xMouseEntered
+
+    private void xMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xMouseExited
+        x.setForeground(Color.white);
+    }//GEN-LAST:event_xMouseExited
+
+    private void barratituloMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barratituloMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+    }//GEN-LAST:event_barratituloMouseDragged
+
+    private void barratituloMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barratituloMousePressed
+  
+    }//GEN-LAST:event_barratituloMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -398,6 +454,7 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JButton Reportes;
     private javax.swing.JLabel Tarea;
     private javax.swing.JButton Tareas;
+    private javax.swing.JPanel barratitulo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -407,5 +464,6 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JButton pagos;
     private javax.swing.JLabel tdatos;
     private javax.swing.JTextField txttarea;
+    private javax.swing.JLabel x;
     // End of variables declaration//GEN-END:variables
 }
