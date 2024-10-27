@@ -1,6 +1,9 @@
 
 package empresajava1;
 
+import java.awt.Color;
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
 import javax.swing.table.DefaultTableModel;
 
 public class principal extends javax.swing.JFrame {
@@ -10,7 +13,23 @@ public class principal extends javax.swing.JFrame {
     public principal() {
         initComponents();
         setLocationRelativeTo(null);
-            Agregar.setEnabled(false);
+        Agregar.setBackground(Color.GREEN);
+        Agregar.setForeground(Color.black); 
+        
+        /*
+        Esta libreria ofrece una forma de detectar cambios en tiempo real, como si estuvieras constantemente
+        revisando el campo de texto con if-else, pero de manera automática y continua.        
+        */
+        txttarea.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(DocumentEvent e) {
+            validar();}
+
+            public void removeUpdate(DocumentEvent e) {
+            validar();}
+
+            public void changedUpdate(DocumentEvent e) {
+             validar();}
+                });
     }
 
     @SuppressWarnings("unchecked")
@@ -149,10 +168,10 @@ public class principal extends javax.swing.JFrame {
 
         Tarea.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         Tarea.setText("Tarea:");
-        jPanel4.add(Tarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+        jPanel4.add(Tarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 100, -1));
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel5.add(txttarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 6, 480, 30));
+        jPanel5.add(txttarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 6, 420, 30));
 
         jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 550, 50));
 
@@ -190,6 +209,7 @@ public class principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     //Metodos
     public void limpiar(){
         txttarea.setText("");
@@ -201,13 +221,16 @@ public class principal extends javax.swing.JFrame {
     
     
     public void validar(){
-        if(txttarea.getText().isEmpty()){
-            Tarea.setText("este dato es requerido");
-                        Agregar.setEnabled(false);
-
+        if(txttarea.getText().trim().isEmpty()){
+            Agregar.setBackground(Color.GREEN);
+            Agregar.setForeground(Color.black);
         }
         else   {
+            Tarea.setText("Tarea:");
         Agregar.setEnabled(true);
+        Agregar.setBackground(new Color(70,70,70));
+        Agregar.setForeground(new Color(255,255,255));
+
 
         }
     }
@@ -239,17 +262,22 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
-        
-    }//GEN-LAST:event_AgregarActionPerformed
 
+    }//GEN-LAST:event_AgregarActionPerformed
+    
     private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
-    DefaultTableModel modelo = (DefaultTableModel) RegistroT.getModel();
+         if (txttarea.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "El campo de tarea no puede estar vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }else{
+        DefaultTableModel modelo = (DefaultTableModel) RegistroT.getModel();
     Object [] Dato = new Object [1];
      Dato[0] = txttarea.getText();
         
      modelo.addRow(Dato);
      int filast = RegistroT.getRowCount();
      tdatos.setText(""+filast);
+     limpiar();// Limpiar el campo de texto después de agregar
+         }
     }//GEN-LAST:event_AgregarMouseClicked
 
     private void ReportesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportesMousePressed
