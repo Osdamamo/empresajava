@@ -45,8 +45,9 @@ public class principal extends javax.swing.JFrame {
         pagos = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         Agregar = new javax.swing.JButton();
-        Eliminar = new javax.swing.JButton();
         Modificar = new javax.swing.JButton();
+        Eliminar = new javax.swing.JButton();
+        EliminarTodo = new javax.swing.JButton();
         Tarea = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         txttarea = new javax.swing.JTextField();
@@ -144,6 +145,17 @@ public class principal extends javax.swing.JFrame {
         });
         jPanel4.add(Agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 80, 20));
 
+        Modificar.setBackground(new java.awt.Color(70, 70, 70));
+        Modificar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Modificar.setForeground(new java.awt.Color(255, 255, 255));
+        Modificar.setText("Modificar");
+        Modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ModificarActionPerformed(evt);
+            }
+        });
+        jPanel4.add(Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 80, 20));
+
         Eliminar.setBackground(new java.awt.Color(70, 70, 70));
         Eliminar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         Eliminar.setForeground(new java.awt.Color(255, 255, 255));
@@ -155,16 +167,16 @@ public class principal extends javax.swing.JFrame {
         });
         jPanel4.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 80, 20));
 
-        Modificar.setBackground(new java.awt.Color(70, 70, 70));
-        Modificar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Modificar.setForeground(new java.awt.Color(255, 255, 255));
-        Modificar.setText("Modificar");
-        Modificar.addActionListener(new java.awt.event.ActionListener() {
+        EliminarTodo.setBackground(new java.awt.Color(70, 70, 70));
+        EliminarTodo.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        EliminarTodo.setForeground(new java.awt.Color(255, 255, 255));
+        EliminarTodo.setText("Eliminar Todo");
+        EliminarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ModificarActionPerformed(evt);
+                EliminarTodoActionPerformed(evt);
             }
         });
-        jPanel4.add(Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 80, 20));
+        jPanel4.add(EliminarTodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 100, 20));
 
         Tarea.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         Tarea.setText("Tarea:");
@@ -254,11 +266,43 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_pagosActionPerformed
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
-        // TODO add your handling code here:
+        int filaSeleccionada = RegistroT.getSelectedRow();
+    if (filaSeleccionada >= 0) {
+        String nuevaTarea = txttarea.getText().trim();
+        if (!nuevaTarea.isEmpty()) {
+            DefaultTableModel modelo = (DefaultTableModel) RegistroT.getModel();
+            modelo.setValueAt(nuevaTarea, filaSeleccionada, 0);
+            JOptionPane.showMessageDialog(this, "Tarea modificada con éxito.");
+            
+            limpiar(); // Limpiar el campo de texto después de modificar
+        } else {
+            JOptionPane.showMessageDialog(this, "El campo de tarea no puede estar vacío.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Seleccione una tarea para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_ModificarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-        // TODO add your handling code here:
+        int filaSeleccionada = RegistroT.getSelectedRow();
+    if (filaSeleccionada >= 0) {
+         // Muestra un cuadro de confirmación
+    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar esta tarea?", "Confirmación", JOptionPane.YES_NO_OPTION);
+    // Si el usuario confirma con "Sí", procede a eliminar
+    if (confirmacion == JOptionPane.YES_OPTION) {
+        DefaultTableModel modelo = (DefaultTableModel) RegistroT.getModel();
+        modelo.removeRow(filaSeleccionada);
+        
+        // Actualiza el contador de tareas
+        int filast = RegistroT.getRowCount();
+        tdatos.setText("" + filast);
+        
+        JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
+    }
+        
+    } else {
+        JOptionPane.showMessageDialog(this, "Seleccione una tarea para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+    }    
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
@@ -285,6 +329,24 @@ public class principal extends javax.swing.JFrame {
     reportes.setVisible(true);  
     dispose();
     }//GEN-LAST:event_ReportesMousePressed
+
+    private void EliminarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarTodoActionPerformed
+    // Muestra un cuadro de confirmación
+    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar todas las tareas?", "Confirmación", JOptionPane.YES_NO_OPTION);
+    
+    // Si el usuario confirma con "Sí", procede a eliminar
+    if (confirmacion == JOptionPane.YES_OPTION) {
+        DefaultTableModel modelo = (DefaultTableModel) RegistroT.getModel();
+        
+        // Elimina todas las filas del modelo de la tabla
+        modelo.setRowCount(0);
+        
+        // Actualiza el contador de tareas a 0
+        tdatos.setText("0");
+        
+        JOptionPane.showMessageDialog(this, "Todas las tareas han sido eliminadas con éxito.");
+    }
+    }//GEN-LAST:event_EliminarTodoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,6 +384,7 @@ public class principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Agregar;
     private javax.swing.JButton Eliminar;
+    private javax.swing.JButton EliminarTodo;
     private javax.swing.JButton Extraer;
     private javax.swing.JButton Modificar;
     private javax.swing.JTable RegistroT;
