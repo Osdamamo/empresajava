@@ -341,11 +341,15 @@ private void cargarDesdeExcel() {
 
     
     private void TareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TareasActionPerformed
-        // TODO add your handling code here:
+        principal tareas = new principal();
+        tareas.setVisible(true);
+        dispose();
     }//GEN-LAST:event_TareasActionPerformed
 
     private void ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesActionPerformed
-        // TODO add your handling code here:
+        reportes reporte = new reportes();
+        reporte.setVisible(true);
+        dispose();
     }//GEN-LAST:event_ReportesActionPerformed
 
     private void ExtraerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExtraerActionPerformed
@@ -384,7 +388,10 @@ XSSFWorkbook workbook = new XSSFWorkbook();
     }//GEN-LAST:event_ExtraerActionPerformed
 
     private void pagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagosActionPerformed
-        // TODO add your handling code here:
+        pago pagos = new pago();
+        pagos.setVisible(true);
+        dispose();
+        
     }//GEN-LAST:event_pagosActionPerformed
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
