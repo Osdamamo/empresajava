@@ -3,6 +3,7 @@ package empresajava1;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 public class login extends javax.swing.JFrame {
 
@@ -10,6 +11,8 @@ public class login extends javax.swing.JFrame {
     public login() {
         initComponents();
           setLocationRelativeTo(null);
+        setIconImage(new ImageIcon(getClass().getResource("/icons/logof.png")).getImage());
+
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

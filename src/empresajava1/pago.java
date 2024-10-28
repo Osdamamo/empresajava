@@ -17,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
+import javax.swing.ImageIcon;
 
 public class pago extends javax.swing.JFrame {
     DefaultTableModel modelo = new DefaultTableModel();
@@ -26,10 +27,15 @@ public class pago extends javax.swing.JFrame {
      */
     public pago() {
                 initComponents();
+                 setIconImage(new ImageIcon(getClass().getResource("/icons/logof.png")).getImage());
+
         setLocationRelativeTo(null);
         cargarDesdeExcel();
-        Agregar.setBackground(Color.GREEN);
+        int filast = RegistroT.getRowCount();
+        tdatos.setText("" + filast);
+        Agregar.setBackground(new Color(139,0,0));
         Agregar.setForeground(Color.black); 
+ 
         /*
         Esta libreria ofrece una forma de detectar cambios en tiempo real, como si estuvieras constantemente
         revisando el campo de texto con if-else, pero de manera automática y continua.        

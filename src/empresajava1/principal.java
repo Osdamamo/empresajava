@@ -28,6 +28,8 @@ public class principal extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/icons/logof.png")).getImage());
         setLocationRelativeTo(null);
         cargarDesdeExcel();
+        int filast = RegistroT.getRowCount();
+        tdatos.setText("" + filast);
         Agregar.setBackground(new Color(139,0,0));
         Agregar.setForeground(Color.black); 
         /*
