@@ -253,9 +253,9 @@ public class principal extends javax.swing.JFrame {
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Todas Las Tareas"));
 
-        RegistroT.setBackground(new java.awt.Color(54, 57, 63));
+        RegistroT.setBackground(new java.awt.Color(255, 255, 255));
         RegistroT.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        RegistroT.setForeground(new java.awt.Color(255, 255, 255));
+        RegistroT.setForeground(new java.awt.Color(0, 0, 0));
         RegistroT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
