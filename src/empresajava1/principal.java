@@ -24,6 +24,7 @@ public class principal extends javax.swing.JFrame {
     public principal() {
         initComponents();
         setLocationRelativeTo(null);
+        cargarDesdeExcel();
         Agregar.setBackground(Color.GREEN);
         Agregar.setForeground(Color.black); 
         /*
@@ -292,10 +293,52 @@ public class principal extends javax.swing.JFrame {
 
         }
     }
-    
-    
-    
-    
+    private void exportarAExcel() {
+    Workbook workbook = new XSSFWorkbook();
+    Sheet sheet = workbook.createSheet("Tareas");
+
+    // Agregar encabezados
+    Row headerRow = sheet.createRow(0);
+    headerRow.createCell(0).setCellValue("Tarea");
+
+    // Agregar datos de la tabla
+    for (int i = 0; i < RegistroT.getRowCount(); i++) {
+        Row row = sheet.createRow(i + 1);
+        row.createCell(0).setCellValue((String) RegistroT.getValueAt(i, 0));
+    }
+
+    // Escribir el archivo
+    try (FileOutputStream fileOut = new FileOutputStream("tareas.xlsx")) {
+        workbook.write(fileOut);
+        workbook.write(fileOut);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+private void cargarDesdeExcel() {
+    File archivo = new File("tareas.xlsx");
+    if (!archivo.exists()) return; // Verificar si el archivo existe
+
+    try (FileInputStream fileIn = new FileInputStream(archivo)) {
+        Workbook workbook = new XSSFWorkbook(fileIn);
+        Sheet sheet = workbook.getSheetAt(0);
+        DefaultTableModel modelo = (DefaultTableModel) RegistroT.getModel();
+
+        // Limpiar la tabla antes de cargar
+        modelo.setRowCount(0);
+
+        // Leer filas del archivo Excel
+        for (Row row : sheet) {
+            if (row.getRowNum() == 0) continue; // Saltar encabezado
+
+            String tarea = row.getCell(0).getStringCellValue();
+            modelo.addRow(new Object[]{tarea});
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
     
     private void TareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TareasActionPerformed
         // TODO add your handling code here:
@@ -398,14 +441,18 @@ XSSFWorkbook workbook = new XSSFWorkbook();
             JOptionPane.showMessageDialog(this, "El campo de tarea no puede estar vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }else{
         DefaultTableModel modelo = (DefaultTableModel) RegistroT.getModel();
-    Object [] Dato = new Object [1];
-     Dato[0] = txttarea.getText();
-        
-     modelo.addRow(Dato);
-     int filast = RegistroT.getRowCount();
-     tdatos.setText(""+filast);
-     limpiar();// Limpiar el campo de texto después de agregar
+        Object [] Dato = new Object [1];
+         Dato[0] = txttarea.getText();
+
+         modelo.addRow(Dato);
+         int filast = RegistroT.getRowCount();
+         tdatos.setText(""+filast);
+         limpiar();// Limpiar el campo de texto después de agregar
          }
+         
+        // Exportar los datos después de agregar
+        exportarAExcel();
+
     }//GEN-LAST:event_AgregarMouseClicked
 
     private void ReportesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportesMousePressed
