@@ -189,8 +189,17 @@ public class login extends javax.swing.JFrame {
 
     private void contraseñaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contraseñaKeyPressed
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-
-            entrar.requestFocus();
+ String user = usuario.getText();
+        String passw = contraseña.getText();
+        if (user.isEmpty() || passw.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "algun campo esta vacio");
+        }else{
+            if(user.equals("admin")&& passw.equals("12345")){
+                principal pc = new principal();
+                pc.setVisible(true);
+                this.dispose();
+            } else{JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");}
+        }
         }
     }//GEN-LAST:event_contraseñaKeyPressed
 
