@@ -190,7 +190,7 @@ public class principal extends javax.swing.JFrame {
                 EliminarTodoActionPerformed(evt);
             }
         });
-        jPanel4.add(EliminarTodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 100, 20));
+        jPanel4.add(EliminarTodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 120, 20));
 
         Tarea.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         Tarea.setText("Tarea:");
@@ -403,11 +403,12 @@ XSSFWorkbook workbook = new XSSFWorkbook();
         if (tareaModificada != null) {
             RegistroT.setValueAt(tareaModificada, filaSeleccionada, 0);
             JOptionPane.showMessageDialog(this, "Tarea modificada con éxito.");
+            exportarAExcel();
         }
     } else {
         JOptionPane.showMessageDialog(this, "Seleccione una tarea para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
     }
-
+    
     }//GEN-LAST:event_ModificarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
@@ -425,6 +426,7 @@ XSSFWorkbook workbook = new XSSFWorkbook();
         tdatos.setText("" + filast);
         
         JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
+        exportarAExcel();
     }
         
     } else {
@@ -476,6 +478,7 @@ XSSFWorkbook workbook = new XSSFWorkbook();
         tdatos.setText("0");
         
         JOptionPane.showMessageDialog(this, "Todas las tareas han sido eliminadas con éxito.");
+        exportarAExcel();
     }
     }//GEN-LAST:event_EliminarTodoActionPerformed
 
