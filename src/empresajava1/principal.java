@@ -7,6 +7,15 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileInputStream;
+
+
 
 public class principal extends javax.swing.JFrame {
     DefaultTableModel modelo = new DefaultTableModel();
@@ -286,6 +295,8 @@ public class principal extends javax.swing.JFrame {
     
     
     
+    
+    
     private void TareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TareasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TareasActionPerformed
@@ -295,7 +306,38 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_ReportesActionPerformed
 
     private void ExtraerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExtraerActionPerformed
-        // TODO add your handling code here:
+XSSFWorkbook workbook = new XSSFWorkbook();
+    XSSFSheet sheet = workbook.createSheet("Tareas");
+
+    // Agregar los encabezados a la primera fila
+    Row headerRow = sheet.createRow(0);
+    for (int i = 0; i < RegistroT.getColumnCount(); i++) {
+        Cell cell = headerRow.createCell(i);
+        cell.setCellValue(RegistroT.getColumnName(i));
+    }
+
+    // Llenar el archivo con los datos de la tabla
+    for (int i = 0; i < RegistroT.getRowCount(); i++) {
+        Row row = sheet.createRow(i + 1);
+        for (int j = 0; j < RegistroT.getColumnCount(); j++) {
+            Cell cell = row.createCell(j);
+            cell.setCellValue(RegistroT.getValueAt(i, j).toString());
+        }
+    }
+
+    try (FileOutputStream fileOut = new FileOutputStream("Tareas.xlsx")) {
+        workbook.write(fileOut);
+        JOptionPane.showMessageDialog(this, "Datos exportados exitosamente a Tareas.xlsx");
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(this, "Error al exportar los datos: " + e.getMessage());
+    } finally {
+        try {
+            workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
     }//GEN-LAST:event_ExtraerActionPerformed
 
     private void pagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagosActionPerformed
