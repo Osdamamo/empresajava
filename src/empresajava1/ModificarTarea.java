@@ -14,7 +14,7 @@ public class ModificarTarea extends JDialog {
         super(parent, "Modificar Tarea", true);
        this.setUndecorated(true);
         tareaOriginal = tarea;
-        
+          
         // Configuración de componentes
         txtModificar = new JTextField(tarea, 20);
              txtModificar.setPreferredSize(new Dimension(400, 30));   // Establece un tamaño preferido para el JTextField
