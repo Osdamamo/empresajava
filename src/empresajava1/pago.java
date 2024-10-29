@@ -444,51 +444,64 @@ public class pago extends javax.swing.JFrame {
         }
     }
     private void exportarAExcel() {
-    Workbook workbook = new XSSFWorkbook();
-    Sheet sheet = workbook.createSheet("Tareas");
+        Workbook workbook = new XSSFWorkbook();
 
-    // Agregar encabezados
-    Row headerRow = sheet.createRow(0);
-    headerRow.createCell(0).setCellValue("Tarea");
+    // Crear las hojas para Materiales y Servicios
+    Sheet sheetMateriales = workbook.createSheet("Materiales");
+    Sheet sheetServicios = workbook.createSheet("Servicios");
 
-    // Agregar datos de la tabla
-    for (int i = 0; i < tablaservicios.getRowCount(); i++) {
-        Row row = sheet.createRow(i + 1);
-        row.createCell(0).setCellValue((String) tablaservicios.getValueAt(i, 0));
-    }
+    // Exportar los datos de ambas tablas
+    agregarTablaAHoja(sheetMateriales, RegistroT1);
+    agregarTablaAHoja(sheetServicios, tablaservicios);
 
-    // Escribir el archivo
-    try (FileOutputStream fileOut = new FileOutputStream("tareas.xlsx")) {
-        workbook.write(fileOut);
+    // Guardar el archivo en el sistema
+    try (FileOutputStream fileOut = new FileOutputStream("Pagos.xlsx")) {
         workbook.write(fileOut);
     } catch (IOException e) {
         e.printStackTrace();
     }
 }
 private void cargarDesdeExcel() {
-    File archivo = new File("tareas.xlsx");
+    File archivo = new File("Pagos.xlsx");
     if (!archivo.exists()) return; // Verificar si el archivo existe
 
     try (FileInputStream fileIn = new FileInputStream(archivo)) {
         Workbook workbook = new XSSFWorkbook(fileIn);
-        Sheet sheet = workbook.getSheetAt(0);
-        DefaultTableModel modelo = (DefaultTableModel) tablaservicios.getModel();
-
-        // Limpiar la tabla antes de cargar
+          // Limpiar la tabla antes de cargar
         modelo.setRowCount(0);
+        
+        Sheet sheetMateriales = workbook.getSheet("Materiales");
+        DefaultTableModel modelomaterieales = (DefaultTableModel) RegistroT1.getModel();
+        cargarDatosDesdeHoja(sheetMateriales, modelomaterieales);
+        
+        Sheet sheetServicios = workbook.getSheet("Servicios");
+        DefaultTableModel modeloservicios = (DefaultTableModel) tablaservicios.getModel();
+        cargarDatosDesdeHoja(sheetServicios, modeloservicios);
+  
 
-        // Leer filas del archivo Excel
-        for (Row row : sheet) {
-            if (row.getRowNum() == 0) continue; // Saltar encabezado
-
-            String tarea = row.getCell(0).getStringCellValue();
-            modelo.addRow(new Object[]{tarea});
-        }
     } catch (IOException e) {
         e.printStackTrace();
     }
 }
+// Método auxiliar para cargar datos desde una hoja de Excel a un modelo de tabla
+private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
+    if (sheet == null) return; // Verificar que la hoja exista
+    
+    // Limpiar la tabla antes de cargar datos
+    modelo.setRowCount(0);
 
+    // Leer filas del archivo Excel
+    for (Row row : sheet) {
+        if (row.getRowNum() == 0) continue; // Saltar encabezado
+
+        Object[] datosFila = new Object[modelo.getColumnCount()];
+        for (int i = 0; i < modelo.getColumnCount(); i++) {
+            Cell cell = row.getCell(i);
+            datosFila[i] = (cell == null) ? "" : cell.toString(); // Manejar celdas nulas
+        }
+        modelo.addRow(datosFila);
+    }
+}
     
     private void TareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TareasActionPerformed
         pago tareas = new pago();
@@ -503,7 +516,7 @@ private void cargarDesdeExcel() {
     }//GEN-LAST:event_ReportesActionPerformed
 
     private void ExtraerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExtraerActionPerformed
- JFileChooser fileChooser = new JFileChooser();
+        JFileChooser fileChooser = new JFileChooser();
         int option = fileChooser.showSaveDialog(this);
 
         if (option == JFileChooser.APPROVE_OPTION) {
