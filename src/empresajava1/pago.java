@@ -32,6 +32,8 @@ public class pago extends javax.swing.JFrame {
         cargarDesdeExcel();
         int filast = tablaservicios.getRowCount();
         tdatos.setText("" + filast);
+        servicios.setEnabled(true);  
+        materiales.setEnabled(true);       
         Agregar.setBackground(new Color(139,0,0));
         Agregar.setForeground(Color.black); 
         /*
@@ -372,6 +374,11 @@ public class pago extends javax.swing.JFrame {
 
         servicios.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         servicios.setText("Servicio");
+        servicios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                serviciosActionPerformed(evt);
+            }
+        });
         jPanel4.add(servicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, -1, -1));
 
         jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -734,8 +741,14 @@ private void cargarDesdeExcel() {
     }//GEN-LAST:event_valorKeyPressed
 
     private void materialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_materialesActionPerformed
+        if (materiales.isSelected()) {
+    materiales.setEnabled(true);servicios.setEnabled(false);
+        }else{
+            servicios.setEnabled(true);  materiales.setEnabled(true);       
+        }
+
+
+        }//GEN-LAST:event_materialesActionPerformed
 
     private void cantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadKeyPressed
         // TODO add your handling code here:
@@ -744,6 +757,16 @@ private void cargarDesdeExcel() {
     private void nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreKeyPressed
+
+    private void serviciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_serviciosActionPerformed
+        if (servicios.isSelected()) {
+    materiales.setEnabled(false);servicios.setEnabled(true);
+        }else{
+            servicios.setEnabled(true);  materiales.setEnabled(true);       
+        }
+    
+    
+      }//GEN-LAST:event_serviciosActionPerformed
 
     /**
      * @param args the command line arguments
