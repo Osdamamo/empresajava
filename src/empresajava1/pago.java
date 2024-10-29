@@ -18,8 +18,9 @@ import java.io.FileInputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
+import javax.swing.event.DocumentListener;
 
-
+    
 
 public class pago extends javax.swing.JFrame {
     DefaultTableModel modelo = new DefaultTableModel();
@@ -30,8 +31,10 @@ public class pago extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/icons/logof.png")).getImage());
         setLocationRelativeTo(null);
         cargarDesdeExcel();
-        int filast = tablaservicios.getRowCount();
-        tdatos.setText("" + filast);
+        int filasServicios = tablaservicios.getRowCount();
+        tdatos1.setText("" + filasServicios); 
+        int filasMateriales = RegistroT1.getRowCount();
+        tdatos.setText("" + filasMateriales); 
         servicios.setEnabled(true);  
         materiales.setEnabled(true);       
         Agregar.setBackground(new Color(139,0,0));
@@ -50,7 +53,36 @@ public class pago extends javax.swing.JFrame {
             public void changedUpdate(DocumentEvent e) {
              validar();}
                 });
-    }
+         nombre.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) { validar(); }
+            @Override
+            public void removeUpdate(DocumentEvent e) { validar(); }
+            @Override
+            public void changedUpdate(DocumentEvent e) { validar(); }
+        });
+
+        cantidad.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) { validar(); }
+            @Override
+            public void removeUpdate(DocumentEvent e) { validar(); }
+            @Override
+            public void changedUpdate(DocumentEvent e) { validar(); }
+        });
+        
+         nombre.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) { validar(); }
+            @Override
+            public void removeUpdate(DocumentEvent e) { validar(); }
+            @Override
+            public void changedUpdate(DocumentEvent e) { validar(); }
+        });
+        servicios.addItemListener(e -> validar());
+        materiales.addItemListener(e -> validar());
+
+    }  
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -70,15 +102,13 @@ public class pago extends javax.swing.JFrame {
         Modificar = new javax.swing.JButton();
         Eliminar = new javax.swing.JButton();
         EliminarTodo = new javax.swing.JButton();
-        Tarea = new javax.swing.JLabel();
+        Jpago = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         valor = new javax.swing.JTextField();
-        Tarea1 = new javax.swing.JLabel();
-        Tarea2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jValor = new javax.swing.JLabel();
+        jcantidad = new javax.swing.JLabel();
         cantidad = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        jnombre = new javax.swing.JLabel();
         nombre = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaservicios = new javax.swing.JTable();
@@ -89,6 +119,7 @@ public class pago extends javax.swing.JFrame {
         servicios = new javax.swing.JCheckBox();
         jScrollPane2 = new javax.swing.JScrollPane();
         RegistroT1 = new javax.swing.JTable();
+        tdatos1 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -248,11 +279,11 @@ public class pago extends javax.swing.JFrame {
         });
         jPanel4.add(EliminarTodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 140, 120, 20));
 
-        Tarea.setBackground(new java.awt.Color(255, 255, 255));
-        Tarea.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Tarea.setForeground(new java.awt.Color(255, 255, 255));
-        Tarea.setText("Pagos:");
-        jPanel4.add(Tarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 100, -1));
+        Jpago.setBackground(new java.awt.Color(255, 255, 255));
+        Jpago.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Jpago.setForeground(new java.awt.Color(255, 255, 255));
+        Jpago.setText("Pagos:");
+        jPanel4.add(Jpago, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 100, -1));
 
         jPanel5.setBackground(new java.awt.Color(54, 57, 63));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -266,23 +297,11 @@ public class pago extends javax.swing.JFrame {
         });
         jPanel5.add(valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 80, 30));
 
-        Tarea1.setBackground(new java.awt.Color(255, 255, 255));
-        Tarea1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Tarea1.setForeground(new java.awt.Color(255, 255, 255));
-        Tarea1.setText("Pagos:");
-        jPanel5.add(Tarea1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 100, -1));
+        jValor.setText("valor");
+        jPanel5.add(jValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, -1));
 
-        Tarea2.setBackground(new java.awt.Color(255, 255, 255));
-        Tarea2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Tarea2.setForeground(new java.awt.Color(255, 255, 255));
-        Tarea2.setText("Pagos:");
-        jPanel5.add(Tarea2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 100, -1));
-
-        jLabel1.setText("valor");
-        jPanel5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, -1));
-
-        jLabel2.setText("cantidad");
-        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, -1, -1));
+        jcantidad.setText("cantidad");
+        jPanel5.add(jcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, -1, -1));
 
         cantidad.setBackground(new java.awt.Color(204, 204, 204));
         cantidad.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
@@ -293,11 +312,16 @@ public class pago extends javax.swing.JFrame {
         });
         jPanel5.add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 80, 30));
 
-        jLabel3.setText("nombre");
-        jPanel5.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+        jnombre.setText("nombre");
+        jPanel5.add(jnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
         nombre.setBackground(new java.awt.Color(204, 204, 204));
         nombre.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        nombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreActionPerformed(evt);
+            }
+        });
         nombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 nombreKeyPressed(evt);
@@ -320,7 +344,15 @@ public class pago extends javax.swing.JFrame {
             new String [] {
                 "Servicio", "Valor", "Cantidad"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tablaservicios.setGridColor(new java.awt.Color(54, 57, 63));
         tablaservicios.setShowGrid(false);
         jScrollPane1.setViewportView(tablaservicios);
@@ -328,7 +360,7 @@ public class pago extends javax.swing.JFrame {
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 270, 280));
 
         tdatos.setBorder(javax.swing.BorderFactory.createTitledBorder("Total de Registro"));
-        jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 460, 140, 40));
+        jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 460, 140, 40));
 
         barratitulo.setBackground(new java.awt.Color(225, 153, 51));
         barratitulo.setForeground(new java.awt.Color(0, 0, 0));
@@ -393,12 +425,23 @@ public class pago extends javax.swing.JFrame {
             new String [] {
                 "Material", "Valor", "Cantidad"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         RegistroT1.setGridColor(new java.awt.Color(54, 57, 63));
         RegistroT1.setShowGrid(false);
         jScrollPane2.setViewportView(RegistroT1);
 
         jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 270, 280));
+
+        tdatos1.setBorder(javax.swing.BorderFactory.createTitledBorder("Total de Registro"));
+        jPanel4.add(tdatos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 460, 140, 40));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 570, 500));
 
@@ -422,6 +465,9 @@ public class pago extends javax.swing.JFrame {
         nombre.setText("");
         valor.setText("");
         cantidad.setText("");
+        materiales.setSelected(false);
+        servicios.setSelected(false);
+
     }
     public void mostrar(){
                  modelo.addColumn("Tareas");
@@ -430,18 +476,13 @@ public class pago extends javax.swing.JFrame {
     
     
     public void validar(){
-        if(valor.getText().trim().isEmpty()){
-            Agregar.setBackground(new Color (139,0,0));
-            Agregar.setForeground(Color.black);
-        }
-        else   {
-            Tarea.setText("Tarea:");
-        Agregar.setEnabled(true);
-        Agregar.setBackground(new Color(70,70,70));
-        Agregar.setForeground(new Color(255,255,255));
-
-
-        }
+    if (valor.getText().trim().isEmpty() || nombre.getText().trim().isEmpty() ||  cantidad.getText().trim().isEmpty() ||   !servicios.isSelected() &&  !materiales.isSelected()){
+        Agregar.setBackground(new Color(139, 0, 0));
+        Agregar.setForeground(Color.black);
+    } else {
+        Agregar.setBackground(new Color(70, 70, 70));
+        Agregar.setForeground(Color.white);
+    }
     }
     private void exportarAExcel() {
         Workbook workbook = new XSSFWorkbook();
@@ -572,50 +613,96 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     }//GEN-LAST:event_pagosActionPerformed
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
-      int filaSeleccionada = tablaservicios.getSelectedRow();
+       int filaSeleccionada = tablaservicios.getSelectedRow();
+    int filaSeleccionada2 = RegistroT1.getSelectedRow();
+
     if (filaSeleccionada >= 0) {
         // Obtiene la tarea actual
         String tareaSeleccionada = (String) tablaservicios.getValueAt(filaSeleccionada, 0);
+        String tareaSeleccionada2 = (String) tablaservicios.getValueAt(filaSeleccionada, 1);
+        String tareaSeleccionada3 = (String) tablaservicios.getValueAt(filaSeleccionada, 2);
 
         // Obtiene el JFrame padre para abrir el diálogo
         JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        ModificarTarea ventana = new ModificarTarea(parentFrame, tareaSeleccionada);
+        ModificarTarea ventana = new ModificarTarea(parentFrame, tareaSeleccionada,tareaSeleccionada2,tareaSeleccionada3);
         ventana.setVisible(true);
 
         // Obtiene la tarea modificada si el usuario guardó los cambios
         String tareaModificada = ventana.getTareaModificada();
-        if (tareaModificada != null) {
+        String tareaModificada2 = ventana.getSegundoModificado();
+        String tareaModificada3 = ventana.getTerceroModificado();
+        if (tareaModificada != null||tareaModificada2 != null||tareaModificada3 != null) {
             tablaservicios.setValueAt(tareaModificada, filaSeleccionada, 0);
+            tablaservicios.setValueAt(tareaModificada2, filaSeleccionada, 1);
+            tablaservicios.setValueAt(tareaModificada3, filaSeleccionada, 2);
             JOptionPane.showMessageDialog(this, "Tarea modificada con éxito.");
             exportarAExcel();
         }
-    } else {
+        } else   if (filaSeleccionada2 >= 0) {
+        // Obtiene la tarea actual
+        String tareaSeleccionada = (String) RegistroT1.getValueAt(filaSeleccionada2, 0);
+        String tareaSeleccionada2 = (String) RegistroT1.getValueAt(filaSeleccionada2, 1);
+        String tareaSeleccionada3 = (String) RegistroT1.getValueAt(filaSeleccionada2, 2);
+
+        // Obtiene el JFrame padre para abrir el diálogo
+        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        ModificarTarea ventana = new ModificarTarea(parentFrame, tareaSeleccionada,tareaSeleccionada2,tareaSeleccionada3);
+        ventana.setVisible(true);
+
+        // Obtiene la tarea modificada si el usuario guardó los cambios
+        String tareaModificada = ventana.getTareaModificada();
+        String tareaModificada2 = ventana.getSegundoModificado();
+        String tareaModificada3 = ventana.getTerceroModificado();
+        if (tareaModificada != null||tareaModificada2 != null||tareaModificada3 != null) {
+            RegistroT1.setValueAt(tareaModificada, filaSeleccionada2, 0);
+            RegistroT1.setValueAt(tareaModificada2, filaSeleccionada2, 1);
+            RegistroT1.setValueAt(tareaModificada3, filaSeleccionada2, 2);
+            JOptionPane.showMessageDialog(this, "Tarea modificada con éxito.");
+            exportarAExcel();
+        }
+        }else {
         JOptionPane.showMessageDialog(this, "Seleccione una tarea para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
     }
     
     }//GEN-LAST:event_ModificarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-        int filaSeleccionada = tablaservicios.getSelectedRow();
+      int filaSeleccionada = tablaservicios.getSelectedRow();
+      int filaSeleccionada2 = RegistroT1.getSelectedRow();
     if (filaSeleccionada >= 0) {
          // Muestra un cuadro de confirmación
-    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar esta tarea?", "Confirmación", JOptionPane.YES_NO_OPTION);
-    // Si el usuario confirma con "Sí", procede a eliminar
-    if (confirmacion == JOptionPane.YES_OPTION) {
-        DefaultTableModel modelo = (DefaultTableModel) tablaservicios.getModel();
-        modelo.removeRow(filaSeleccionada);
-        
-        // Actualiza el contador de tareas
-        int filast = tablaservicios.getRowCount();
-        tdatos.setText("" + filast);
-        
-        JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
-        exportarAExcel();
-    }
-        
-    } else {
-        JOptionPane.showMessageDialog(this, "Seleccione una tarea para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
-    }    
+        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar esta tarea?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                // Si el usuario confirma con "Sí", procede a eliminar
+                if (confirmacion == JOptionPane.YES_OPTION) {
+                    DefaultTableModel modelo = (DefaultTableModel) tablaservicios.getModel();
+                    modelo.removeRow(filaSeleccionada);
+
+                    // Actualiza el contador de tareas
+                    int filasServicios = tablaservicios.getRowCount();
+                    tdatos1.setText("" + filasServicios);  // Muestra las filas en tabla de servicios
+
+                    JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
+                    exportarAExcel();
+                }
+
+                } else  if (filaSeleccionada2 >= 0) {
+                     // Muestra un cuadro de confirmación
+                     int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar esta tarea?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                                // Si el usuario confirma con "Sí", procede a eliminar
+                                if (confirmacion == JOptionPane.YES_OPTION) {
+                                    DefaultTableModel modelo = (DefaultTableModel) RegistroT1.getModel();
+                                    modelo.removeRow(filaSeleccionada2);
+
+                                    // Actualiza el contador de tareas
+                                    int filasMateriales = RegistroT1.getRowCount();
+                                    tdatos.setText("" + filasMateriales);  // Muestra las filas en tabla de servicios
+
+                                    JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
+                                    exportarAExcel();
+                                    }
+                }else {
+                    JOptionPane.showMessageDialog(this, "Seleccione una tarea para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+                }    
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
@@ -624,12 +711,15 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     
     private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
             // Verificar si los campos están vacíos
-    if (valor.getText().trim().isEmpty() || 
-        nombre.getText().trim().isEmpty() || 
-        cantidad.getText().trim().isEmpty()) {
+    if (valor.getText().trim().isEmpty() ||
+        nombre.getText().trim().isEmpty() ||
+        cantidad.getText().trim().isEmpty() || 
+        !servicios.isSelected() && 
+        !materiales.isSelected()
+            ) {
         
         JOptionPane.showMessageDialog(this, 
-                "Todos los campos (Nombre, Valor, Cantidad) deben estar llenos", 
+                "Todos los campos (Nombre, Valor, Cantidad) deben estar llenos y seleccionar (Servicio o Material)", 
                 "Advertencia", JOptionPane.WARNING_MESSAGE);
     } else {
         // Crear el arreglo con los datos de los 3 JTextField
@@ -649,16 +739,19 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
             modeloServicios.addRow(datos);  // Agregar a tabla de servicios
         }
 
-        // Mostrar el número de filas en tdatos (opcional)
+        // Mostrar el número de filas en tdatos 
         int filasServicios = tablaservicios.getRowCount();
-        tdatos.setText("" + filasServicios);  // Muestra las filas en tabla de servicios
+        tdatos1.setText("" + filasServicios);  // Muestra las filas en tabla de servicios
+        
+        int filasMateriales = RegistroT1.getRowCount();
+        tdatos.setText("" + filasMateriales);  // Muestra las filas en tabla de servicios
 
         // Limpiar los campos de texto después de agregar
         limpiar();
         
         // Exportar los datos a Excel (si tienes implementada esta función)
         exportarAExcel();
-    }
+            }
 
     }//GEN-LAST:event_AgregarMouseClicked
 
@@ -674,11 +767,13 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     
     // Si el usuario confirma con "Sí", procede a eliminar
     if (confirmacion == JOptionPane.YES_OPTION) {
-        DefaultTableModel modelo = (DefaultTableModel) tablaservicios.getModel();
+        DefaultTableModel modelomaterieales = (DefaultTableModel) RegistroT1.getModel();
+        DefaultTableModel modeloservicios = (DefaultTableModel) tablaservicios.getModel();   
         
         // Elimina todas las filas del modelo de la tabla
-        modelo.setRowCount(0);
-        
+        modelomaterieales.setRowCount(0);
+        modeloservicios.setRowCount(0);
+       
         // Actualiza el contador de tareas a 0
         tdatos.setText("0");
         
@@ -755,9 +850,9 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
 
     private void materialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialesActionPerformed
         if (materiales.isSelected()) {
-    materiales.setEnabled(true);servicios.setEnabled(false);
+    materiales.setSelected(true);servicios.setSelected(false);
         }else{
-            servicios.setEnabled(true);  materiales.setEnabled(true);       
+            servicios.setSelected(false);  materiales.setSelected(false);       
         }
 
 
@@ -773,13 +868,17 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
 
     private void serviciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_serviciosActionPerformed
         if (servicios.isSelected()) {
-    materiales.setEnabled(false);servicios.setEnabled(true);
-        }else{
-            servicios.setEnabled(true);  materiales.setEnabled(true);       
+    materiales.setSelected(false);servicios.setSelected(true);
+        }else {
+            servicios.setSelected(false);  materiales.setSelected(false);       
         }
     
     
       }//GEN-LAST:event_serviciosActionPerformed
+
+    private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreActionPerformed
 
     /**
      * @param args the command line arguments
@@ -820,19 +919,14 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     private javax.swing.JButton Eliminar;
     private javax.swing.JButton EliminarTodo;
     private javax.swing.JButton Extraer;
+    private javax.swing.JLabel Jpago;
     private javax.swing.JButton Modificar;
     private javax.swing.JTable RegistroT1;
     private javax.swing.JButton Reportes;
-    private javax.swing.JLabel Tarea;
-    private javax.swing.JLabel Tarea1;
-    private javax.swing.JLabel Tarea2;
     private javax.swing.JButton Tareas;
     private javax.swing.JPanel barratitulo;
     private javax.swing.JPanel barratitulo1;
     private javax.swing.JTextField cantidad;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -840,12 +934,16 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel jValor;
+    private javax.swing.JLabel jcantidad;
+    private javax.swing.JLabel jnombre;
     private javax.swing.JCheckBox materiales;
     private javax.swing.JTextField nombre;
     private javax.swing.JButton pagos;
     private javax.swing.JCheckBox servicios;
     private javax.swing.JTable tablaservicios;
     private javax.swing.JLabel tdatos;
+    private javax.swing.JLabel tdatos1;
     private javax.swing.JTextField valor;
     private javax.swing.JLabel x;
     private javax.swing.JLabel x1;

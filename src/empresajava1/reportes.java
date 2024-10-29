@@ -356,11 +356,11 @@ public class reportes extends javax.swing.JFrame {
     }
     private void exportarAExcel() {
     Workbook workbook = new XSSFWorkbook();
-    Sheet sheet = workbook.createSheet("Tareas");
+    Sheet sheet = workbook.createSheet("Reportes");
 
     // Agregar encabezados
     Row headerRow = sheet.createRow(0);
-    headerRow.createCell(0).setCellValue("Tarea");
+    headerRow.createCell(0).setCellValue("Reportes");
 
     // Agregar datos de la tabla
     for (int i = 0; i < RegistroT.getRowCount(); i++) {
@@ -369,7 +369,7 @@ public class reportes extends javax.swing.JFrame {
     }
 
     // Escribir el archivo
-    try (FileOutputStream fileOut = new FileOutputStream("tareas.xlsx")) {
+    try (FileOutputStream fileOut = new FileOutputStream("Reportes.xlsx")) {
         workbook.write(fileOut);
         workbook.write(fileOut);
     } catch (IOException e) {
@@ -377,7 +377,7 @@ public class reportes extends javax.swing.JFrame {
     }
 }
 private void cargarDesdeExcel() {
-    File archivo = new File("tareas.xlsx");
+    File archivo = new File("Reportes.xlsx");
     if (!archivo.exists()) return; // Verificar si el archivo existe
 
     try (FileInputStream fileIn = new FileInputStream(archivo)) {
@@ -415,7 +415,7 @@ private void cargarDesdeExcel() {
 
     private void ExtraerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExtraerActionPerformed
 XSSFWorkbook workbook = new XSSFWorkbook();
-    XSSFSheet sheet = workbook.createSheet("Tareas");
+    XSSFSheet sheet = workbook.createSheet("Reportes");
 
     // Agregar los encabezados a la primera fila
     Row headerRow = sheet.createRow(0);
@@ -433,9 +433,9 @@ XSSFWorkbook workbook = new XSSFWorkbook();
         }
     }
 
-    try (FileOutputStream fileOut = new FileOutputStream("Tareas.xlsx")) {
+    try (FileOutputStream fileOut = new FileOutputStream("Reportes.xlsx")) {
         workbook.write(fileOut);
-        JOptionPane.showMessageDialog(this, "Datos exportados exitosamente a Tareas.xlsx");
+        JOptionPane.showMessageDialog(this, "Datos exportados exitosamente a Reportes.xlsx");
     } catch (IOException e) {
         JOptionPane.showMessageDialog(this, "Error al exportar los datos: " + e.getMessage());
     } finally {

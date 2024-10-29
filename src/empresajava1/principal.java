@@ -341,8 +341,6 @@ public class principal extends javax.swing.JFrame {
             Agregar.setForeground(Color.black);
         }
         else   {
-            Tarea.setText("Tarea:");
-        Agregar.setEnabled(true);
         Agregar.setBackground(new Color(70,70,70));
         Agregar.setForeground(new Color(255,255,255));
 
@@ -452,7 +450,7 @@ XSSFWorkbook workbook = new XSSFWorkbook();
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
       int filaSeleccionada = RegistroT.getSelectedRow();
-    if (filaSeleccionada >= 0) {
+       if (filaSeleccionada >= 0) {
         // Obtiene la tarea actual
         String tareaSeleccionada = (String) RegistroT.getValueAt(filaSeleccionada, 0);
 
