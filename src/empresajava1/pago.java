@@ -2,8 +2,6 @@
 package empresajava1;
 
 import java.awt.Color;
-import java.awt.event.KeyEvent;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
@@ -19,7 +17,6 @@ import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
-import javax.swing.event.DocumentListener;
 
     
 
@@ -36,9 +33,6 @@ public class pago extends javax.swing.JFrame {
        //calcular el valor total
         calcular();                
 
-        Agregar.setBackground(new Color(139,0,0));
-        Agregar.setForeground(Color.black); 
-
     }  
 
     @SuppressWarnings("unchecked")
@@ -48,12 +42,13 @@ public class pago extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        Tareas = new javax.swing.JButton();
-        Reportes = new javax.swing.JButton();
-        Extraer = new javax.swing.JButton();
-        pagos = new javax.swing.JButton();
         barratitulo1 = new javax.swing.JPanel();
         x1 = new javax.swing.JLabel();
+        Tareas = new javax.swing.JButton();
+        pagos = new javax.swing.JButton();
+        Reportes = new javax.swing.JButton();
+        inventario = new javax.swing.JButton();
+        Extraer = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         Agregar = new javax.swing.JButton();
         Modificar = new javax.swing.JButton();
@@ -90,55 +85,6 @@ public class pago extends javax.swing.JFrame {
         jPanel3.setToolTipText("");
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Tareas.setBackground(new java.awt.Color(70, 70, 70));
-        Tareas.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Tareas.setForeground(new java.awt.Color(255, 255, 255));
-        Tareas.setText("Tareas");
-        Tareas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TareasActionPerformed(evt);
-            }
-        });
-        jPanel3.add(Tareas, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 110, 40));
-
-        Reportes.setBackground(new java.awt.Color(70, 70, 70));
-        Reportes.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Reportes.setForeground(new java.awt.Color(255, 255, 255));
-        Reportes.setText("Reportes");
-        Reportes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                ReportesMousePressed(evt);
-            }
-        });
-        Reportes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ReportesActionPerformed(evt);
-            }
-        });
-        jPanel3.add(Reportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 110, 40));
-
-        Extraer.setBackground(new java.awt.Color(70, 70, 70));
-        Extraer.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Extraer.setForeground(new java.awt.Color(255, 255, 255));
-        Extraer.setText("Extraer");
-        Extraer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExtraerActionPerformed(evt);
-            }
-        });
-        jPanel3.add(Extraer, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 110, 40));
-
-        pagos.setBackground(new java.awt.Color(70, 70, 70));
-        pagos.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        pagos.setForeground(new java.awt.Color(255, 255, 255));
-        pagos.setText("Pagos");
-        pagos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pagosActionPerformed(evt);
-            }
-        });
-        jPanel3.add(pagos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 110, 40));
-
         barratitulo1.setBackground(new java.awt.Color(54, 57, 63));
         barratitulo1.setForeground(new java.awt.Color(0, 0, 0));
         barratitulo1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -171,6 +117,66 @@ public class pago extends javax.swing.JFrame {
         barratitulo1.add(x1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 20, 30));
 
         jPanel3.add(barratitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 30));
+
+        Tareas.setBackground(new java.awt.Color(70, 70, 70));
+        Tareas.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Tareas.setForeground(new java.awt.Color(255, 255, 255));
+        Tareas.setText("Tareas");
+        Tareas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TareasActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Tareas, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 110, 40));
+
+        pagos.setBackground(new java.awt.Color(70, 70, 70));
+        pagos.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        pagos.setForeground(new java.awt.Color(255, 255, 255));
+        pagos.setText("Pagos");
+        pagos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pagosActionPerformed(evt);
+            }
+        });
+        jPanel3.add(pagos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 110, 40));
+
+        Reportes.setBackground(new java.awt.Color(70, 70, 70));
+        Reportes.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Reportes.setForeground(new java.awt.Color(255, 255, 255));
+        Reportes.setText("Reportes");
+        Reportes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ReportesMousePressed(evt);
+            }
+        });
+        Reportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReportesActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Reportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 110, 40));
+
+        inventario.setBackground(new java.awt.Color(70, 70, 70));
+        inventario.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        inventario.setForeground(new java.awt.Color(255, 255, 255));
+        inventario.setText("Inventario");
+        inventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inventarioActionPerformed(evt);
+            }
+        });
+        jPanel3.add(inventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 110, 40));
+
+        Extraer.setBackground(new java.awt.Color(70, 70, 70));
+        Extraer.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Extraer.setForeground(new java.awt.Color(255, 255, 255));
+        Extraer.setText("Extraer");
+        Extraer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExtraerActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Extraer, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 110, 40));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 500));
 
@@ -442,51 +448,6 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
         }
     }
     
-    private void TareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TareasActionPerformed
-        principal principal = new principal();
-        principal.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_TareasActionPerformed
-
-    private void ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesActionPerformed
-        reportes reporte = new reportes();
-        reporte.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_ReportesActionPerformed
-
-    private void ExtraerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExtraerActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        int option = fileChooser.showSaveDialog(this);
-
-        if (option == JFileChooser.APPROVE_OPTION) {
-            String filePath = fileChooser.getSelectedFile().getAbsolutePath() + ".xlsx";
-
-            try (Workbook workbook = new XSSFWorkbook(); FileOutputStream fileOut = new FileOutputStream(filePath)) {
-                // Crear hojas para las dos tablas
-                Sheet hojaMateriales = workbook.createSheet("Materiales");
-                Sheet hojaServicios = workbook.createSheet("Servicios");
-
-                // Agregar los datos de las tablas
-                agregarTablaAHoja(hojaMateriales, RegistroT1);
-                agregarTablaAHoja(hojaServicios, tablaservicios);
-
-                // Guardar el archivo
-                workbook.write(fileOut);
-                JOptionPane.showMessageDialog(this, "Datos exportados correctamente a: " + filePath);
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "Error al exportar: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    
-    }//GEN-LAST:event_ExtraerActionPerformed
-
-    private void pagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagosActionPerformed
-        pago pagos = new pago();
-        pagos.setVisible(true);
-        dispose();
-        
-    }//GEN-LAST:event_pagosActionPerformed
-
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
         DefaultTableModel modeloServicios = (DefaultTableModel) tablaservicios.getModel();
         DefaultTableModel modeloMateriales = (DefaultTableModel) RegistroT1.getModel();
@@ -660,24 +621,11 @@ if (selectedRowServicios != -1) {
             modeloServicios.addRow(v);  // Agregar a tabla de servicios
         }
 
-        // Mostrar el número de filas en tdatos 
-        int filasServicios = tablaservicios.getRowCount();
-        tdatos.setText("" + filasServicios);  // Muestra las filas en tabla de servicios
-        
-        int filasMateriales = RegistroT1.getRowCount();
-        tdatos.setText("" + filasMateriales);  // Muestra las filas en tabla de servicios
-
         // Exportar los datos a Excel (si tienes implementada esta función)
         exportarAExcel();
         }
 
     }//GEN-LAST:event_AgregarMouseClicked
-
-    private void ReportesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportesMousePressed
-    reportes reportes = new reportes();
-    reportes.setVisible(true);  
-    dispose();
-    }//GEN-LAST:event_ReportesMousePressed
 
     private void EliminarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarTodoActionPerformed
     // Muestra un cuadro de confirmación
@@ -746,6 +694,61 @@ if (selectedRowServicios != -1) {
         ymouse = evt.getY();
     }//GEN-LAST:event_barratitulo1MousePressed
 
+    private void ExtraerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExtraerActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        int option = fileChooser.showSaveDialog(this);
+
+        if (option == JFileChooser.APPROVE_OPTION) {
+            String filePath = fileChooser.getSelectedFile().getAbsolutePath() + ".xlsx";
+
+            try (Workbook workbook = new XSSFWorkbook(); FileOutputStream fileOut = new FileOutputStream(filePath)) {
+                // Crear hojas para las dos tablas
+                Sheet hojaMateriales = workbook.createSheet("Materiales");
+                Sheet hojaServicios = workbook.createSheet("Servicios");
+
+                // Agregar los datos de las tablas
+                agregarTablaAHoja(hojaMateriales, RegistroT1);
+                agregarTablaAHoja(hojaServicios, tablaservicios);
+
+                // Guardar el archivo
+                workbook.write(fileOut);
+                JOptionPane.showMessageDialog(this, "Datos exportados correctamente a: " + filePath);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Error al exportar: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }//GEN-LAST:event_ExtraerActionPerformed
+
+    private void inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inventarioActionPerformed
+
+    private void pagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagosActionPerformed
+        Inventario pagos = new Inventario();
+        pagos.setVisible(true);
+        dispose();
+
+    }//GEN-LAST:event_pagosActionPerformed
+
+    private void ReportesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportesMousePressed
+        reportes reportes = new reportes();
+        reportes.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ReportesMousePressed
+
+    private void ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesActionPerformed
+        reportes reporte = new reportes();
+        reporte.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ReportesActionPerformed
+
+    private void TareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TareasActionPerformed
+        principal principal = new principal();
+        principal.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_TareasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -791,6 +794,7 @@ if (selectedRowServicios != -1) {
     private javax.swing.JButton Tareas;
     private javax.swing.JPanel barratitulo;
     private javax.swing.JPanel barratitulo1;
+    private javax.swing.JButton inventario;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
