@@ -476,11 +476,22 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
 
         int selectedRowServicios = tablaservicios.getSelectedRow();
         int selectedRowMateriales = RegistroT1.getSelectedRow();
-
+        //devuelve ya que no seleccciona ninguna fila
         if (selectedRowServicios == -1 && selectedRowMateriales == -1) 
         return;
 
         agregar modificar = new agregar(this, true);
+// Configurar el estado de los checkboxes o radio buttons según la fila seleccionada
+if (selectedRowServicios != -1) {
+    // Si hay una fila seleccionada en servicios, activar el checkbox correspondiente
+    modificar.servicios.setSelected(true);
+        modificar.materiales.setEnabled(false);
+} else if (selectedRowMateriales != -1) {
+    // Si hay una fila seleccionada en materiales, activar el checkbox correspondiente
+    modificar.materiales.setSelected(true);
+        modificar.servicios.setEnabled(false);
+    System.out.println("Checkbox de materiales activado.");
+}
 
     if (selectedRowServicios != -1 && selectedRowServicios < modeloServicios.getRowCount()) {
         Vector registro = (Vector) modeloServicios.getDataVector().elementAt(selectedRowServicios);
@@ -505,12 +516,16 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
             modificar.valor.setText(registro2.elementAt(1).toString());
             modificar.cantidad.setText(registro2.elementAt(2).toString());
             modificar.valort.setText(registro2.elementAt(3).toString());
-
             } 
     }
     // Mostrar la ventana de modificación
     modificar.setVisible(true);
-
+    
+        if (selectedRowServicios == 0) { // Cambiado a 0 si quieres activar la primera opción
+    modificar.servicios.setSelected(true);
+} else if (selectedRowMateriales == 0) {
+    modificar.materiales.setSelected(true);
+}
     if (modificar.getRootPane() != null) {
         Vector v = new Vector();
         v.addElement(modificar.nombre.getText());
@@ -520,11 +535,13 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
 
         if (modificar.materiales.isSelected()) {
             modeloMateriales.getDataVector().set(RegistroT1.getSelectedRow(), v); 
+            modificar.materiales.setSelected(true);
             RegistroT1.updateUI();
         } 
 
         if (modificar.servicios.isSelected()) {
             modeloServicios.getDataVector().set(tablaservicios.getSelectedRow(), v);
+            modificar.servicios.setSelected(true);
             tablaservicios.updateUI();
         }
 
