@@ -74,7 +74,6 @@ public class reportes extends javax.swing.JFrame {
         tdatos = new javax.swing.JLabel();
         barratitulo = new javax.swing.JPanel();
         x = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -309,9 +308,6 @@ public class reportes extends javax.swing.JFrame {
         barratitulo.add(x, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 0, 20, 30));
 
         jPanel4.add(barratitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-210, 0, 780, -1));
-
-        jCheckBox1.setText("jCheckBox1");
-        jPanel4.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 130, -1, -1));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 570, 500));
 
@@ -661,7 +657,6 @@ XSSFWorkbook workbook = new XSSFWorkbook();
     private javax.swing.JButton Tareas;
     private javax.swing.JPanel barratitulo;
     private javax.swing.JPanel barratitulo1;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

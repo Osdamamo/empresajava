@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
@@ -24,6 +25,7 @@ import javax.swing.event.DocumentListener;
 
 public class pago extends javax.swing.JFrame {
     DefaultTableModel modelo = new DefaultTableModel();
+    
    int xmouse ,ymouse;
     
     public pago() {
@@ -35,52 +37,10 @@ public class pago extends javax.swing.JFrame {
         tdatos1.setText("" + filasServicios); 
         int filasMateriales = RegistroT1.getRowCount();
         tdatos.setText("" + filasMateriales); 
-        servicios.setEnabled(true);  
-        materiales.setEnabled(true);       
+
+      
         Agregar.setBackground(new Color(139,0,0));
         Agregar.setForeground(Color.black); 
-        /*
-        Esta libreria ofrece una forma de detectar cambios en tiempo real, como si estuvieras constantemente
-        revisando el campo de texto con if-else, pero de manera automática y continua.        
-        */
-        valor.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            public void insertUpdate(DocumentEvent e) {
-            validar();}
-
-            public void removeUpdate(DocumentEvent e) {
-            validar();}
-
-            public void changedUpdate(DocumentEvent e) {
-             validar();}
-                });
-         nombre.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) { validar(); }
-            @Override
-            public void removeUpdate(DocumentEvent e) { validar(); }
-            @Override
-            public void changedUpdate(DocumentEvent e) { validar(); }
-        });
-
-        cantidad.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) { validar(); }
-            @Override
-            public void removeUpdate(DocumentEvent e) { validar(); }
-            @Override
-            public void changedUpdate(DocumentEvent e) { validar(); }
-        });
-        
-         nombre.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) { validar(); }
-            @Override
-            public void removeUpdate(DocumentEvent e) { validar(); }
-            @Override
-            public void changedUpdate(DocumentEvent e) { validar(); }
-        });
-        servicios.addItemListener(e -> validar());
-        materiales.addItemListener(e -> validar());
 
     }  
 
@@ -102,21 +62,11 @@ public class pago extends javax.swing.JFrame {
         Modificar = new javax.swing.JButton();
         Eliminar = new javax.swing.JButton();
         EliminarTodo = new javax.swing.JButton();
-        Jpago = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        valor = new javax.swing.JTextField();
-        jValor = new javax.swing.JLabel();
-        jcantidad = new javax.swing.JLabel();
-        cantidad = new javax.swing.JTextField();
-        jnombre = new javax.swing.JLabel();
-        nombre = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaservicios = new javax.swing.JTable();
         tdatos = new javax.swing.JLabel();
         barratitulo = new javax.swing.JPanel();
         x = new javax.swing.JLabel();
-        materiales = new javax.swing.JCheckBox();
-        servicios = new javax.swing.JCheckBox();
         jScrollPane2 = new javax.swing.JScrollPane();
         RegistroT1 = new javax.swing.JTable();
         tdatos1 = new javax.swing.JLabel();
@@ -244,7 +194,7 @@ public class pago extends javax.swing.JFrame {
                 AgregarActionPerformed(evt);
             }
         });
-        jPanel4.add(Agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 80, 20));
+        jPanel4.add(Agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 80, 20));
 
         Modificar.setBackground(new java.awt.Color(70, 70, 70));
         Modificar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -255,7 +205,7 @@ public class pago extends javax.swing.JFrame {
                 ModificarActionPerformed(evt);
             }
         });
-        jPanel4.add(Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 80, 20));
+        jPanel4.add(Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 80, 20));
 
         Eliminar.setBackground(new java.awt.Color(70, 70, 70));
         Eliminar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -266,7 +216,7 @@ public class pago extends javax.swing.JFrame {
                 EliminarActionPerformed(evt);
             }
         });
-        jPanel4.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 80, 20));
+        jPanel4.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 80, 20));
 
         EliminarTodo.setBackground(new java.awt.Color(70, 70, 70));
         EliminarTodo.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -277,59 +227,7 @@ public class pago extends javax.swing.JFrame {
                 EliminarTodoActionPerformed(evt);
             }
         });
-        jPanel4.add(EliminarTodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 140, 120, 20));
-
-        Jpago.setBackground(new java.awt.Color(255, 255, 255));
-        Jpago.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Jpago.setForeground(new java.awt.Color(255, 255, 255));
-        Jpago.setText("Pagos:");
-        jPanel4.add(Jpago, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 100, -1));
-
-        jPanel5.setBackground(new java.awt.Color(54, 57, 63));
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        valor.setBackground(new java.awt.Color(204, 204, 204));
-        valor.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        valor.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                valorKeyPressed(evt);
-            }
-        });
-        jPanel5.add(valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 80, 30));
-
-        jValor.setText("valor");
-        jPanel5.add(jValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, -1));
-
-        jcantidad.setText("cantidad");
-        jPanel5.add(jcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, -1, -1));
-
-        cantidad.setBackground(new java.awt.Color(204, 204, 204));
-        cantidad.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        cantidad.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cantidadKeyPressed(evt);
-            }
-        });
-        jPanel5.add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 80, 30));
-
-        jnombre.setText("nombre");
-        jPanel5.add(jnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
-
-        nombre.setBackground(new java.awt.Color(204, 204, 204));
-        nombre.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        nombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreActionPerformed(evt);
-            }
-        });
-        nombre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                nombreKeyPressed(evt);
-            }
-        });
-        jPanel5.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 80, 30));
-
-        jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 530, 50));
+        jPanel4.add(EliminarTodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 60, 120, 20));
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -338,15 +236,14 @@ public class pago extends javax.swing.JFrame {
         tablaservicios.setForeground(new java.awt.Color(0, 0, 0));
         tablaservicios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Servicio", "Valor", "Cantidad"
+                "Servicio", "Valor", "Cantidad", "ValorTotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -357,7 +254,7 @@ public class pago extends javax.swing.JFrame {
         tablaservicios.setShowGrid(false);
         jScrollPane1.setViewportView(tablaservicios);
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 270, 280));
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 270, 350));
 
         tdatos.setBorder(javax.swing.BorderFactory.createTitledBorder("Total de Registro"));
         jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 460, 140, 40));
@@ -395,24 +292,6 @@ public class pago extends javax.swing.JFrame {
 
         jPanel4.add(barratitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-210, 0, 780, -1));
 
-        materiales.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        materiales.setText("Material");
-        materiales.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                materialesActionPerformed(evt);
-            }
-        });
-        jPanel4.add(materiales, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, -1, -1));
-
-        servicios.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        servicios.setText("Servicio");
-        servicios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                serviciosActionPerformed(evt);
-            }
-        });
-        jPanel4.add(servicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, -1, -1));
-
         jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         RegistroT1.setBackground(new java.awt.Color(255, 255, 255));
@@ -423,11 +302,11 @@ public class pago extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Material", "Valor", "Cantidad"
+                "Material", "Valor", "Cantidad", "ValorTotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -438,7 +317,7 @@ public class pago extends javax.swing.JFrame {
         RegistroT1.setShowGrid(false);
         jScrollPane2.setViewportView(RegistroT1);
 
-        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 270, 280));
+        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 270, 350));
 
         tdatos1.setBorder(javax.swing.BorderFactory.createTitledBorder("Total de Registro"));
         jPanel4.add(tdatos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 460, 140, 40));
@@ -461,29 +340,7 @@ public class pago extends javax.swing.JFrame {
 
     
     //Metodos
-    public void limpiar(){
-        nombre.setText("");
-        valor.setText("");
-        cantidad.setText("");
-        materiales.setSelected(false);
-        servicios.setSelected(false);
 
-    }
-    public void mostrar(){
-                 modelo.addColumn("Tareas");
-                 tablaservicios.setModel(modelo);
-    }
-    
-    
-    public void validar(){
-    if (valor.getText().trim().isEmpty() || nombre.getText().trim().isEmpty() ||  cantidad.getText().trim().isEmpty() ||   !servicios.isSelected() &&  !materiales.isSelected()){
-        Agregar.setBackground(new Color(139, 0, 0));
-        Agregar.setForeground(Color.black);
-    } else {
-        Agregar.setBackground(new Color(70, 70, 70));
-        Agregar.setForeground(Color.white);
-    }
-    }
     private void exportarAExcel() {
         Workbook workbook = new XSSFWorkbook();
 
@@ -543,6 +400,30 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
         modelo.addRow(datosFila);
     }
 }
+
+// Método para agregar los datos de una JTable a una hoja de Excel
+    private void agregarTablaAHoja(Sheet sheet, JTable table) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+        // Agregar encabezados
+        Row headerRow = sheet.createRow(0);
+        for (int i = 0; i < model.getColumnCount(); i++) {
+            Cell headerCell = headerRow.createCell(i);
+            headerCell.setCellValue(model.getColumnName(i));
+        }
+
+        // Agregar filas de datos
+        for (int i = 0; i < model.getRowCount(); i++) {
+            Row row = sheet.createRow(i + 1);
+            for (int j = 0; j < model.getColumnCount(); j++) {
+                Object value = model.getValueAt(i, j); // Obtener valor de la celda
+                String cellValue = (value == null) ? "" : value.toString(); // Manejar valores nulos
+
+                Cell cell = row.createCell(j);
+                cell.setCellValue(cellValue);
+            }
+        }
+    }
     
     private void TareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TareasActionPerformed
         pago tareas = new pago();
@@ -582,29 +463,6 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     
     }//GEN-LAST:event_ExtraerActionPerformed
 
-// Método para agregar los datos de una JTable a una hoja de Excel
-    private void agregarTablaAHoja(Sheet sheet, JTable table) {
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-
-        // Agregar encabezados
-        Row headerRow = sheet.createRow(0);
-        for (int i = 0; i < model.getColumnCount(); i++) {
-            Cell headerCell = headerRow.createCell(i);
-            headerCell.setCellValue(model.getColumnName(i));
-        }
-
-        // Agregar filas de datos
-        for (int i = 0; i < model.getRowCount(); i++) {
-            Row row = sheet.createRow(i + 1);
-            for (int j = 0; j < model.getColumnCount(); j++) {
-                Object value = model.getValueAt(i, j); // Obtener valor de la celda
-                String cellValue = (value == null) ? "" : value.toString(); // Manejar valores nulos
-
-                Cell cell = row.createCell(j);
-                cell.setCellValue(cellValue);
-            }
-        }
-    }
     private void pagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagosActionPerformed
         pago pagos = new pago();
         pagos.setVisible(true);
@@ -613,57 +471,74 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     }//GEN-LAST:event_pagosActionPerformed
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
-       int filaSeleccionada = tablaservicios.getSelectedRow();
-    int filaSeleccionada2 = RegistroT1.getSelectedRow();
+        DefaultTableModel modeloServicios = (DefaultTableModel) tablaservicios.getModel();
+        DefaultTableModel modeloMateriales = (DefaultTableModel) RegistroT1.getModel();
 
-    if (filaSeleccionada >= 0) {
-        // Obtiene la tarea actual
-        String tareaSeleccionada = (String) tablaservicios.getValueAt(filaSeleccionada, 0);
-        String tareaSeleccionada2 = (String) tablaservicios.getValueAt(filaSeleccionada, 1);
-        String tareaSeleccionada3 = (String) tablaservicios.getValueAt(filaSeleccionada, 2);
+        int selectedRowServicios = tablaservicios.getSelectedRow();
+        int selectedRowMateriales = RegistroT1.getSelectedRow();
 
-        // Obtiene el JFrame padre para abrir el diálogo
-        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        ModificarTarea ventana = new ModificarTarea(parentFrame, tareaSeleccionada,tareaSeleccionada2,tareaSeleccionada3);
-        ventana.setVisible(true);
+        if (selectedRowServicios == -1 && selectedRowMateriales == -1) 
+        return;
 
-        // Obtiene la tarea modificada si el usuario guardó los cambios
-        String tareaModificada = ventana.getTareaModificada();
-        String tareaModificada2 = ventana.getSegundoModificado();
-        String tareaModificada3 = ventana.getTerceroModificado();
-        if (tareaModificada != null||tareaModificada2 != null||tareaModificada3 != null) {
-            tablaservicios.setValueAt(tareaModificada, filaSeleccionada, 0);
-            tablaservicios.setValueAt(tareaModificada2, filaSeleccionada, 1);
-            tablaservicios.setValueAt(tareaModificada3, filaSeleccionada, 2);
-            JOptionPane.showMessageDialog(this, "Tarea modificada con éxito.");
-            exportarAExcel();
-        }
-        } else   if (filaSeleccionada2 >= 0) {
-        // Obtiene la tarea actual
-        String tareaSeleccionada = (String) RegistroT1.getValueAt(filaSeleccionada2, 0);
-        String tareaSeleccionada2 = (String) RegistroT1.getValueAt(filaSeleccionada2, 1);
-        String tareaSeleccionada3 = (String) RegistroT1.getValueAt(filaSeleccionada2, 2);
+        agregar modificar = new agregar(this, true);
 
-        // Obtiene el JFrame padre para abrir el diálogo
-        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        ModificarTarea ventana = new ModificarTarea(parentFrame, tareaSeleccionada,tareaSeleccionada2,tareaSeleccionada3);
-        ventana.setVisible(true);
-
-        // Obtiene la tarea modificada si el usuario guardó los cambios
-        String tareaModificada = ventana.getTareaModificada();
-        String tareaModificada2 = ventana.getSegundoModificado();
-        String tareaModificada3 = ventana.getTerceroModificado();
-        if (tareaModificada != null||tareaModificada2 != null||tareaModificada3 != null) {
-            RegistroT1.setValueAt(tareaModificada, filaSeleccionada2, 0);
-            RegistroT1.setValueAt(tareaModificada2, filaSeleccionada2, 1);
-            RegistroT1.setValueAt(tareaModificada3, filaSeleccionada2, 2);
-            JOptionPane.showMessageDialog(this, "Tarea modificada con éxito.");
-            exportarAExcel();
-        }
-        }else {
-        JOptionPane.showMessageDialog(this, "Seleccione una tarea para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+    if (selectedRowServicios != -1 && selectedRowServicios < modeloServicios.getRowCount()) {
+        Vector registro = (Vector) modeloServicios.getDataVector().elementAt(selectedRowServicios);
+                        if (registro.size() >= 4) {
+                            modificar.nombre.setText(registro.elementAt(0).toString());
+                            modificar.valor.setText(registro.elementAt(1).toString());
+                            modificar.cantidad.setText(registro.elementAt(2).toString());
+                            modificar.valort.setText(registro.elementAt(3).toString());
+                            }
     }
+    // Verificar si la fila seleccionada es válida
+    if (selectedRowMateriales != -1 && selectedRowMateriales < modeloMateriales.getRowCount()) {
+
+    // Obtener la fila seleccionada
+    Vector registro2 = (Vector) modeloMateriales.getDataVector().elementAt(selectedRowMateriales);
+
+        // Verificar si el registro2 contiene los datos esperados
+        if (registro2 != null && registro2.size() >= 4) {
+
+            // Asignar valores al formulario de modificación
+            modificar.nombre.setText(registro2.elementAt(0).toString());
+            modificar.valor.setText(registro2.elementAt(1).toString());
+            modificar.cantidad.setText(registro2.elementAt(2).toString());
+            modificar.valort.setText(registro2.elementAt(3).toString());
+
+            } 
+    }
+    // Mostrar la ventana de modificación
+    modificar.setVisible(true);
+
+    if (modificar.getRootPane() != null) {
+        Vector v = new Vector();
+        v.addElement(modificar.nombre.getText());
+        v.addElement(modificar.valor.getText());
+        v.addElement(modificar.cantidad.getText());
+        v.addElement(modificar.valort.getText());
+
+        if (modificar.materiales.isSelected()) {
+            modeloMateriales.getDataVector().set(RegistroT1.getSelectedRow(), v); 
+            RegistroT1.updateUI();
+        } 
+
+        if (modificar.servicios.isSelected()) {
+            modeloServicios.getDataVector().set(tablaservicios.getSelectedRow(), v);
+            tablaservicios.updateUI();
+        }
+
+        // Actualizar contadores
+        int filasServicios = tablaservicios.getRowCount();
+        tdatos1.setText("" + filasServicios);
+
+        int filasMateriales = RegistroT1.getRowCount();
+        tdatos.setText("" + filasMateriales);
+
+        // Exportar los datos a Excel si la función está implementada
+        exportarAExcel();
     
+        }
     }//GEN-LAST:event_ModificarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
@@ -706,37 +581,60 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
+        //lamo el JDialog
+        agregar agregar1 = new agregar(this,true);
+        agregar1.setVisible(true);
+        if (agregar1.getRootPane()!=null) {
+            
+                 Vector v = new Vector();
+                 v.addElement(agregar1.nombre.getText());
+                 v.addElement(agregar1.valor.getText());
+                 v.addElement(agregar1.cantidad.getText());
+                 v.addElement(agregar1.valort.getText());
+
+                if (agregar1.materiales.isSelected()) {
+                    DefaultTableModel modeloMateriales = (DefaultTableModel) RegistroT1.getModel();
+                    modeloMateriales.addRow(v);  // Agregar a tabla de materiales
+                } 
+
+                if (agregar1.servicios.isSelected()) {
+                    DefaultTableModel modeloServicios = (DefaultTableModel) tablaservicios.getModel();
+                    modeloServicios.addRow(v);  // Agregar a tabla de servicios
+                }
+
+                // Mostrar el número de filas en tdatos 
+                int filasServicios = tablaservicios.getRowCount();
+                tdatos1.setText("" + filasServicios);  // Muestra las filas en tabla de servicios
+
+                int filasMateriales = RegistroT1.getRowCount();
+                tdatos.setText("" + filasMateriales);  // Muestra las filas en tabla de servicios
+
+                // Exportar los datos a Excel (si tienes implementada esta función)
+                exportarAExcel();
+                }
 
     }//GEN-LAST:event_AgregarActionPerformed
-    
+   
     private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
-            // Verificar si los campos están vacíos
-    if (valor.getText().trim().isEmpty() ||
-        nombre.getText().trim().isEmpty() ||
-        cantidad.getText().trim().isEmpty() || 
-        !servicios.isSelected() && 
-        !materiales.isSelected()
-            ) {
+         //lamo el JDialog
+        agregar agregar1 = new agregar(this,true);
+        agregar1.setVisible(true);
+        if (agregar1.getRootPane()!=null) {
+            
+         Vector v = new Vector();
+         v.addElement(agregar1.nombre.getText());
+         v.addElement(agregar1.valor.getText());
+         v.addElement(agregar1.cantidad.getText());
+         v.addElement(agregar1.valort.getText());
         
-        JOptionPane.showMessageDialog(this, 
-                "Todos los campos (Nombre, Valor, Cantidad) deben estar llenos y seleccionar (Servicio o Material)", 
-                "Advertencia", JOptionPane.WARNING_MESSAGE);
-    } else {
-        // Crear el arreglo con los datos de los 3 JTextField
-        Object[] datos = new Object[3];
-        datos[0] = nombre.getText();
-        datos[1] = valor.getText();
-        datos[2] = cantidad.getText();
-        
-        // Verificar qué CheckBox está seleccionado y agregar a la tabla correspondiente
-        if (materiales.isSelected()) {
+        if (agregar1.materiales.isSelected()) {
             DefaultTableModel modeloMateriales = (DefaultTableModel) RegistroT1.getModel();
-            modeloMateriales.addRow(datos);  // Agregar a tabla de materiales
+            modeloMateriales.addRow(v);  // Agregar a tabla de materiales
         } 
         
-        if (servicios.isSelected()) {
+        if (agregar1.servicios.isSelected()) {
             DefaultTableModel modeloServicios = (DefaultTableModel) tablaservicios.getModel();
-            modeloServicios.addRow(datos);  // Agregar a tabla de servicios
+            modeloServicios.addRow(v);  // Agregar a tabla de servicios
         }
 
         // Mostrar el número de filas en tdatos 
@@ -746,12 +644,9 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
         int filasMateriales = RegistroT1.getRowCount();
         tdatos.setText("" + filasMateriales);  // Muestra las filas en tabla de servicios
 
-        // Limpiar los campos de texto después de agregar
-        limpiar();
-        
         // Exportar los datos a Excel (si tienes implementada esta función)
         exportarAExcel();
-            }
+        }
 
     }//GEN-LAST:event_AgregarMouseClicked
 
@@ -828,58 +723,6 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
         ymouse = evt.getY();
     }//GEN-LAST:event_barratitulo1MousePressed
 
-    private void valorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_valorKeyPressed
-        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
- if (valor.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(this, "El campo de tarea no puede estar vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }else{
-        DefaultTableModel modelo = (DefaultTableModel) tablaservicios.getModel();
-        Object [] Dato = new Object [1];
-         Dato[0] = valor.getText();
-
-         modelo.addRow(Dato);
-         int filast = tablaservicios.getRowCount();
-         tdatos.setText(""+filast);
-         limpiar();// Limpiar el campo de texto después de agregar
-         }
-         
-        // Exportar los datos después de agregar
-        exportarAExcel();
-        }
-    }//GEN-LAST:event_valorKeyPressed
-
-    private void materialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialesActionPerformed
-        if (materiales.isSelected()) {
-    materiales.setSelected(true);servicios.setSelected(false);
-        }else{
-            servicios.setSelected(false);  materiales.setSelected(false);       
-        }
-
-
-        }//GEN-LAST:event_materialesActionPerformed
-
-    private void cantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cantidadKeyPressed
-
-    private void nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreKeyPressed
-
-    private void serviciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_serviciosActionPerformed
-        if (servicios.isSelected()) {
-    materiales.setSelected(false);servicios.setSelected(true);
-        }else {
-            servicios.setSelected(false);  materiales.setSelected(false);       
-        }
-    
-    
-      }//GEN-LAST:event_serviciosActionPerformed
-
-    private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -919,32 +762,22 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     private javax.swing.JButton Eliminar;
     private javax.swing.JButton EliminarTodo;
     private javax.swing.JButton Extraer;
-    private javax.swing.JLabel Jpago;
     private javax.swing.JButton Modificar;
     private javax.swing.JTable RegistroT1;
     private javax.swing.JButton Reportes;
     private javax.swing.JButton Tareas;
     private javax.swing.JPanel barratitulo;
     private javax.swing.JPanel barratitulo1;
-    private javax.swing.JTextField cantidad;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel jValor;
-    private javax.swing.JLabel jcantidad;
-    private javax.swing.JLabel jnombre;
-    private javax.swing.JCheckBox materiales;
-    private javax.swing.JTextField nombre;
     private javax.swing.JButton pagos;
-    private javax.swing.JCheckBox servicios;
     private javax.swing.JTable tablaservicios;
     private javax.swing.JLabel tdatos;
     private javax.swing.JLabel tdatos1;
-    private javax.swing.JTextField valor;
     private javax.swing.JLabel x;
     private javax.swing.JLabel x1;
     // End of variables declaration//GEN-END:variables
