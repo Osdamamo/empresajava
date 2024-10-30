@@ -83,7 +83,6 @@ public class agregar extends javax.swing.JDialog {
         jPanel4 = new javax.swing.JPanel();
         tdatos = new javax.swing.JLabel();
         barratitulo = new javax.swing.JPanel();
-        x = new javax.swing.JLabel();
         materiales = new javax.swing.JCheckBox();
         servicios = new javax.swing.JCheckBox();
         Jpago = new javax.swing.JLabel();
@@ -124,24 +123,6 @@ public class agregar extends javax.swing.JDialog {
             }
         });
         barratitulo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        x.setBackground(new java.awt.Color(255, 255, 255));
-        x.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
-        x.setForeground(new java.awt.Color(255, 255, 255));
-        x.setText("x");
-        x.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                xMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                xMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                xMouseExited(evt);
-            }
-        });
-        barratitulo.add(x, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 30, 30));
-
         jPanel4.add(barratitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 30));
 
         materiales.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
@@ -320,29 +301,6 @@ public class agregar extends javax.swing.JDialog {
     
     
     
-    private void barratituloMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barratituloMousePressed
-        xmouse = evt.getX();
-        ymouse = evt.getY();
-    }//GEN-LAST:event_barratituloMousePressed
-
-    private void barratituloMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barratituloMouseDragged
-        int x = evt.getXOnScreen();
-        int y = evt.getYOnScreen();
-        this.setLocation(x-xmouse, y-ymouse);
-    }//GEN-LAST:event_barratituloMouseDragged
-
-    private void xMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xMouseExited
-        x.setForeground(Color.white);
-    }//GEN-LAST:event_xMouseExited
-
-    private void xMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xMouseEntered
-        x.setForeground(new Color(255,68,0));
-    }//GEN-LAST:event_xMouseEntered
-
-    private void xMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xMouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_xMouseClicked
-
     private void valorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_valorKeyPressed
   
     }//GEN-LAST:event_valorKeyPressed
@@ -450,6 +408,17 @@ public class agregar extends javax.swing.JDialog {
         cantidadKeyReleased(null);
     }//GEN-LAST:event_valorKeyReleased
 
+    private void barratituloMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barratituloMousePressed
+        xmouse = evt.getX();
+        ymouse = evt.getY();
+    }//GEN-LAST:event_barratituloMousePressed
+
+    private void barratituloMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barratituloMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x-xmouse, y-ymouse);
+    }//GEN-LAST:event_barratituloMouseDragged
+
     /**
      * @param args the command line arguments
      */
@@ -510,7 +479,6 @@ public class agregar extends javax.swing.JDialog {
     private javax.swing.JLabel tdatos;
     public javax.swing.JTextField valor;
     public javax.swing.JTextField valort;
-    private javax.swing.JLabel x;
     // End of variables declaration//GEN-END:variables
 
     Object nombre() {

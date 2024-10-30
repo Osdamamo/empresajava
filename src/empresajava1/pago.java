@@ -33,12 +33,9 @@ public class pago extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/icons/logof.png")).getImage());
         setLocationRelativeTo(null);
         cargarDesdeExcel();
-        int filasServicios = tablaservicios.getRowCount();
-        tdatos1.setText("" + filasServicios); 
-        int filasMateriales = RegistroT1.getRowCount();
-        tdatos.setText("" + filasMateriales); 
+       //calcular el valor total
+        calcular();                
 
-      
         Agregar.setBackground(new Color(139,0,0));
         Agregar.setForeground(Color.black); 
 
@@ -64,11 +61,11 @@ public class pago extends javax.swing.JFrame {
         EliminarTodo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaservicios = new javax.swing.JTable();
-        tdatos = new javax.swing.JLabel();
         barratitulo = new javax.swing.JPanel();
         x = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         RegistroT1 = new javax.swing.JTable();
+        tdatos = new javax.swing.JLabel();
         tdatos1 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -256,9 +253,6 @@ public class pago extends javax.swing.JFrame {
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 270, 350));
 
-        tdatos.setBorder(javax.swing.BorderFactory.createTitledBorder("Total de Registro"));
-        jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 460, 140, 40));
-
         barratitulo.setBackground(new java.awt.Color(225, 153, 51));
         barratitulo.setForeground(new java.awt.Color(0, 0, 0));
         barratitulo.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -319,7 +313,10 @@ public class pago extends javax.swing.JFrame {
 
         jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 270, 350));
 
-        tdatos1.setBorder(javax.swing.BorderFactory.createTitledBorder("Total de Registro"));
+        tdatos.setBorder(javax.swing.BorderFactory.createTitledBorder("Valor Total"));
+        jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 460, 140, 40));
+
+        tdatos1.setBorder(javax.swing.BorderFactory.createTitledBorder("Valor Total"));
         jPanel4.add(tdatos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 460, 140, 40));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 570, 500));
@@ -340,6 +337,26 @@ public class pago extends javax.swing.JFrame {
 
     
     //Metodos
+    private void calcular(){
+        
+        float suma=0;
+        float suma2=0;
+        for (int i = 0; i < RegistroT1.getRowCount(); i++) {
+            float renglon;
+            renglon =Float.parseFloat(RegistroT1.getValueAt(i, 3).toString());
+            suma=suma+renglon;
+            tdatos.setText(String.valueOf(suma));
+        }
+        for (int i = 0; i < tablaservicios.getRowCount(); i++) {
+            float renglon;
+            renglon =Float.parseFloat(tablaservicios.getValueAt(i, 3).toString());
+            suma2=suma2+renglon;
+            tdatos1.setText(String.valueOf(suma2));
+        }
+
+       
+
+    }
 
     private void exportarAExcel() {
         Workbook workbook = new XSSFWorkbook();
@@ -426,8 +443,8 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     }
     
     private void TareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TareasActionPerformed
-        pago tareas = new pago();
-        tareas.setVisible(true);
+        principal principal = new principal();
+        principal.setVisible(true);
         dispose();
     }//GEN-LAST:event_TareasActionPerformed
 
@@ -545,12 +562,8 @@ if (selectedRowServicios != -1) {
             tablaservicios.updateUI();
         }
 
-        // Actualizar contadores
-        int filasServicios = tablaservicios.getRowCount();
-        tdatos1.setText("" + filasServicios);
-
-        int filasMateriales = RegistroT1.getRowCount();
-        tdatos.setText("" + filasMateriales);
+           //calcular el valor total
+            calcular();                
 
         // Exportar los datos a Excel si la función está implementada
         exportarAExcel();
@@ -569,9 +582,8 @@ if (selectedRowServicios != -1) {
                     DefaultTableModel modelo = (DefaultTableModel) tablaservicios.getModel();
                     modelo.removeRow(filaSeleccionada);
 
-                    // Actualiza el contador de tareas
-                    int filasServicios = tablaservicios.getRowCount();
-                    tdatos1.setText("" + filasServicios);  // Muestra las filas en tabla de servicios
+                    //calcular el valor total
+                    calcular();
 
                     JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
                     exportarAExcel();
@@ -585,9 +597,8 @@ if (selectedRowServicios != -1) {
                                     DefaultTableModel modelo = (DefaultTableModel) RegistroT1.getModel();
                                     modelo.removeRow(filaSeleccionada2);
 
-                                    // Actualiza el contador de tareas
-                                    int filasMateriales = RegistroT1.getRowCount();
-                                    tdatos.setText("" + filasMateriales);  // Muestra las filas en tabla de servicios
+                                    //calcular el valor total
+                                    calcular();
 
                                     JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
                                     exportarAExcel();
@@ -618,14 +629,9 @@ if (selectedRowServicios != -1) {
                     DefaultTableModel modeloServicios = (DefaultTableModel) tablaservicios.getModel();
                     modeloServicios.addRow(v);  // Agregar a tabla de servicios
                 }
-
-                // Mostrar el número de filas en tdatos 
-                int filasServicios = tablaservicios.getRowCount();
-                tdatos1.setText("" + filasServicios);  // Muestra las filas en tabla de servicios
-
-                int filasMateriales = RegistroT1.getRowCount();
-                tdatos.setText("" + filasMateriales);  // Muestra las filas en tabla de servicios
-
+                //calcular el valor total
+                calcular();                
+                
                 // Exportar los datos a Excel (si tienes implementada esta función)
                 exportarAExcel();
                 }
@@ -656,7 +662,7 @@ if (selectedRowServicios != -1) {
 
         // Mostrar el número de filas en tdatos 
         int filasServicios = tablaservicios.getRowCount();
-        tdatos1.setText("" + filasServicios);  // Muestra las filas en tabla de servicios
+        tdatos.setText("" + filasServicios);  // Muestra las filas en tabla de servicios
         
         int filasMateriales = RegistroT1.getRowCount();
         tdatos.setText("" + filasMateriales);  // Muestra las filas en tabla de servicios
