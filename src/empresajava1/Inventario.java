@@ -114,7 +114,7 @@ public class Inventario extends javax.swing.JFrame {
                 ReportesActionPerformed(evt);
             }
         });
-        jPanel3.add(Reportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 110, 40));
+        jPanel3.add(Reportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 110, 40));
 
         Extraer.setBackground(new java.awt.Color(70, 70, 70));
         Extraer.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -125,7 +125,7 @@ public class Inventario extends javax.swing.JFrame {
                 ExtraerActionPerformed(evt);
             }
         });
-        jPanel3.add(Extraer, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 440, 110, 40));
+        jPanel3.add(Extraer, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 110, 40));
 
         pagos.setBackground(new java.awt.Color(70, 70, 70));
         pagos.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -136,7 +136,7 @@ public class Inventario extends javax.swing.JFrame {
                 pagosActionPerformed(evt);
             }
         });
-        jPanel3.add(pagos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 110, 40));
+        jPanel3.add(pagos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 110, 40));
 
         inventario.setBackground(new java.awt.Color(70, 70, 70));
         inventario.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -147,7 +147,7 @@ public class Inventario extends javax.swing.JFrame {
                 inventarioActionPerformed(evt);
             }
         });
-        jPanel3.add(inventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 110, 40));
+        jPanel3.add(inventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 110, 40));
 
         barratitulo1.setBackground(new java.awt.Color(54, 57, 63));
         barratitulo1.setForeground(new java.awt.Color(0, 0, 0));
@@ -456,10 +456,9 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     }//GEN-LAST:event_ExtraerActionPerformed
 
     private void pagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagosActionPerformed
-        Inventario pagos = new Inventario();
+        pago pagos = new pago();
         pagos.setVisible(true);
         dispose();
-        
     }//GEN-LAST:event_pagosActionPerformed
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed

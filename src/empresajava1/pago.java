@@ -178,7 +178,7 @@ public class pago extends javax.swing.JFrame {
         });
         jPanel3.add(Extraer, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 110, 40));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 500));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 650));
 
         jPanel4.setBackground(new java.awt.Color(225, 153, 51));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -257,7 +257,7 @@ public class pago extends javax.swing.JFrame {
         tablaservicios.setShowGrid(false);
         jScrollPane1.setViewportView(tablaservicios);
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 270, 350));
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 100, 460, 350));
 
         barratitulo.setBackground(new java.awt.Color(225, 153, 51));
         barratitulo.setForeground(new java.awt.Color(0, 0, 0));
@@ -288,9 +288,9 @@ public class pago extends javax.swing.JFrame {
                 xMouseExited(evt);
             }
         });
-        barratitulo.add(x, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 0, 20, 30));
+        barratitulo.add(x, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 10, 20, 30));
 
-        jPanel4.add(barratitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-210, 0, 780, -1));
+        jPanel4.add(barratitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-210, 0, 1190, -1));
 
         jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -317,15 +317,15 @@ public class pago extends javax.swing.JFrame {
         RegistroT1.setShowGrid(false);
         jScrollPane2.setViewportView(RegistroT1);
 
-        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 270, 350));
+        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 480, 350));
 
         tdatos.setBorder(javax.swing.BorderFactory.createTitledBorder("Valor Total"));
-        jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 460, 140, 40));
+        jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 470, 140, 40));
 
         tdatos1.setBorder(javax.swing.BorderFactory.createTitledBorder("Valor Total"));
-        jPanel4.add(tdatos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 460, 140, 40));
+        jPanel4.add(tdatos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 460, 140, 40));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 570, 500));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 980, 650));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -721,13 +721,13 @@ if (selectedRowServicios != -1) {
     }//GEN-LAST:event_ExtraerActionPerformed
 
     private void inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inventarioActionPerformed
-
-    private void pagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagosActionPerformed
         Inventario pagos = new Inventario();
         pagos.setVisible(true);
         dispose();
+    }//GEN-LAST:event_inventarioActionPerformed
+
+    private void pagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagosActionPerformed
+       
 
     }//GEN-LAST:event_pagosActionPerformed
 
