@@ -55,14 +55,7 @@ public class reportes extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        Extraer = new javax.swing.JButton();
-        barratitulo1 = new javax.swing.JPanel();
-        x1 = new javax.swing.JLabel();
-        Tareas = new javax.swing.JButton();
-        Reportes = new javax.swing.JButton();
-        pagos = new javax.swing.JButton();
-        inventario = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
+     jPanel4 = new javax.swing.JPanel();
         Agregar = new javax.swing.JButton();
         Modificar = new javax.swing.JButton();
         Eliminar = new javax.swing.JButton();
@@ -107,7 +100,6 @@ public class reportes extends javax.swing.JFrame {
                 ExtraerActionPerformed(evt);
             }
         });
-        jPanel3.add(Extraer, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 110, 40));
 
         barratitulo1.setBackground(new java.awt.Color(54, 57, 63));
         barratitulo1.setForeground(new java.awt.Color(0, 0, 0));
@@ -142,56 +134,6 @@ public class reportes extends javax.swing.JFrame {
 
         jPanel3.add(barratitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 30));
 
-        Tareas.setBackground(new java.awt.Color(70, 70, 70));
-        Tareas.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Tareas.setForeground(new java.awt.Color(255, 255, 255));
-        Tareas.setText("Tareas");
-        Tareas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TareasActionPerformed(evt);
-            }
-        });
-        jPanel3.add(Tareas, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 110, 40));
-
-        Reportes.setBackground(new java.awt.Color(70, 70, 70));
-        Reportes.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Reportes.setForeground(new java.awt.Color(255, 255, 255));
-        Reportes.setText("Reportes");
-        Reportes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                ReportesMousePressed(evt);
-            }
-        });
-        Reportes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ReportesActionPerformed(evt);
-            }
-        });
-        jPanel3.add(Reportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 110, 40));
-
-        pagos.setBackground(new java.awt.Color(70, 70, 70));
-        pagos.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        pagos.setForeground(new java.awt.Color(255, 255, 255));
-        pagos.setText("Pagos");
-        pagos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pagosActionPerformed(evt);
-            }
-        });
-        jPanel3.add(pagos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 110, 40));
-
-        inventario.setBackground(new java.awt.Color(70, 70, 70));
-        inventario.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        inventario.setForeground(new java.awt.Color(255, 255, 255));
-        inventario.setText("Inventario");
-        inventario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inventarioActionPerformed(evt);
-            }
-        });
-        jPanel3.add(inventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 110, 40));
-
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 650));
 
         jPanel4.setBackground(new java.awt.Color(225, 153, 51));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -261,9 +203,6 @@ public class reportes extends javax.swing.JFrame {
                 txttareaKeyPressed(evt);
             }
         });
-        jPanel5.add(txttarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 6, 720, 30));
-
-        jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 850, 50));
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Todas Los Reportes"));
 
@@ -283,10 +222,6 @@ public class reportes extends javax.swing.JFrame {
         RegistroT.setShowGrid(false);
         jScrollPane1.setViewportView(RegistroT);
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 960, 390));
-
-        tdatos.setBorder(javax.swing.BorderFactory.createTitledBorder("Total de Registro"));
-        jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 580, 140, 40));
 
         barratitulo.setBackground(new java.awt.Color(225, 153, 51));
         barratitulo.setForeground(new java.awt.Color(0, 0, 0));
@@ -317,11 +252,6 @@ public class reportes extends javax.swing.JFrame {
                 xMouseExited(evt);
             }
         });
-        barratitulo.add(x, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 0, 20, 30));
-
-        jPanel4.add(barratitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-210, 0, 1180, -1));
-
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 970, 650));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -408,7 +338,7 @@ private void cargarDesdeExcel() {
 }
 
     
-    private void ExtraerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExtraerActionPerformed
+   private void ExtraerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExtraerActionPerformed
 XSSFWorkbook workbook = new XSSFWorkbook();
     XSSFSheet sheet = workbook.createSheet("Reportes");
 
@@ -598,127 +528,7 @@ XSSFWorkbook workbook = new XSSFWorkbook();
         }
     }//GEN-LAST:event_txttareaKeyPressed
 
-    private void TareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TareasActionPerformed
-        JFrame actual = this;  // Referencia a la ventana actual.
-    principal nuevaVentana = new principal();  // Crear la nueva ventana.
-    nuevaVentana.setSize(actual.getSize());
-    nuevaVentana.setLocationRelativeTo(actual);  // Centrar la nueva ventana.
-
-    nuevaVentana.setOpacity(0);  // Inicia invisible.
-    nuevaVentana.setVisible(true);  // Mostrar la nueva ventana.
-
-    new Thread(() -> {
-        try {
-            // Asegurar que la ventana es totalmente opaca después del efecto.
-            for (float i = 0; i <= 1.0f; i += 0.1f) {
-                Thread.sleep(30);  // Control de velocidad.
-                nuevaVentana.setOpacity(i);
-            }
-
-            // Pausa breve para asegurar la opacidad completa.
-            Thread.sleep(50);
-            nuevaVentana.setOpacity(1.0f);  // Asegurar visibilidad total.
-
-            // Cierra la ventana actual al finalizar el efecto.
-            actual.dispose();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }).start();
-    }//GEN-LAST:event_TareasActionPerformed
-
-    private void ReportesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportesMousePressed
-
-    }//GEN-LAST:event_ReportesMousePressed
-
-    private void ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesActionPerformed
-JFrame actual = this;  // Referencia a la ventana actual.
-    reportes nuevaVentana = new reportes();  // Crear la nueva ventana.
-    nuevaVentana.setSize(actual.getSize());
-    nuevaVentana.setLocationRelativeTo(actual);  // Centrar la nueva ventana.
-
-    nuevaVentana.setOpacity(0);  // Inicia invisible.
-    nuevaVentana.setVisible(true);  // Mostrar la nueva ventana.
-
-    new Thread(() -> {
-        try {
-            // Asegurar que la ventana es totalmente opaca después del efecto.
-            for (float i = 0; i <= 1.0f; i += 0.1f) {
-                Thread.sleep(30);  // Control de velocidad.
-                nuevaVentana.setOpacity(i);
-            }
-
-            // Pausa breve para asegurar la opacidad completa.
-            Thread.sleep(50);
-            nuevaVentana.setOpacity(1.0f);  // Asegurar visibilidad total.
-
-            // Cierra la ventana actual al finalizar el efecto.
-            actual.dispose();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }).start();
-    }//GEN-LAST:event_ReportesActionPerformed
-
-    private void pagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagosActionPerformed
-       JFrame actual = this;  // Referencia a la ventana actual.
-    pago nuevaVentana = new pago();  // Crear la nueva ventana.
-    nuevaVentana.setSize(actual.getSize());
-    nuevaVentana.setLocationRelativeTo(actual);  // Centrar la nueva ventana.
-
-    nuevaVentana.setOpacity(0);  // Inicia invisible.
-    nuevaVentana.setVisible(true);  // Mostrar la nueva ventana.
-
-    new Thread(() -> {
-        try {
-            // Asegurar que la ventana es totalmente opaca después del efecto.
-            for (float i = 0; i <= 1.0f; i += 0.1f) {
-                Thread.sleep(30);  // Control de velocidad.
-                nuevaVentana.setOpacity(i);
-            }
-
-            // Pausa breve para asegurar la opacidad completa.
-            Thread.sleep(50);
-            nuevaVentana.setOpacity(1.0f);  // Asegurar visibilidad total.
-
-            // Cierra la ventana actual al finalizar el efecto.
-            actual.dispose();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }).start();
-    }//GEN-LAST:event_pagosActionPerformed
-
-    private void inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventarioActionPerformed
-       JFrame actual = this;  // Referencia a la ventana actual.
-    Inventario nuevaVentana = new Inventario();  // Crear la nueva ventana.
-    nuevaVentana.setSize(actual.getSize());
-    nuevaVentana.setLocationRelativeTo(actual);  // Centrar la nueva ventana.
-
-    nuevaVentana.setOpacity(0);  // Inicia invisible.
-    nuevaVentana.setVisible(true);  // Mostrar la nueva ventana.
-
-    new Thread(() -> {
-        try {
-            // Asegurar que la ventana es totalmente opaca después del efecto.
-            for (float i = 0; i <= 1.0f; i += 0.1f) {
-                Thread.sleep(30);  // Control de velocidad.
-                nuevaVentana.setOpacity(i);
-            }
-
-            // Pausa breve para asegurar la opacidad completa.
-            Thread.sleep(50);
-            nuevaVentana.setOpacity(1.0f);  // Asegurar visibilidad total.
-
-            // Cierra la ventana actual al finalizar el efecto.
-            actual.dispose();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }).start();
-    }//GEN-LAST:event_inventarioActionPerformed
-
-    /**
+  /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -763,7 +573,6 @@ JFrame actual = this;  // Referencia a la ventana actual.
     private javax.swing.JButton Tareas;
     private javax.swing.JPanel barratitulo;
     private javax.swing.JPanel barratitulo1;
-    private javax.swing.JButton inventario;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
