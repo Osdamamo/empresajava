@@ -18,6 +18,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JTable;
+import javax.swing.UIManager;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
     
 
@@ -696,28 +698,35 @@ if (selectedRowServicios != -1) {
     }//GEN-LAST:event_barratitulo1MousePressed
 
     private void ExtraerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExtraerActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        int option = fileChooser.showSaveDialog(this);
+        try {
+        // Establecer el Look and Feel a Windows
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setDialogTitle("Guardar Archivo");
+    fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos de Excel", "xlsx")); // Filtro para archivos .xlsx
+    int option = fileChooser.showSaveDialog(this);
 
-        if (option == JFileChooser.APPROVE_OPTION) {
-            String filePath = fileChooser.getSelectedFile().getAbsolutePath() + ".xlsx";
+    if (option == JFileChooser.APPROVE_OPTION) {
+        String filePath = fileChooser.getSelectedFile().getAbsolutePath() + ".xlsx";
 
-            try (Workbook workbook = new XSSFWorkbook(); FileOutputStream fileOut = new FileOutputStream(filePath)) {
-                // Crear hojas para las dos tablas
-                Sheet hojaMateriales = workbook.createSheet("Materiales");
-                Sheet hojaServicios = workbook.createSheet("Servicios");
+        try (Workbook workbook = new XSSFWorkbook(); FileOutputStream fileOut = new FileOutputStream(filePath)) {
+            // Crear hojas para las dos tablas
+            Sheet hojaMateriales = workbook.createSheet("Materiales");
 
-                // Agregar los datos de las tablas
-                agregarTablaAHoja(hojaMateriales, RegistroT1);
-                agregarTablaAHoja(hojaServicios, tablaservicios);
+            // Agregar los datos de las tablas
+            agregarTablaAHoja(hojaMateriales, RegistroT1);
 
-                // Guardar el archivo
-                workbook.write(fileOut);
-                JOptionPane.showMessageDialog(this, "Datos exportados correctamente a: " + filePath);
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "Error al exportar: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            // Guardar el archivo
+            workbook.write(fileOut);
+            JOptionPane.showMessageDialog(this, "Datos exportados correctamente a: " + filePath);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error al exportar: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
 
     }//GEN-LAST:event_ExtraerActionPerformed
 
@@ -760,6 +769,12 @@ if (selectedRowServicios != -1) {
     }//GEN-LAST:event_ReportesMousePressed
 
     private void ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesActionPerformed
+         try {
+        // Establecer el Look and Feel a Windows
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
         JFrame actual = this;  // Referencia a la ventana actual.
     reportes nuevaVentana = new reportes();  // Crear la nueva ventana.
     nuevaVentana.setSize(actual.getSize());
