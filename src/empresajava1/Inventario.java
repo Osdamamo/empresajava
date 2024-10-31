@@ -182,7 +182,7 @@ public class Inventario extends javax.swing.JFrame {
 
         jPanel3.add(barratitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 30));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 650));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 650));
 
         jPanel4.setBackground(new java.awt.Color(225, 153, 51));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -315,7 +315,7 @@ public class Inventario extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1194, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -420,15 +420,61 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     }
     
     private void TareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TareasActionPerformed
-        principal principal = new principal();
-        principal.setVisible(true);
-        dispose();
+        JFrame actual = this;  // Referencia a la ventana actual.
+    principal nuevaVentana = new principal();  // Crear la nueva ventana.
+    nuevaVentana.setSize(actual.getSize());
+    nuevaVentana.setLocationRelativeTo(actual);  // Centrar la nueva ventana.
+
+    nuevaVentana.setOpacity(0);  // Inicia invisible.
+    nuevaVentana.setVisible(true);  // Mostrar la nueva ventana.
+
+    new Thread(() -> {
+        try {
+            // Asegurar que la ventana es totalmente opaca después del efecto.
+            for (float i = 0; i <= 1.0f; i += 0.1f) {
+                Thread.sleep(30);  // Control de velocidad.
+                nuevaVentana.setOpacity(i);
+            }
+
+            // Pausa breve para asegurar la opacidad completa.
+            Thread.sleep(50);
+            nuevaVentana.setOpacity(1.0f);  // Asegurar visibilidad total.
+
+            // Cierra la ventana actual al finalizar el efecto.
+            actual.dispose();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }).start();
     }//GEN-LAST:event_TareasActionPerformed
 
     private void ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesActionPerformed
-        reportes reporte = new reportes();
-        reporte.setVisible(true);
-        dispose();
+      JFrame actual = this;  // Referencia a la ventana actual.
+    reportes nuevaVentana = new reportes();  // Crear la nueva ventana.
+    nuevaVentana.setSize(actual.getSize());
+    nuevaVentana.setLocationRelativeTo(actual);  // Centrar la nueva ventana.
+
+    nuevaVentana.setOpacity(0);  // Inicia invisible.
+    nuevaVentana.setVisible(true);  // Mostrar la nueva ventana.
+
+    new Thread(() -> {
+        try {
+            // Asegurar que la ventana es totalmente opaca después del efecto.
+            for (float i = 0; i <= 1.0f; i += 0.1f) {
+                Thread.sleep(30);  // Control de velocidad.
+                nuevaVentana.setOpacity(i);
+            }
+
+            // Pausa breve para asegurar la opacidad completa.
+            Thread.sleep(50);
+            nuevaVentana.setOpacity(1.0f);  // Asegurar visibilidad total.
+
+            // Cierra la ventana actual al finalizar el efecto.
+            actual.dispose();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }).start();
     }//GEN-LAST:event_ReportesActionPerformed
 
     private void ExtraerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExtraerActionPerformed
@@ -456,9 +502,32 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     }//GEN-LAST:event_ExtraerActionPerformed
 
     private void pagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagosActionPerformed
-        pago pagos = new pago();
-        pagos.setVisible(true);
-        dispose();
+        JFrame actual = this;  // Referencia a la ventana actual.
+    pago nuevaVentana = new pago();  // Crear la nueva ventana.
+    nuevaVentana.setSize(actual.getSize());
+    nuevaVentana.setLocationRelativeTo(actual);  // Centrar la nueva ventana.
+
+    nuevaVentana.setOpacity(0);  // Inicia invisible.
+    nuevaVentana.setVisible(true);  // Mostrar la nueva ventana.
+
+    new Thread(() -> {
+        try {
+            // Asegurar que la ventana es totalmente opaca después del efecto.
+            for (float i = 0; i <= 1.0f; i += 0.1f) {
+                Thread.sleep(30);  // Control de velocidad.
+                nuevaVentana.setOpacity(i);
+            }
+
+            // Pausa breve para asegurar la opacidad completa.
+            Thread.sleep(50);
+            nuevaVentana.setOpacity(1.0f);  // Asegurar visibilidad total.
+
+            // Cierra la ventana actual al finalizar el efecto.
+            actual.dispose();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }).start();
     }//GEN-LAST:event_pagosActionPerformed
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
@@ -579,9 +648,32 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     }//GEN-LAST:event_AgregarMouseClicked
 
     private void ReportesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportesMousePressed
-    reportes reportes = new reportes();
-    reportes.setVisible(true);  
-    dispose();
+    JFrame actual = this;  // Referencia a la ventana actual.
+    reportes nuevaVentana = new reportes();  // Crear la nueva ventana.
+    nuevaVentana.setSize(actual.getSize());
+    nuevaVentana.setLocationRelativeTo(actual);  // Centrar la nueva ventana.
+
+    nuevaVentana.setOpacity(0);  // Inicia invisible.
+    nuevaVentana.setVisible(true);  // Mostrar la nueva ventana.
+
+    new Thread(() -> {
+        try {
+            // Asegurar que la ventana es totalmente opaca después del efecto.
+            for (float i = 0; i <= 1.0f; i += 0.1f) {
+                Thread.sleep(30);  // Control de velocidad.
+                nuevaVentana.setOpacity(i);
+            }
+
+            // Pausa breve para asegurar la opacidad completa.
+            Thread.sleep(50);
+            nuevaVentana.setOpacity(1.0f);  // Asegurar visibilidad total.
+
+            // Cierra la ventana actual al finalizar el efecto.
+            actual.dispose();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }).start();
     }//GEN-LAST:event_ReportesMousePressed
 
     private void EliminarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarTodoActionPerformed

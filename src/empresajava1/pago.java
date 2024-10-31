@@ -16,6 +16,7 @@ import java.io.FileInputStream;
 import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 
     
@@ -138,7 +139,7 @@ public class pago extends javax.swing.JFrame {
                 pagosActionPerformed(evt);
             }
         });
-        jPanel3.add(pagos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 110, 40));
+        jPanel3.add(pagos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 110, 40));
 
         Reportes.setBackground(new java.awt.Color(70, 70, 70));
         Reportes.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -154,7 +155,7 @@ public class pago extends javax.swing.JFrame {
                 ReportesActionPerformed(evt);
             }
         });
-        jPanel3.add(Reportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 110, 40));
+        jPanel3.add(Reportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 110, 40));
 
         inventario.setBackground(new java.awt.Color(70, 70, 70));
         inventario.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -165,7 +166,7 @@ public class pago extends javax.swing.JFrame {
                 inventarioActionPerformed(evt);
             }
         });
-        jPanel3.add(inventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 110, 40));
+        jPanel3.add(inventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 110, 40));
 
         Extraer.setBackground(new java.awt.Color(70, 70, 70));
         Extraer.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -176,7 +177,7 @@ public class pago extends javax.swing.JFrame {
                 ExtraerActionPerformed(evt);
             }
         });
-        jPanel3.add(Extraer, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 110, 40));
+        jPanel3.add(Extraer, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 110, 40));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 650));
 
@@ -721,9 +722,32 @@ if (selectedRowServicios != -1) {
     }//GEN-LAST:event_ExtraerActionPerformed
 
     private void inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventarioActionPerformed
-        Inventario pagos = new Inventario();
-        pagos.setVisible(true);
-        dispose();
+        JFrame actual = this;  // Referencia a la ventana actual.
+    Inventario nuevaVentana = new Inventario();  // Crear la nueva ventana.
+    nuevaVentana.setSize(actual.getSize());
+    nuevaVentana.setLocationRelativeTo(actual);  // Centrar la nueva ventana.
+
+    nuevaVentana.setOpacity(0);  // Inicia invisible.
+    nuevaVentana.setVisible(true);  // Mostrar la nueva ventana.
+
+    new Thread(() -> {
+        try {
+            // Asegurar que la ventana es totalmente opaca después del efecto.
+            for (float i = 0; i <= 1.0f; i += 0.1f) {
+                Thread.sleep(30);  // Control de velocidad.
+                nuevaVentana.setOpacity(i);
+            }
+
+            // Pausa breve para asegurar la opacidad completa.
+            Thread.sleep(50);
+            nuevaVentana.setOpacity(1.0f);  // Asegurar visibilidad total.
+
+            // Cierra la ventana actual al finalizar el efecto.
+            actual.dispose();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }).start();
     }//GEN-LAST:event_inventarioActionPerformed
 
     private void pagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagosActionPerformed
@@ -732,21 +756,65 @@ if (selectedRowServicios != -1) {
     }//GEN-LAST:event_pagosActionPerformed
 
     private void ReportesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportesMousePressed
-        reportes reportes = new reportes();
-        reportes.setVisible(true);
-        dispose();
+
     }//GEN-LAST:event_ReportesMousePressed
 
     private void ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesActionPerformed
-        reportes reporte = new reportes();
-        reporte.setVisible(true);
-        dispose();
+        JFrame actual = this;  // Referencia a la ventana actual.
+    reportes nuevaVentana = new reportes();  // Crear la nueva ventana.
+    nuevaVentana.setSize(actual.getSize());
+    nuevaVentana.setLocationRelativeTo(actual);  // Centrar la nueva ventana.
+
+    nuevaVentana.setOpacity(0);  // Inicia invisible.
+    nuevaVentana.setVisible(true);  // Mostrar la nueva ventana.
+
+    new Thread(() -> {
+        try {
+            // Asegurar que la ventana es totalmente opaca después del efecto.
+            for (float i = 0; i <= 1.0f; i += 0.1f) {
+                Thread.sleep(30);  // Control de velocidad.
+                nuevaVentana.setOpacity(i);
+            }
+
+            // Pausa breve para asegurar la opacidad completa.
+            Thread.sleep(50);
+            nuevaVentana.setOpacity(1.0f);  // Asegurar visibilidad total.
+
+            // Cierra la ventana actual al finalizar el efecto.
+            actual.dispose();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }).start();
     }//GEN-LAST:event_ReportesActionPerformed
 
     private void TareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TareasActionPerformed
-        principal principal = new principal();
-        principal.setVisible(true);
-        dispose();
+        JFrame actual = this;  // Referencia a la ventana actual.
+    principal nuevaVentana = new principal();  // Crear la nueva ventana.
+    nuevaVentana.setSize(actual.getSize());
+    nuevaVentana.setLocationRelativeTo(actual);  // Centrar la nueva ventana.
+
+    nuevaVentana.setOpacity(0);  // Inicia invisible.
+    nuevaVentana.setVisible(true);  // Mostrar la nueva ventana.
+
+    new Thread(() -> {
+        try {
+            // Asegurar que la ventana es totalmente opaca después del efecto.
+            for (float i = 0; i <= 1.0f; i += 0.1f) {
+                Thread.sleep(30);  // Control de velocidad.
+                nuevaVentana.setOpacity(i);
+            }
+
+            // Pausa breve para asegurar la opacidad completa.
+            Thread.sleep(50);
+            nuevaVentana.setOpacity(1.0f);  // Asegurar visibilidad total.
+
+            // Cierra la ventana actual al finalizar el efecto.
+            actual.dispose();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }).start();
     }//GEN-LAST:event_TareasActionPerformed
 
     /**
