@@ -3,6 +3,7 @@ package empresajava1;
 
 import java.awt.Color;
 import java.awt.HeadlessException;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,6 +49,24 @@ public class agregar extends javax.swing.JDialog {
         actual.setText(dateFormat.format(new java.util.Date()));
         servicios.addItemListener(e -> validar());
         materiales.addItemListener(e -> validar());
+                 //para moverlo al siguiente lugar
+         fecha.addPropertyChangeListener("date",evt->{
+             if(fecha.getDate()!=null){
+                     cantidad.requestFocus(); 
+             }
+         });
+         //para que se pueda escribir de una
+         nombre.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                    fecha.requestFocus(); // Mover el foco al JDateChooser
+                                // Asegúrate de que se pueda escribir en el JDateChooser
+            fecha.getDateEditor().getUiComponent().requestFocus();
+
+        }
+    }
+});
 
     }
 
@@ -63,7 +82,6 @@ public class agregar extends javax.swing.JDialog {
         materiales = new javax.swing.JCheckBox();
         servicios = new javax.swing.JCheckBox();
         Jpago = new javax.swing.JLabel();
-        nombre = new javax.swing.JTextField();
         Jpago1 = new javax.swing.JLabel();
         valor = new javax.swing.JTextField();
         JLnombre = new javax.swing.JLabel();
@@ -77,6 +95,7 @@ public class agregar extends javax.swing.JDialog {
         fecha = new com.toedter.calendar.JDateChooser();
         actual = new javax.swing.JTextField();
         cfecha = new javax.swing.JCheckBox();
+        nombre = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Ventana");
@@ -141,20 +160,6 @@ public class agregar extends javax.swing.JDialog {
         Jpago.setForeground(new java.awt.Color(255, 255, 255));
         Jpago.setText("Cantidad:");
         jPanel4.add(Jpago, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 100, 20));
-
-        nombre.setBackground(new java.awt.Color(204, 204, 204));
-        nombre.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        nombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreActionPerformed(evt);
-            }
-        });
-        nombre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                nombreKeyPressed(evt);
-            }
-        });
-        jPanel4.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 300, 30));
 
         Jpago1.setBackground(new java.awt.Color(255, 255, 255));
         Jpago1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -305,6 +310,20 @@ public class agregar extends javax.swing.JDialog {
         });
         jPanel4.add(cfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, -1, -1));
 
+        nombre.setBackground(new java.awt.Color(204, 204, 204));
+        nombre.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        nombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreActionPerformed(evt);
+            }
+        });
+        nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nombreKeyPressed(evt);
+            }
+        });
+        jPanel4.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 300, 30));
+
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 430));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -366,14 +385,6 @@ public class agregar extends javax.swing.JDialog {
     private void cantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadKeyPressed
  if(evt.getKeyCode()== KeyEvent.VK_ENTER){
         valor.requestFocus(); }    }//GEN-LAST:event_cantidadKeyPressed
-
-    private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreActionPerformed
-
-    private void nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyPressed
- if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-        fecha.requestFocus(); }    }//GEN-LAST:event_nombreKeyPressed
 
     private void materialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialesActionPerformed
         if (materiales.isSelected()) {
@@ -516,6 +527,14 @@ public class agregar extends javax.swing.JDialog {
         cantidad.requestFocus(); 
     
     }                              }//GEN-LAST:event_fechaKeyPressed
+
+    private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreActionPerformed
+
+    private void nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyPressed
+
+    }//GEN-LAST:event_nombreKeyPressed
 
     /**
      * @param args the command line arguments

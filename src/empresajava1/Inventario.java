@@ -23,15 +23,20 @@ import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableRowSorter;
+import javax.swing.table.TableModel;
 
     
 
 public class Inventario extends javax.swing.JFrame {
     DefaultTableModel modelo = new DefaultTableModel();
+TableRowSorter<DefaultTableModel> buscadorfinal;
+    
     
    int xmouse ,ymouse;
     
@@ -46,12 +51,31 @@ public class Inventario extends javax.swing.JFrame {
         Agregar.setBackground(new Color(139,0,0));
         Agregar.setForeground(Color.black); 
         
-        
+            modelo = (DefaultTableModel) RegistroT1.getModel();
+            buscadorfinal = new TableRowSorter<>(modelo);
+            RegistroT1.setRowSorter(buscadorfinal);
+
           /*
         Esta libreria ofrece una forma de detectar cambios en tiempo real, como si estuvieras constantemente
         revisando el campo de texto con if-else, pero de manera automática y continua.        
         */
           // Listener para campos de texto
+          buscador.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                aplicarFiltro();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                aplicarFiltro();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                aplicarFiltro();
+            }
+        });
         
         // Listener para la tecla Delete en la JTable
         RegistroT1.addKeyListener(new KeyAdapter() {
@@ -63,9 +87,9 @@ public class Inventario extends javax.swing.JFrame {
                     eliminarFilaSeleccionada();
 }   
             }
-        });
-                
+        });                
                 }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -335,7 +359,15 @@ public class Inventario extends javax.swing.JFrame {
                 buscadorActionPerformed(evt);
             }
         });
-        jPanel4.add(buscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 290, 50));
+        buscador.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                buscadorKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                buscadorKeyTyped(evt);
+            }
+        });
+        jPanel4.add(buscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 290, 60));
 
         tdatos.setBorder(javax.swing.BorderFactory.createTitledBorder("Valor Total"));
         jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 590, 140, 40));
@@ -358,6 +390,23 @@ public class Inventario extends javax.swing.JFrame {
 
     
     //Metodos
+       //filtrado
+   private void aplicarFiltro() {
+        String textoFiltro = buscador.getText().trim();
+    
+    if (textoFiltro.length() == 0) {
+                buscadorfinal.setRowFilter(null); // Restablece el filtro
+        modelo.setRowCount(0); // Limpia la tabla si no hay texto
+        cargarDesdeExcel(); // Carga nuevamente todos los datos
+        return;
+    }
+    // Crear un nuevo RowFilter con el texto de búsqueda
+    RowFilter<DefaultTableModel, Object> rf = RowFilter.regexFilter("(?i)" + textoFiltro);
+    
+    // Aplicar el filtro
+    buscadorfinal.setRowFilter(rf); 
+   }
+
     //para elimnar filas
     private void eliminarFilaSeleccionada() {
         int filaSeleccionada = RegistroT1.getSelectedRow();
@@ -415,20 +464,20 @@ public class Inventario extends javax.swing.JFrame {
         Workbook workbook = new XSSFWorkbook();
 
     // Crear las hojas para Materiales y Servicios
-    Sheet sheetMateriales = workbook.createSheet("Materiales");
+    Sheet sheetMateriales = workbook.createSheet("Inventario");
 
     // Exportar los datos de ambas tablas
     agregarTablaAHoja(sheetMateriales, RegistroT1);
 
     // Guardar el archivo en el sistema
-    try (FileOutputStream fileOut = new FileOutputStream("Pagos.xlsx")) {
+    try (FileOutputStream fileOut = new FileOutputStream("Inventario.xlsx")) {
         workbook.write(fileOut);
     } catch (IOException e) {
         e.printStackTrace();
     }
 }
 private void cargarDesdeExcel() {
-    File archivo = new File("Pagos.xlsx");
+    File archivo = new File("Inventario.xlsx");
     if (!archivo.exists()) return; // Verificar si el archivo existe
 
     try (FileInputStream fileIn = new FileInputStream(archivo)) {
@@ -436,7 +485,7 @@ private void cargarDesdeExcel() {
           // Limpiar la tabla antes de cargar
         modelo.setRowCount(0);
         
-        Sheet sheetMateriales = workbook.getSheet("Materiales");
+        Sheet sheetMateriales = workbook.getSheet("Inventario");
         DefaultTableModel modelomaterieales = (DefaultTableModel) RegistroT1.getModel();
         cargarDatosDesdeHoja(sheetMateriales, modelomaterieales);
           
@@ -666,7 +715,9 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     }//GEN-LAST:event_AgregarActionPerformed
    
     private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
-         //lamo el JDialog
+        // Desactiva temporalmente el TableRowSorter
+    RegistroT1.setRowSorter(null);
+        //lamo el JDialog
         agregarinventario agregar1 = new agregarinventario(this,true);
         agregar1.setVisible(true);
         if (agregar1.getRootPane()!=null) {
@@ -685,9 +736,11 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
             modeloMateriales.addRow(v);  // Agregar a tabla de materiales
                 ajustarAnchoColumnas(RegistroT1);
                 calcular();
+    RegistroT1.setRowSorter(buscadorfinal);
 
         // Exportar los datos a Excel (si tienes implementada esta función
         exportarAExcel();
+        // Reactiva el TableRowSorter después de la modificación
         }
 
     }//GEN-LAST:event_AgregarMouseClicked
@@ -798,6 +851,14 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     private void EliminarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EliminarKeyPressed
 
     }//GEN-LAST:event_EliminarKeyPressed
+
+    private void buscadorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscadorKeyTyped
+        
+    }//GEN-LAST:event_buscadorKeyTyped
+
+    private void buscadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscadorKeyReleased
+       
+    }//GEN-LAST:event_buscadorKeyReleased
 
     /**
      * @param args the command line arguments

@@ -3,6 +3,7 @@ package empresajava1;
 
 import java.awt.Color;
 import java.awt.HeadlessException;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,16 +23,7 @@ public class agregarinventario extends javax.swing.JDialog {
         initComponents();
         aceptar.setBackground(new Color(139, 0, 0));
         aceptar.setForeground(Color.black);
-        //para moverlo al siguiente
-         fecha.addPropertyChangeListener("date",evt->{
-             if(fecha.getDate()!=null){
-                     cantidad.requestFocus(); 
-             }
-         });
- 
         setIconImage(new ImageIcon(getClass().getResource("/icons/logof.png")).getImage());
-
-        
          /*
         Esta libreria ofrece una forma de detectar cambios en tiempo real, como si estuvieras constantemente
         revisando el campo de texto con if-else, pero de manera automática y continua.        
@@ -53,6 +45,24 @@ public class agregarinventario extends javax.swing.JDialog {
           // Inicializa el campo "actual" con la fecha actual
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd  'Hora:'  HH:mm");
                 actual.setText(dateFormat.format(new java.util.Date()));
+                 //para moverlo al siguiente lugar
+         fecha.addPropertyChangeListener("date",evt->{
+             if(fecha.getDate()!=null){
+                     cantidad.requestFocus(); 
+             }
+         });
+         //para que se pueda escribir de una
+         nombre.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                    fecha.requestFocus(); // Mover el foco al JDateChooser
+                                // Asegúrate de que se pueda escribir en el JDateChooser
+            fecha.getDateEditor().getUiComponent().requestFocus();
+
+        }
+    }
+});
 
     }
     
@@ -348,8 +358,7 @@ public class agregarinventario extends javax.swing.JDialog {
     }//GEN-LAST:event_nombreActionPerformed
 
     private void nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyPressed
-    if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-        fecha.requestFocus(); }
+        
     }//GEN-LAST:event_nombreKeyPressed
 
     private void valorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorActionPerformed
