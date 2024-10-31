@@ -4,6 +4,7 @@ package empresajava1;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 public class login extends javax.swing.JFrame {
 
@@ -198,9 +199,32 @@ public class login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "algun campo esta vacio");
         }else{
             if(user.equals("admin")&& passw.equals("12345")){
-                principal pc = new principal();
-                pc.setVisible(true);
-                this.dispose();
+                JFrame actual = this;  // Referencia a la ventana actual.
+    principal nuevaVentana = new principal();  // Crear la nueva ventana.
+    nuevaVentana.setSize(1180, 650);
+    nuevaVentana.setLocationRelativeTo(null);  // Centrar la nueva ventana.
+
+    nuevaVentana.setOpacity(0);  // Inicia invisible.
+    nuevaVentana.setVisible(true);  // Mostrar la nueva ventana.
+
+    new Thread(() -> {
+        try {
+            // Asegurar que la ventana es totalmente opaca después del efecto.
+            for (float i = 0; i <= 1.0f; i += 0.1f) {
+                Thread.sleep(30);  // Control de velocidad.
+                nuevaVentana.setOpacity(i);
+            }
+
+            // Pausa breve para asegurar la opacidad completa.
+            Thread.sleep(50);
+            nuevaVentana.setOpacity(1.0f);  // Asegurar visibilidad total.
+
+            // Cierra la ventana actual al finalizar el efecto.
+            actual.dispose();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }).start();
             } else{JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");}
         }
         }
