@@ -354,7 +354,6 @@ public class reportes extends javax.swing.JFrame {
             Agregar.setForeground(Color.black);
         }
         else   {
-            Tarea.setText("Tarea:");
         Agregar.setEnabled(true);
         Agregar.setBackground(new Color(70,70,70));
         Agregar.setForeground(new Color(255,255,255));

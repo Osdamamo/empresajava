@@ -13,13 +13,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.TableColumnModel;
 
     
 
@@ -35,7 +40,8 @@ public class pago extends javax.swing.JFrame {
         cargarDesdeExcel();
        //calcular el valor total
         calcular();                
-
+        ajustarAnchoColumnas(RegistroT1);
+        ajustarAnchoColumnas(tablaservicios);
     }  
 
     @SuppressWarnings("unchecked")
@@ -245,11 +251,11 @@ public class pago extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Servicio", "Valor", "Cantidad", "ValorTotal"
+                "Fecha Ingreso", "Fecha Compra", "Servicio", "Valor", "Cantidad", "ValorTotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -259,6 +265,10 @@ public class pago extends javax.swing.JFrame {
         tablaservicios.setGridColor(new java.awt.Color(54, 57, 63));
         tablaservicios.setShowGrid(false);
         jScrollPane1.setViewportView(tablaservicios);
+        if (tablaservicios.getColumnModel().getColumnCount() > 0) {
+            tablaservicios.getColumnModel().getColumn(0).setResizable(false);
+            tablaservicios.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 100, 460, 350));
 
@@ -305,11 +315,11 @@ public class pago extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Material", "Valor", "Cantidad", "ValorTotal"
+                "Fecha ingreso", "Material", "Fecha Compra", "Valor", "Cantidad", "ValorTotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -323,7 +333,7 @@ public class pago extends javax.swing.JFrame {
         jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 480, 350));
 
         tdatos.setBorder(javax.swing.BorderFactory.createTitledBorder("Valor Total"));
-        jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 470, 140, 40));
+        jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 470, 140, 40));
 
         tdatos1.setBorder(javax.swing.BorderFactory.createTitledBorder("Valor Total"));
         jPanel4.add(tdatos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 460, 140, 40));
@@ -346,6 +356,25 @@ public class pago extends javax.swing.JFrame {
 
     
     //Metodos
+    // Método para ajustar el ancho de las columnas
+    private void ajustarAnchoColumnas(JTable tabla) {
+        TableColumnModel columnModel = tabla.getColumnModel();
+        int maxWidth = 200; // Establece un ancho máximo
+        for (int column = 0; column < columnModel.getColumnCount(); column++) {
+            int width = 0; // Inicializa el ancho de la columna
+            for (int row = 0; row < tabla.getRowCount(); row++) {
+                // Obtiene el tamaño del valor de cada celda
+                int cellWidth = tabla.getCellRenderer(row, column).getTableCellRendererComponent(tabla,  tabla.getValueAt(row, column), false, false, row,column).getPreferredSize().width;
+                if (cellWidth > width) {
+                    width = cellWidth; // Actualiza el ancho si es mayor
+                }
+            }
+            width += tabla.getIntercellSpacing().width; // Añade espacio entre celdas
+        columnModel.getColumn(column).setPreferredWidth(Math.min(width, maxWidth));
+        }
+        
+    }
+    //Metodo para sacar el total
     private void calcular(){
         
         float suma=0;
@@ -362,9 +391,6 @@ public class pago extends javax.swing.JFrame {
             suma2=suma2+renglon;
             tdatos1.setText(String.valueOf(suma2));
         }
-
-       
-
     }
 
     private void exportarAExcel() {
@@ -477,11 +503,19 @@ if (selectedRowServicios != -1) {
     if (selectedRowServicios != -1 && selectedRowServicios < modeloServicios.getRowCount()) {
         Vector registro = (Vector) modeloServicios.getDataVector().elementAt(selectedRowServicios);
                         if (registro.size() >= 4) {
-                            modificar.nombre.setText(registro.elementAt(0).toString());
-                            modificar.valor.setText(registro.elementAt(1).toString());
-                            modificar.cantidad.setText(registro.elementAt(2).toString());
-                            modificar.valort.setText(registro.elementAt(3).toString());
-                            }
+                            
+            modificar.nombre.setText(registro.elementAt(1).toString());
+            //ya que toca pasarlo a tipo String toca por el siguiente metodo
+            String fechaString = registro.elementAt(2).toString();
+                    try {
+                    modificar.fecha.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(fechaString));
+                    } catch (ParseException ex) {
+                        Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+            modificar.valor.setText(registro.elementAt(3).toString());
+            modificar.cantidad.setText(registro.elementAt(4).toString());
+            modificar.valort.setText(registro.elementAt(3).toString());
+                        }
     }
     // Verificar si la fila seleccionada es válida
     if (selectedRowMateriales != -1 && selectedRowMateriales < modeloMateriales.getRowCount()) {
@@ -493,12 +527,20 @@ if (selectedRowServicios != -1) {
         if (registro2 != null && registro2.size() >= 4) {
 
             // Asignar valores al formulario de modificación
-            modificar.nombre.setText(registro2.elementAt(0).toString());
-            modificar.valor.setText(registro2.elementAt(1).toString());
-            modificar.cantidad.setText(registro2.elementAt(2).toString());
+            modificar.nombre.setText(registro2.elementAt(1).toString());
+            //ya que toca pasarlo a tipo String toca por el siguiente metodo
+            String fechaString = registro2.elementAt(2).toString();
+                    try {
+                            modificar.fecha.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(fechaString));
+                    } catch (ParseException ex) {
+                        Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            modificar.valor.setText(registro2.elementAt(3).toString());
+            modificar.cantidad.setText(registro2.elementAt(4).toString());
             modificar.valort.setText(registro2.elementAt(3).toString());
+        } 
             } 
-    }
+
     // Mostrar la ventana de modificación
     modificar.setVisible(true);
     
@@ -509,10 +551,13 @@ if (selectedRowServicios != -1) {
 }
     if (modificar.getRootPane() != null) {
         Vector v = new Vector();
-        v.addElement(modificar.nombre.getText());
-        v.addElement(modificar.valor.getText());
-        v.addElement(modificar.cantidad.getText());
-        v.addElement(modificar.valort.getText());
+            String fecha = new SimpleDateFormat("yyyy-MM-dd").format(modificar.fecha.getDate());
+                 v.addElement(modificar.actual.getText());
+                 v.addElement(modificar.nombre.getText());
+                 v.addElement(fecha);
+                 v.addElement(modificar.valor.getText());
+                 v.addElement(modificar.cantidad.getText());
+                 v.addElement(modificar.valort.getText());
 
         if (modificar.materiales.isSelected()) {
             modeloMateriales.getDataVector().set(RegistroT1.getSelectedRow(), v); 
@@ -525,7 +570,8 @@ if (selectedRowServicios != -1) {
             modificar.servicios.setSelected(true);
             tablaservicios.updateUI();
         }
-
+        ajustarAnchoColumnas(RegistroT1);
+        ajustarAnchoColumnas(tablaservicios);
            //calcular el valor total
             calcular();                
 
@@ -550,7 +596,9 @@ if (selectedRowServicios != -1) {
                     calcular();
 
                     JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
-                    exportarAExcel();
+        ajustarAnchoColumnas(RegistroT1);
+        ajustarAnchoColumnas(tablaservicios);
+        exportarAExcel();
                 }
 
                 } else  if (filaSeleccionada2 >= 0) {
@@ -565,7 +613,9 @@ if (selectedRowServicios != -1) {
                                     calcular();
 
                                     JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
-                                    exportarAExcel();
+        ajustarAnchoColumnas(RegistroT1);
+        ajustarAnchoColumnas(tablaservicios);
+        exportarAExcel();
                                     }
                 }else {
                     JOptionPane.showMessageDialog(this, "Seleccione una tarea para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -573,32 +623,6 @@ if (selectedRowServicios != -1) {
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
-        //lamo el JDialog
-        agregar agregar1 = new agregar(this,true);
-        agregar1.setVisible(true);
-        if (agregar1.getRootPane()!=null) {
-            
-                 Vector v = new Vector();
-                 v.addElement(agregar1.nombre.getText());
-                 v.addElement(agregar1.valor.getText());
-                 v.addElement(agregar1.cantidad.getText());
-                 v.addElement(agregar1.valort.getText());
-
-                if (agregar1.materiales.isSelected()) {
-                    DefaultTableModel modeloMateriales = (DefaultTableModel) RegistroT1.getModel();
-                    modeloMateriales.addRow(v);  // Agregar a tabla de materiales
-                } 
-
-                if (agregar1.servicios.isSelected()) {
-                    DefaultTableModel modeloServicios = (DefaultTableModel) tablaservicios.getModel();
-                    modeloServicios.addRow(v);  // Agregar a tabla de servicios
-                }
-                //calcular el valor total
-                calcular();                
-                
-                // Exportar los datos a Excel (si tienes implementada esta función)
-                exportarAExcel();
-                }
 
     }//GEN-LAST:event_AgregarActionPerformed
    
@@ -609,10 +633,14 @@ if (selectedRowServicios != -1) {
         if (agregar1.getRootPane()!=null) {
             
          Vector v = new Vector();
-         v.addElement(agregar1.nombre.getText());
-         v.addElement(agregar1.valor.getText());
-         v.addElement(agregar1.cantidad.getText());
-         v.addElement(agregar1.valort.getText());
+          //lo formatero para que me lo bote en este formarto dd-MM-yyyy
+            String fecha = new SimpleDateFormat("yyyy-MM-dd").format(agregar1.fecha.getDate());
+             v.addElement(agregar1.actual.getText());
+             v.addElement(agregar1.nombre.getText());
+             v.addElement(fecha);
+             v.addElement(agregar1.valor.getText());
+             v.addElement(agregar1.cantidad.getText());
+             v.addElement(agregar1.valort.getText());
         
         if (agregar1.materiales.isSelected()) {
             DefaultTableModel modeloMateriales = (DefaultTableModel) RegistroT1.getModel();
@@ -623,7 +651,9 @@ if (selectedRowServicios != -1) {
             DefaultTableModel modeloServicios = (DefaultTableModel) tablaservicios.getModel();
             modeloServicios.addRow(v);  // Agregar a tabla de servicios
         }
-
+        calcular();
+        ajustarAnchoColumnas(RegistroT1);
+        ajustarAnchoColumnas(tablaservicios);
         // Exportar los datos a Excel (si tienes implementada esta función)
         exportarAExcel();
         }
@@ -632,22 +662,35 @@ if (selectedRowServicios != -1) {
 
     private void EliminarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarTodoActionPerformed
     // Muestra un cuadro de confirmación
-    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar todas las tareas?", "Confirmación", JOptionPane.YES_NO_OPTION);
-    
-    // Si el usuario confirma con "Sí", procede a eliminar
+    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Quieres borrar una tabla?", "Confirmación", JOptionPane.YES_NO_OPTION);
+             
+       
+    // Si el usuario confirma con "Sí"
     if (confirmacion == JOptionPane.YES_OPTION) {
+        //cual entre las dos tablas
+                Object[] opciones = {"Materiales", "Servicios"};
+        int seleccion=JOptionPane.showOptionDialog(this, "¿Cual Quieres Borrar?", "Confirmación", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,opciones,opciones[0]);        
+       
+
+        if (seleccion == JOptionPane.YES_OPTION) {
         DefaultTableModel modelomaterieales = (DefaultTableModel) RegistroT1.getModel();
-        DefaultTableModel modeloservicios = (DefaultTableModel) tablaservicios.getModel();   
+        modelomaterieales.setRowCount(0);
+        calcular();
+        ajustarAnchoColumnas(RegistroT1);
+        exportarAExcel();
+                JOptionPane.showMessageDialog(this, "Todas las tareas han sido eliminadas con éxito.");
+
+        } else if (seleccion == JOptionPane.NO_OPTION) {
+   DefaultTableModel modeloservicios = (DefaultTableModel) tablaservicios.getModel();   
         
         // Elimina todas las filas del modelo de la tabla
-        modelomaterieales.setRowCount(0);
         modeloservicios.setRowCount(0);
-       
-        // Actualiza el contador de tareas a 0
-        tdatos.setText("0");
-        
-        JOptionPane.showMessageDialog(this, "Todas las tareas han sido eliminadas con éxito.");
+        calcular();
+        ajustarAnchoColumnas(tablaservicios);
         exportarAExcel();
+                JOptionPane.showMessageDialog(this, "Todas las tareas han sido eliminadas con éxito.");
+
+        } 
     }
     }//GEN-LAST:event_EliminarTodoActionPerformed
 
@@ -769,12 +812,7 @@ if (selectedRowServicios != -1) {
     }//GEN-LAST:event_ReportesMousePressed
 
     private void ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesActionPerformed
-         try {
-        // Establecer el Look and Feel a Windows
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
+
         JFrame actual = this;  // Referencia a la ventana actual.
     reportes nuevaVentana = new reportes();  // Crear la nueva ventana.
     nuevaVentana.setSize(actual.getSize());
