@@ -18,7 +18,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import javax.swing.ImageIcon;
 
-
+//cvcvcvcvxvcc
 
 public class principal extends javax.swing.JFrame {
     DefaultTableModel modelo = new DefaultTableModel();
