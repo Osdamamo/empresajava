@@ -1,29 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
-package empresajava1;
 
-import java.awt.Color;
-import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author User
- */
-public class agregar extends javax.swing.JDialog {
-
-    private int xmouse;
-    private int ymouse;
-
-    /**
-     * Creates new form agregar
-     */
     public agregar(java.awt.Frame parent, boolean modal) {
        
         super(parent, modal);
@@ -33,42 +13,14 @@ public class agregar extends javax.swing.JDialog {
         setIconImage(new ImageIcon(getClass().getResource("/icons/logof.png")).getImage());
 
         
-         /*
-        Esta libreria ofrece una forma de detectar cambios en tiempo real, como si estuvieras constantemente
-        revisando el campo de texto con if-else, pero de manera automática y continua.        
-        */
-        valor.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            public void insertUpdate(DocumentEvent e) {
-            validar();}
-            public void removeUpdate(DocumentEvent e) {
-            validar();}
-            public void changedUpdate(DocumentEvent e) {
-             validar();}
-        });
-         nombre.getDocument().addDocumentListener(new DocumentListener() {
+
             @Override
             public void insertUpdate(DocumentEvent e) { validar(); }
             @Override
             public void removeUpdate(DocumentEvent e) { validar(); }
             @Override
             public void changedUpdate(DocumentEvent e) { validar(); }
-        });
-        cantidad.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) { validar(); }
-            @Override
-            public void removeUpdate(DocumentEvent e) { validar(); }
-            @Override
-            public void changedUpdate(DocumentEvent e) { validar(); }
-        });
-         nombre.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) { validar(); }
-            @Override
-            public void removeUpdate(DocumentEvent e) { validar(); }
-            @Override
-            public void changedUpdate(DocumentEvent e) { validar(); }
-        });
+
         servicios.addItemListener(e -> validar());
         materiales.addItemListener(e -> validar());
 
@@ -96,6 +48,7 @@ public class agregar extends javax.swing.JDialog {
         aceptar = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
         JLvalortotal1 = new javax.swing.JLabel();
+
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Ventana");
@@ -125,29 +78,25 @@ public class agregar extends javax.swing.JDialog {
         barratitulo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel4.add(barratitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 30));
 
-        materiales.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        materiales.setText("Material");
+
         materiales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 materialesActionPerformed(evt);
             }
         });
-        jPanel4.add(materiales, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, -1, -1));
 
-        servicios.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        servicios.setText("Servicio");
         servicios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 serviciosActionPerformed(evt);
             }
         });
-        jPanel4.add(servicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, -1, -1));
+
 
         Jpago.setBackground(new java.awt.Color(255, 255, 255));
         Jpago.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         Jpago.setForeground(new java.awt.Color(255, 255, 255));
         Jpago.setText("Cantidad:");
-        jPanel4.add(Jpago, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 100, 20));
+
 
         nombre.setBackground(new java.awt.Color(204, 204, 204));
         nombre.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
@@ -161,13 +110,13 @@ public class agregar extends javax.swing.JDialog {
                 nombreKeyPressed(evt);
             }
         });
-        jPanel4.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 300, 30));
+
 
         Jpago1.setBackground(new java.awt.Color(255, 255, 255));
         Jpago1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         Jpago1.setForeground(new java.awt.Color(255, 255, 255));
         Jpago1.setText("Seleccione:");
-        jPanel4.add(Jpago1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 100, 20));
+
 
         valor.setBackground(new java.awt.Color(204, 204, 204));
         valor.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
@@ -185,13 +134,13 @@ public class agregar extends javax.swing.JDialog {
                 valorKeyReleased(evt);
             }
         });
-        jPanel4.add(valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 200, 30));
+
 
         JLnombre.setBackground(new java.awt.Color(255, 255, 255));
         JLnombre.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         JLnombre.setForeground(new java.awt.Color(255, 255, 255));
         JLnombre.setText("Nombre:");
-        jPanel4.add(JLnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 100, 20));
+
 
         cantidad.setBackground(new java.awt.Color(204, 204, 204));
         cantidad.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
@@ -204,13 +153,13 @@ public class agregar extends javax.swing.JDialog {
                 cantidadKeyReleased(evt);
             }
         });
-        jPanel4.add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 80, 30));
+
 
         JLvalor.setBackground(new java.awt.Color(255, 255, 255));
         JLvalor.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         JLvalor.setForeground(new java.awt.Color(255, 255, 255));
         JLvalor.setText("Valor:");
-        jPanel4.add(JLvalor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 100, 20));
+
 
         valort.setEditable(false);
         valort.setBackground(new java.awt.Color(222, 222, 222));
@@ -226,7 +175,7 @@ public class agregar extends javax.swing.JDialog {
                 valortKeyPressed(evt);
             }
         });
-        jPanel4.add(valort, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, 200, 30));
+
 
         aceptar.setBackground(new java.awt.Color(70, 70, 70));
         aceptar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -242,7 +191,6 @@ public class agregar extends javax.swing.JDialog {
                 aceptarActionPerformed(evt);
             }
         });
-        jPanel4.add(aceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 90, 30));
 
         cancelar.setBackground(new java.awt.Color(70, 70, 70));
         cancelar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -258,15 +206,13 @@ public class agregar extends javax.swing.JDialog {
                 cancelarActionPerformed(evt);
             }
         });
-        jPanel4.add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 340, 90, 30));
+
 
         JLvalortotal1.setBackground(new java.awt.Color(255, 255, 255));
         JLvalortotal1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         JLvalortotal1.setForeground(new java.awt.Color(255, 255, 255));
         JLvalortotal1.setText("Valor Total:");
-        jPanel4.add(JLvalortotal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 100, 20));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 410));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -286,7 +232,7 @@ public class agregar extends javax.swing.JDialog {
     
     //metodos
     public void validar(){
-    if (valor.getText().trim().isEmpty()  || nombre.getText().trim().isEmpty() ||  cantidad.getText().trim().isEmpty()  ||   !servicios.isSelected() &&  !materiales.isSelected()){
+
         aceptar.setBackground(new Color(139, 0, 0));
         aceptar.setForeground(Color.black);
     } else {
@@ -295,27 +241,14 @@ public class agregar extends javax.swing.JDialog {
     }
 }
     
-    
-    
-    
-    
-    
-    
-    private void valorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_valorKeyPressed
-  
-    }//GEN-LAST:event_valorKeyPressed
 
-    private void cantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cantidadKeyPressed
 
     private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreActionPerformed
 
     private void nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreKeyPressed
+
 
     private void materialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialesActionPerformed
         if (materiales.isSelected()) {
@@ -353,11 +286,7 @@ public class agregar extends javax.swing.JDialog {
         nombre.getText().trim().isEmpty() ||
         cantidad.getText().trim().isEmpty() || 
         !servicios.isSelected() && 
-        !materiales.isSelected()
-            ) {
-        
-        JOptionPane.showMessageDialog(this, 
-                "Todos los campos (Nombre, Valor, Cantidad) deben estar llenos y seleccionar (Servicio o Material)", 
+
                 "Advertencia", JOptionPane.WARNING_MESSAGE);
         }else if (Float.parseFloat(cantidad.getText())<=0) {
             JOptionPane.showMessageDialog(this, "Cantidad tiene que ser mayor que cero");
@@ -370,7 +299,6 @@ public class agregar extends javax.swing.JDialog {
 
         }
         
-    }catch(Exception e){
         JOptionPane.showMessageDialog(this, "Los Datos No son validos");
     }
     }//GEN-LAST:event_aceptarMouseClicked
@@ -388,23 +316,14 @@ public class agregar extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelarMouseClicked
 
     private void cantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadKeyReleased
-        //para solo letra
-        try{
-            float a, b,c;
-            a= Float.parseFloat(cantidad.getText());
-            b= Float.parseFloat(valor.getText());
-            c= a*b;
-            valort.setText(String.valueOf(c));
-           
-        }
-        catch (Exception e){
+
            
            valort.setText("0.00");
         }
     }//GEN-LAST:event_cantidadKeyReleased
 
     private void valorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_valorKeyReleased
-        //lo llamamos para que tambien tome lo que esta ahi
+
         cantidadKeyReleased(null);
     }//GEN-LAST:event_valorKeyReleased
 
@@ -418,6 +337,7 @@ public class agregar extends javax.swing.JDialog {
         int y = evt.getYOnScreen();
         this.setLocation(x-xmouse, y-ymouse);
     }//GEN-LAST:event_barratituloMouseDragged
+
 
     /**
      * @param args the command line arguments
@@ -447,17 +367,7 @@ public class agregar extends javax.swing.JDialog {
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                agregar dialog = new agregar(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
+
         });
     }
 
@@ -468,11 +378,7 @@ public class agregar extends javax.swing.JDialog {
     private javax.swing.JLabel Jpago;
     private javax.swing.JLabel Jpago1;
     private javax.swing.JButton aceptar;
-    private javax.swing.JPanel barratitulo;
-    private javax.swing.JButton cancelar;
-    public javax.swing.JTextField cantidad;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel4;
+
     public javax.swing.JCheckBox materiales;
     public javax.swing.JTextField nombre;
     public javax.swing.JCheckBox servicios;
@@ -481,22 +387,5 @@ public class agregar extends javax.swing.JDialog {
     public javax.swing.JTextField valort;
     // End of variables declaration//GEN-END:variables
 
-    Object nombre() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
-    Object valort() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    Object cantidad() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    Object valor() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    
-    
 }

@@ -4,6 +4,7 @@ package empresajava1;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
+
 import javax.swing.JOptionPane;
 public class login extends javax.swing.JFrame {
 
@@ -198,9 +199,6 @@ public class login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "algun campo esta vacio");
         }else{
             if(user.equals("admin")&& passw.equals("12345")){
-                principal pc = new principal();
-                pc.setVisible(true);
-                this.dispose();
             } else{JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");}
         }
         }
