@@ -2,6 +2,9 @@
 package empresajava1;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -15,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -22,6 +26,7 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.TableColumnModel;
 
     
 
@@ -37,11 +42,30 @@ public class Inventario extends javax.swing.JFrame {
         cargarDesdeExcel();
        //calcular el valor total
         calcular();                
-
+        ajustarAnchoColumnas(RegistroT1);
         Agregar.setBackground(new Color(139,0,0));
         Agregar.setForeground(Color.black); 
-
-    }  
+        
+        
+          /*
+        Esta libreria ofrece una forma de detectar cambios en tiempo real, como si estuvieras constantemente
+        revisando el campo de texto con if-else, pero de manera automática y continua.        
+        */
+          // Listener para campos de texto
+        
+        // Listener para la tecla Delete en la JTable
+        RegistroT1.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+                    eliminarFilaSeleccionada();
+                }
+                if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                    eliminarFilaSeleccionada();
+}   
+            }
+        });
+                
+                }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -225,6 +249,11 @@ public class Inventario extends javax.swing.JFrame {
                 EliminarActionPerformed(evt);
             }
         });
+        Eliminar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                EliminarKeyPressed(evt);
+            }
+        });
         jPanel4.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 60, 80, 20));
 
         EliminarTodo.setBackground(new java.awt.Color(70, 70, 70));
@@ -329,6 +358,45 @@ public class Inventario extends javax.swing.JFrame {
 
     
     //Metodos
+    //para elimnar filas
+    private void eliminarFilaSeleccionada() {
+        int filaSeleccionada = RegistroT1.getSelectedRow();
+        if (filaSeleccionada >= 0) {
+            int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar esta tarea?", "Confirmación", JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                DefaultTableModel modelo = (DefaultTableModel) RegistroT1.getModel();
+                modelo.removeRow(filaSeleccionada);
+
+                // Llama a los métodos adicionales después de eliminar
+                calcular();
+                ajustarAnchoColumnas(RegistroT1);
+                JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
+                exportarAExcel();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una tarea para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+ // Método para ajustar el ancho de las columnas
+    private void ajustarAnchoColumnas(JTable tabla) {
+        TableColumnModel columnModel = tabla.getColumnModel();
+        int maxWidth = 200; // Establece un ancho máximo
+        for (int column = 0; column < columnModel.getColumnCount(); column++) {
+            int width = 0; // Inicializa el ancho de la columna
+            for (int row = 0; row < tabla.getRowCount(); row++) {
+                // Obtiene el tamaño del valor de cada celda
+                int cellWidth = tabla.getCellRenderer(row, column).getTableCellRendererComponent(tabla,  tabla.getValueAt(row, column), false, false, row,column).getPreferredSize().width;
+                if (cellWidth > width) {
+                    width = cellWidth; // Actualiza el ancho si es mayor
+                }
+            }
+            width += tabla.getIntercellSpacing().width; // Añade espacio entre celdas
+        columnModel.getColumn(column).setPreferredWidth(Math.min(width, maxWidth));
+        }
+        
+    }
+    //Metodo para sacar el total
     private void calcular(){
         
         float suma=0;
@@ -549,7 +617,7 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
         if ( selectedRowMateriales == -1) 
         return;
 
-        agregar modificar = new agregar(this, true);
+        agregarinventario modificar = new agregarinventario(this, true);
 
     if (selectedRowMateriales != -1 && selectedRowMateriales < modeloMateriales.getRowCount()) {
         
@@ -578,12 +646,11 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
         v.addElement(modificar.valort.getText());
         
         modeloMateriales.getDataVector().set(RegistroT1.getSelectedRow(), v); 
-            modificar.materiales.setSelected(true);
             RegistroT1.updateUI();
             
            //calcular el valor total
             calcular();                
-
+            ajustarAnchoColumnas(RegistroT1);
         // Exportar los datos a Excel si la función está implementada
         exportarAExcel();
     
@@ -591,68 +658,35 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     }//GEN-LAST:event_ModificarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-      int filaSeleccionada2 = RegistroT1.getSelectedRow();
-      
-     if (filaSeleccionada2 >= 0) {
-                     // Muestra un cuadro de confirmación
-                     int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar esta tarea?", "Confirmación", JOptionPane.YES_NO_OPTION);
-                                // Si el usuario confirma con "Sí", procede a eliminar
-                                if (confirmacion == JOptionPane.YES_OPTION) {
-                                    DefaultTableModel modelo = (DefaultTableModel) RegistroT1.getModel();
-                                    modelo.removeRow(filaSeleccionada2);
-
-                                    //calcular el valor total
-                                    calcular();
-
-                                    JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
-                                    exportarAExcel();
-                                    }
-                }else {
-                    JOptionPane.showMessageDialog(this, "Seleccione una tarea para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
-                }    
+      eliminarFilaSeleccionada();
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
-        //lamo el JDialog
-        agregar agregar1 = new agregar(this,true);
-        agregar1.setVisible(true);
-        if (agregar1.getRootPane()!=null) {
-            
-                 Vector v = new Vector();
-                 v.addElement(agregar1.nombre.getText());
-                 v.addElement(agregar1.valor.getText());
-                 v.addElement(agregar1.cantidad.getText());
-                 v.addElement(agregar1.valort.getText());
-                 
-                 //para agregar la informacion
-                    DefaultTableModel modeloMateriales = (DefaultTableModel) RegistroT1.getModel();
-                    modeloMateriales.addRow(v);  
-     
-                //calcular el valor total
-                calcular();                
-                
-                // Exportar los datos a Excel (si tienes implementada esta función)
-                exportarAExcel();
-                }
-
+        
     }//GEN-LAST:event_AgregarActionPerformed
    
     private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
          //lamo el JDialog
-        agregar agregar1 = new agregar(this,true);
+        agregarinventario agregar1 = new agregarinventario(this,true);
         agregar1.setVisible(true);
         if (agregar1.getRootPane()!=null) {
             
          Vector v = new Vector();
+         String Fecha= new SimpleDateFormat("yyyy-MM-dd").format(agregar1.fecha.getDate());
+        v.addElement(agregar1.actual.getText());
          v.addElement(agregar1.nombre.getText());
-         v.addElement(agregar1.valor.getText());
+         v.addElement(Fecha);
          v.addElement(agregar1.cantidad.getText());
+         v.addElement(agregar1.valor.getText());
          v.addElement(agregar1.valort.getText());
+
         
            DefaultTableModel modeloMateriales = (DefaultTableModel) RegistroT1.getModel();
             modeloMateriales.addRow(v);  // Agregar a tabla de materiales
+                ajustarAnchoColumnas(RegistroT1);
+                calcular();
 
-        // Exportar los datos a Excel (si tienes implementada esta función)
+        // Exportar los datos a Excel (si tienes implementada esta función
         exportarAExcel();
         }
 
@@ -700,7 +734,8 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
        
         // Actualiza el contador de tareas a 0
         tdatos.setText("0");
-        
+        ajustarAnchoColumnas(RegistroT1);
+
         JOptionPane.showMessageDialog(this, "Todas las tareas han sido eliminadas con éxito.");
         exportarAExcel();
     }
@@ -759,6 +794,10 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     private void buscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscadorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buscadorActionPerformed
+
+    private void EliminarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EliminarKeyPressed
+
+    }//GEN-LAST:event_EliminarKeyPressed
 
     /**
      * @param args the command line arguments

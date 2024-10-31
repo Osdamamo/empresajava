@@ -2,6 +2,8 @@
 package empresajava1;
 
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
@@ -42,6 +44,28 @@ public class pago extends javax.swing.JFrame {
         calcular();                
         ajustarAnchoColumnas(RegistroT1);
         ajustarAnchoColumnas(tablaservicios);
+        // Listener para la tecla Delete en la JTable
+        RegistroT1.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+                    eliminarFilaSeleccionada();
+                }
+                if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                    eliminarFilaSeleccionada();
+}   
+            }
+        });
+        tablaservicios.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+                    eliminarFilaSeleccionada();
+                }
+                if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                    eliminarFilaSeleccionada();
+}   
+            }
+        });
+
     }  
 
     @SuppressWarnings("unchecked")
@@ -356,6 +380,46 @@ public class pago extends javax.swing.JFrame {
 
     
     //Metodos
+    private void eliminarFilaSeleccionada() {
+        int filaSeleccionada = tablaservicios.getSelectedRow();
+      int filaSeleccionada2 = RegistroT1.getSelectedRow();
+    if (filaSeleccionada >= 0) {
+         // Muestra un cuadro de confirmación
+        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar esta tarea?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                // Si el usuario confirma con "Sí", procede a eliminar
+                if (confirmacion == JOptionPane.YES_OPTION) {
+                    DefaultTableModel modelo = (DefaultTableModel) tablaservicios.getModel();
+                    modelo.removeRow(filaSeleccionada);
+
+                    //calcular el valor total
+                    calcular();
+
+                    JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
+        ajustarAnchoColumnas(RegistroT1);
+        ajustarAnchoColumnas(tablaservicios);
+        exportarAExcel();
+                }
+
+                } else  if (filaSeleccionada2 >= 0) {
+                     // Muestra un cuadro de confirmación
+                     int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar esta tarea?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                                // Si el usuario confirma con "Sí", procede a eliminar
+                                if (confirmacion == JOptionPane.YES_OPTION) {
+                                    DefaultTableModel modelo = (DefaultTableModel) RegistroT1.getModel();
+                                    modelo.removeRow(filaSeleccionada2);
+
+                                    //calcular el valor total
+                                    calcular();
+
+                                    JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
+        ajustarAnchoColumnas(RegistroT1);
+        ajustarAnchoColumnas(tablaservicios);
+        exportarAExcel();
+                                    }
+                }else {
+                    JOptionPane.showMessageDialog(this, "Seleccione una tarea para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+    }
     // Método para ajustar el ancho de las columnas
     private void ajustarAnchoColumnas(JTable tabla) {
         TableColumnModel columnModel = tabla.getColumnModel();
@@ -582,44 +646,7 @@ if (selectedRowServicios != -1) {
     }//GEN-LAST:event_ModificarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-      int filaSeleccionada = tablaservicios.getSelectedRow();
-      int filaSeleccionada2 = RegistroT1.getSelectedRow();
-    if (filaSeleccionada >= 0) {
-         // Muestra un cuadro de confirmación
-        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar esta tarea?", "Confirmación", JOptionPane.YES_NO_OPTION);
-                // Si el usuario confirma con "Sí", procede a eliminar
-                if (confirmacion == JOptionPane.YES_OPTION) {
-                    DefaultTableModel modelo = (DefaultTableModel) tablaservicios.getModel();
-                    modelo.removeRow(filaSeleccionada);
-
-                    //calcular el valor total
-                    calcular();
-
-                    JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
-        ajustarAnchoColumnas(RegistroT1);
-        ajustarAnchoColumnas(tablaservicios);
-        exportarAExcel();
-                }
-
-                } else  if (filaSeleccionada2 >= 0) {
-                     // Muestra un cuadro de confirmación
-                     int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar esta tarea?", "Confirmación", JOptionPane.YES_NO_OPTION);
-                                // Si el usuario confirma con "Sí", procede a eliminar
-                                if (confirmacion == JOptionPane.YES_OPTION) {
-                                    DefaultTableModel modelo = (DefaultTableModel) RegistroT1.getModel();
-                                    modelo.removeRow(filaSeleccionada2);
-
-                                    //calcular el valor total
-                                    calcular();
-
-                                    JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
-        ajustarAnchoColumnas(RegistroT1);
-        ajustarAnchoColumnas(tablaservicios);
-        exportarAExcel();
-                                    }
-                }else {
-                    JOptionPane.showMessageDialog(this, "Seleccione una tarea para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
-                }    
+                    eliminarFilaSeleccionada();
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
