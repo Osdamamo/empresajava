@@ -15,20 +15,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.table.TableColumnModel;
 
     
 
@@ -43,8 +36,11 @@ public class Inventario extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         cargarDesdeExcel();
        //calcular el valor total
-        calcular(); 
-        ajustarAnchoColumnas(RegistroT1);
+        calcular();                
+
+        Agregar.setBackground(new Color(139,0,0));
+        Agregar.setForeground(Color.black); 
+
     }  
 
     @SuppressWarnings("unchecked")
@@ -333,26 +329,10 @@ public class Inventario extends javax.swing.JFrame {
 
     
     //Metodos
-     // Método para ajustar el ancho de las columnas
-    private void ajustarAnchoColumnas(JTable tabla) {
-         TableColumnModel columnModel = tabla.getColumnModel();
-        int maxWidth = 200; // Establece un ancho máximo
-        for (int column = 0; column < columnModel.getColumnCount(); column++) {
-            int width = 0; // Inicializa el ancho de la columna
-            for (int row = 0; row < tabla.getRowCount(); row++) {
-                // Obtiene el tamaño del valor de cada celda
-                int cellWidth = tabla.getCellRenderer(row, column).getTableCellRendererComponent(tabla,  tabla.getValueAt(row, column), false, false, row,column).getPreferredSize().width;
-                if (cellWidth > width) {
-                    width = cellWidth; // Actualiza el ancho si es mayor
-                }
-            }
-            width += tabla.getIntercellSpacing().width; // Añade espacio entre celdas
-        columnModel.getColumn(column).setPreferredWidth(Math.min(width, maxWidth));
-        }
-    }
     private void calcular(){
         
         float suma=0;
+        float suma2=0;
         for (int i = 0; i < RegistroT1.getRowCount(); i++) {
             float renglon;
             renglon =Float.parseFloat(RegistroT1.getValueAt(i, 3).toString());
@@ -442,7 +422,7 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     }
     
     private void TareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TareasActionPerformed
-      JFrame actual = this;  // Referencia a la ventana actual.
+        JFrame actual = this;  // Referencia a la ventana actual.
     principal nuevaVentana = new principal();  // Crear la nueva ventana.
     nuevaVentana.setSize(actual.getSize());
     nuevaVentana.setLocationRelativeTo(actual);  // Centrar la nueva ventana.
@@ -569,7 +549,7 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
         if ( selectedRowMateriales == -1) 
         return;
 
-        agregarinventario modificar = new agregarinventario(this, true);
+        agregar modificar = new agregar(this, true);
 
     if (selectedRowMateriales != -1 && selectedRowMateriales < modeloMateriales.getRowCount()) {
         
@@ -579,18 +559,12 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
         // Verificar si el registro2 contiene los datos esperados
         if (registro2 != null && registro2.size() >= 4) {
 
-            modificar.nombre.setText(registro2.elementAt(1).toString());
-            //ya que toca pasarlo a tipo String toca por el siguiente metodo
-            String fechaString = registro2.elementAt(2).toString();
-                    try {
-                    modificar.fecha.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(fechaString));
-                    } catch (ParseException ex) {
-                        Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-            modificar.valor.setText(registro2.elementAt(3).toString());
-            modificar.cantidad.setText(registro2.elementAt(4).toString());
+            // Asignar valores al formulario de modificación
+            modificar.nombre.setText(registro2.elementAt(0).toString());
+            modificar.valor.setText(registro2.elementAt(1).toString());
+            modificar.cantidad.setText(registro2.elementAt(2).toString());
             modificar.valort.setText(registro2.elementAt(3).toString());
-        } 
+            } 
     
     }
     // Mostrar la ventana de modificación
@@ -598,20 +572,18 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
 
     if (modificar.getRootPane() != null) {
         Vector v = new Vector();
-            String fecha = new SimpleDateFormat("yyyy-MM-dd").format(modificar.fecha.getDate());
-                 v.addElement(modificar.actual.getText());
-                 v.addElement(modificar.nombre.getText());
-                 v.addElement(fecha);
-                 v.addElement(modificar.valor.getText());
-                 v.addElement(modificar.cantidad.getText());
-                 v.addElement(modificar.valort.getText());
+        v.addElement(modificar.nombre.getText());
+        v.addElement(modificar.valor.getText());
+        v.addElement(modificar.cantidad.getText());
+        v.addElement(modificar.valort.getText());
         
         modeloMateriales.getDataVector().set(RegistroT1.getSelectedRow(), v); 
+            modificar.materiales.setSelected(true);
             RegistroT1.updateUI();
             
            //calcular el valor total
             calcular();                
-        ajustarAnchoColumnas(RegistroT1);
+
         // Exportar los datos a Excel si la función está implementada
         exportarAExcel();
     
@@ -631,7 +603,7 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
 
                                     //calcular el valor total
                                     calcular();
-        ajustarAnchoColumnas(RegistroT1);
+
                                     JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
                                     exportarAExcel();
                                     }
@@ -641,23 +613,13 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
-        
-    }//GEN-LAST:event_AgregarActionPerformed
-   
-    private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
         //lamo el JDialog
-        agregarinventario agregar1 = new agregarinventario(this,true);
+        agregar agregar1 = new agregar(this,true);
         agregar1.setVisible(true);
         if (agregar1.getRootPane()!=null) {
-             
+            
                  Vector v = new Vector();
-                 //lo formatero para que me lo bote en este formarto dd-MM-yyyy
-                String fecha = new SimpleDateFormat("yyyy-MM-dd").format(agregar1.fecha.getDate());
-
-
-                 v.addElement(agregar1.actual.getText());
                  v.addElement(agregar1.nombre.getText());
-                 v.addElement(fecha);
                  v.addElement(agregar1.valor.getText());
                  v.addElement(agregar1.cantidad.getText());
                  v.addElement(agregar1.valort.getText());
@@ -668,10 +630,31 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
      
                 //calcular el valor total
                 calcular();                
-        ajustarAnchoColumnas(RegistroT1);
+                
                 // Exportar los datos a Excel (si tienes implementada esta función)
                 exportarAExcel();
                 }
+
+    }//GEN-LAST:event_AgregarActionPerformed
+   
+    private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
+         //lamo el JDialog
+        agregar agregar1 = new agregar(this,true);
+        agregar1.setVisible(true);
+        if (agregar1.getRootPane()!=null) {
+            
+         Vector v = new Vector();
+         v.addElement(agregar1.nombre.getText());
+         v.addElement(agregar1.valor.getText());
+         v.addElement(agregar1.cantidad.getText());
+         v.addElement(agregar1.valort.getText());
+        
+           DefaultTableModel modeloMateriales = (DefaultTableModel) RegistroT1.getModel();
+            modeloMateriales.addRow(v);  // Agregar a tabla de materiales
+
+        // Exportar los datos a Excel (si tienes implementada esta función)
+        exportarAExcel();
+        }
 
     }//GEN-LAST:event_AgregarMouseClicked
 
@@ -719,8 +702,6 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
         tdatos.setText("0");
         
         JOptionPane.showMessageDialog(this, "Todas las tareas han sido eliminadas con éxito.");
-        calcular();
-        ajustarAnchoColumnas(RegistroT1);
         exportarAExcel();
     }
     }//GEN-LAST:event_EliminarTodoActionPerformed
