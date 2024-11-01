@@ -48,8 +48,6 @@ TableRowSorter<DefaultTableModel> buscadorfinal;
        //calcular el valor total
         calcular();                
         ajustarAnchoColumnas(RegistroT1);
-        Agregar.setBackground(new Color(139,0,0));
-        Agregar.setForeground(Color.black); 
         
             modelo = (DefaultTableModel) RegistroT1.getModel();
             buscadorfinal = new TableRowSorter<>(modelo);
@@ -334,7 +332,7 @@ TableRowSorter<DefaultTableModel> buscadorfinal;
 
             },
             new String [] {
-                "FechaIngreso", "Nombre", "FechaCompra", "Cantidad", "ValorUnitario", "ValorTotal"
+                "FechaIngreso", "Bodegas", "Nombre", "Cantidad", "ValorUnitario", "ValorTotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -372,13 +370,13 @@ TableRowSorter<DefaultTableModel> buscadorfinal;
         tdatos.setBorder(javax.swing.BorderFactory.createTitledBorder("Valor Total"));
         jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 590, 140, 40));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 980, 650));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 990, 650));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1194, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

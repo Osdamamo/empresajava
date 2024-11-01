@@ -40,22 +40,10 @@ public class pago extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/icons/logof.png")).getImage());
         setLocationRelativeTo(null);
         cargarDesdeExcel();
-       //calcular el valor total
-        calcular();                
-        ajustarAnchoColumnas(RegistroT1);
-        ajustarAnchoColumnas(tablaservicios);
+        
+        ajustarAnchoColumnas(tablaempleado);
         // Listener para la tecla Delete en la JTable
-        RegistroT1.addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent evt) {
-                if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-                    eliminarFilaSeleccionada();
-                }
-                if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-                    eliminarFilaSeleccionada();
-}   
-            }
-        });
-        tablaservicios.addKeyListener(new KeyAdapter() {
+        tablaempleado.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent evt) {
                 if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
                     eliminarFilaSeleccionada();
@@ -66,8 +54,7 @@ public class pago extends javax.swing.JFrame {
             }
         });
 
-    }  
-
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -88,13 +75,11 @@ public class pago extends javax.swing.JFrame {
         Eliminar = new javax.swing.JButton();
         EliminarTodo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaservicios = new javax.swing.JTable();
+        tablaempleado = new javax.swing.JTable();
         barratitulo = new javax.swing.JPanel();
         x = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        RegistroT1 = new javax.swing.JTable();
         tdatos = new javax.swing.JLabel();
-        tdatos1 = new javax.swing.JLabel();
+        buscador = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -230,7 +215,7 @@ public class pago extends javax.swing.JFrame {
                 AgregarActionPerformed(evt);
             }
         });
-        jPanel4.add(Agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 80, 20));
+        jPanel4.add(Agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, 80, 20));
 
         Modificar.setBackground(new java.awt.Color(70, 70, 70));
         Modificar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -241,7 +226,7 @@ public class pago extends javax.swing.JFrame {
                 ModificarActionPerformed(evt);
             }
         });
-        jPanel4.add(Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 80, 20));
+        jPanel4.add(Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, 80, 20));
 
         Eliminar.setBackground(new java.awt.Color(70, 70, 70));
         Eliminar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -252,7 +237,7 @@ public class pago extends javax.swing.JFrame {
                 EliminarActionPerformed(evt);
             }
         });
-        jPanel4.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 80, 20));
+        jPanel4.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 60, 80, 20));
 
         EliminarTodo.setBackground(new java.awt.Color(70, 70, 70));
         EliminarTodo.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -263,38 +248,34 @@ public class pago extends javax.swing.JFrame {
                 EliminarTodoActionPerformed(evt);
             }
         });
-        jPanel4.add(EliminarTodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 60, 120, 20));
+        jPanel4.add(EliminarTodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 60, 120, 20));
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        tablaservicios.setBackground(new java.awt.Color(255, 255, 255));
-        tablaservicios.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        tablaservicios.setForeground(new java.awt.Color(0, 0, 0));
-        tablaservicios.setModel(new javax.swing.table.DefaultTableModel(
+        tablaempleado.setBackground(new java.awt.Color(255, 255, 255));
+        tablaempleado.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        tablaempleado.setForeground(new java.awt.Color(0, 0, 0));
+        tablaempleado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Fecha Ingreso", "Fecha Compra", "Servicio", "Valor", "Cantidad", "ValorTotal"
+                "Fecha Ingreso", "Nombre", "Cargo", "Contrato", "Inicio", "Finaliza", "Proyecto", "Pago"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tablaservicios.setGridColor(new java.awt.Color(54, 57, 63));
-        tablaservicios.setShowGrid(false);
-        jScrollPane1.setViewportView(tablaservicios);
-        if (tablaservicios.getColumnModel().getColumnCount() > 0) {
-            tablaservicios.getColumnModel().getColumn(0).setResizable(false);
-            tablaservicios.getColumnModel().getColumn(2).setResizable(false);
-        }
+        tablaempleado.setGridColor(new java.awt.Color(54, 57, 63));
+        tablaempleado.setShowGrid(false);
+        jScrollPane1.setViewportView(tablaempleado);
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 100, 460, 350));
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 930, 480));
 
         barratitulo.setBackground(new java.awt.Color(225, 153, 51));
         barratitulo.setForeground(new java.awt.Color(0, 0, 0));
@@ -329,38 +310,26 @@ public class pago extends javax.swing.JFrame {
 
         jPanel4.add(barratitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-210, 0, 1190, -1));
 
-        jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        tdatos.setBorder(javax.swing.BorderFactory.createTitledBorder("Total Empleados"));
+        jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 600, 140, 40));
 
-        RegistroT1.setBackground(new java.awt.Color(255, 255, 255));
-        RegistroT1.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        RegistroT1.setForeground(new java.awt.Color(0, 0, 0));
-        RegistroT1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Fecha ingreso", "Material", "Fecha Compra", "Valor", "Cantidad", "ValorTotal"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        buscador.setBackground(new java.awt.Color(225, 153, 51));
+        buscador.setForeground(new java.awt.Color(0, 0, 0));
+        buscador.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscador"));
+        buscador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscadorActionPerformed(evt);
             }
         });
-        RegistroT1.setGridColor(new java.awt.Color(54, 57, 63));
-        RegistroT1.setShowGrid(false);
-        jScrollPane2.setViewportView(RegistroT1);
-
-        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 480, 350));
-
-        tdatos.setBorder(javax.swing.BorderFactory.createTitledBorder("Valor Total"));
-        jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 470, 140, 40));
-
-        tdatos1.setBorder(javax.swing.BorderFactory.createTitledBorder("Valor Total"));
-        jPanel4.add(tdatos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 460, 140, 40));
+        buscador.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                buscadorKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                buscadorKeyTyped(evt);
+            }
+        });
+        jPanel4.add(buscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 380, 60));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 980, 650));
 
@@ -380,46 +349,6 @@ public class pago extends javax.swing.JFrame {
 
     
     //Metodos
-    private void eliminarFilaSeleccionada() {
-        int filaSeleccionada = tablaservicios.getSelectedRow();
-      int filaSeleccionada2 = RegistroT1.getSelectedRow();
-    if (filaSeleccionada >= 0) {
-         // Muestra un cuadro de confirmación
-        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar esta tarea?", "Confirmación", JOptionPane.YES_NO_OPTION);
-                // Si el usuario confirma con "Sí", procede a eliminar
-                if (confirmacion == JOptionPane.YES_OPTION) {
-                    DefaultTableModel modelo = (DefaultTableModel) tablaservicios.getModel();
-                    modelo.removeRow(filaSeleccionada);
-
-                    //calcular el valor total
-                    calcular();
-
-                    JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
-        ajustarAnchoColumnas(RegistroT1);
-        ajustarAnchoColumnas(tablaservicios);
-        exportarAExcel();
-                }
-
-                } else  if (filaSeleccionada2 >= 0) {
-                     // Muestra un cuadro de confirmación
-                     int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar esta tarea?", "Confirmación", JOptionPane.YES_NO_OPTION);
-                                // Si el usuario confirma con "Sí", procede a eliminar
-                                if (confirmacion == JOptionPane.YES_OPTION) {
-                                    DefaultTableModel modelo = (DefaultTableModel) RegistroT1.getModel();
-                                    modelo.removeRow(filaSeleccionada2);
-
-                                    //calcular el valor total
-                                    calcular();
-
-                                    JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
-        ajustarAnchoColumnas(RegistroT1);
-        ajustarAnchoColumnas(tablaservicios);
-        exportarAExcel();
-                                    }
-                }else {
-                    JOptionPane.showMessageDialog(this, "Seleccione una tarea para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-    }
     // Método para ajustar el ancho de las columnas
     private void ajustarAnchoColumnas(JTable tabla) {
         TableColumnModel columnModel = tabla.getColumnModel();
@@ -439,44 +368,47 @@ public class pago extends javax.swing.JFrame {
         
     }
     //Metodo para sacar el total
-    private void calcular(){
-        
-        float suma=0;
-        float suma2=0;
-        for (int i = 0; i < RegistroT1.getRowCount(); i++) {
-            float renglon;
-            renglon =Float.parseFloat(RegistroT1.getValueAt(i, 3).toString());
-            suma=suma+renglon;
-            tdatos.setText(String.valueOf(suma));
-        }
-        for (int i = 0; i < tablaservicios.getRowCount(); i++) {
-            float renglon;
-            renglon =Float.parseFloat(tablaservicios.getValueAt(i, 3).toString());
-            suma2=suma2+renglon;
-            tdatos1.setText(String.valueOf(suma2));
-        }
+    private void eliminarFilaSeleccionada() {
+        int filaSeleccionada = tablaempleado.getSelectedRow();
+    if (filaSeleccionada >= 0) {
+         // Muestra un cuadro de confirmación
+        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar esta tarea?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                // Si el usuario confirma con "Sí", procede a eliminar
+                if (confirmacion == JOptionPane.YES_OPTION) {
+                    DefaultTableModel modelofila = (DefaultTableModel) tablaempleado.getModel();
+                    modelofila.removeRow(filaSeleccionada);
+
+
+                    JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
+                    ajustarAnchoColumnas(tablaempleado);
+                    exportarAExcel();
+                    }
+                }else {
+                    JOptionPane.showMessageDialog(this, "Seleccione una tarea para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
     }
+    
+    
+    
 
     private void exportarAExcel() {
         Workbook workbook = new XSSFWorkbook();
 
-    // Crear las hojas para Materiales y Servicios
-    Sheet sheetMateriales = workbook.createSheet("Materiales");
-    Sheet sheetServicios = workbook.createSheet("Servicios");
+    // Crear la hoja para Empleado
+    Sheet sheetServicios = workbook.createSheet("Empleado");
 
     // Exportar los datos de ambas tablas
-    agregarTablaAHoja(sheetMateriales, RegistroT1);
-    agregarTablaAHoja(sheetServicios, tablaservicios);
+    agregarTablaAHoja(sheetServicios, tablaempleado);
 
     // Guardar el archivo en el sistema
-    try (FileOutputStream fileOut = new FileOutputStream("Pagos.xlsx")) {
+    try (FileOutputStream fileOut = new FileOutputStream("Empleado.xlsx")) {
         workbook.write(fileOut);
     } catch (IOException e) {
         e.printStackTrace();
     }
 }
 private void cargarDesdeExcel() {
-    File archivo = new File("Pagos.xlsx");
+    File archivo = new File("Empleado.xlsx");
     if (!archivo.exists()) return; // Verificar si el archivo existe
 
     try (FileInputStream fileIn = new FileInputStream(archivo)) {
@@ -484,38 +416,32 @@ private void cargarDesdeExcel() {
           // Limpiar la tabla antes de cargar
         modelo.setRowCount(0);
         
-        Sheet sheetMateriales = workbook.getSheet("Materiales");
-        DefaultTableModel modelomaterieales = (DefaultTableModel) RegistroT1.getModel();
-        cargarDatosDesdeHoja(sheetMateriales, modelomaterieales);
+        Sheet sheet = workbook.getSheet("Empleado");
+        DefaultTableModel modeloempleado = (DefaultTableModel) tablaempleado.getModel();
         
-        Sheet sheetServicios = workbook.getSheet("Servicios");
-        DefaultTableModel modeloservicios = (DefaultTableModel) tablaservicios.getModel();
-        cargarDatosDesdeHoja(sheetServicios, modeloservicios);
-  
+        //Cargar los datos desde la hoja
+                 if (sheet == null) return; // Verificar que la hoja exista
+
+                    // Limpiar la tabla antes de cargar datos
+                    modeloempleado.setRowCount(0);
+
+                    // Leer filas del archivo Excel
+                    for (Row row : sheet) {
+                        if (row.getRowNum() == 0) continue; // Saltar encabezado
+
+                        Object[] datosFila = new Object[modeloempleado.getColumnCount()];
+                        for (int i = 0; i < modeloempleado.getColumnCount(); i++) {
+                            Cell cell = row.getCell(i);
+                            datosFila[i] = (cell == null) ? "" : cell.toString(); // Manejar celdas nulas
+                        }
+                        modeloempleado.addRow(datosFila);
+                    }  
 
     } catch (IOException e) {
         e.printStackTrace();
     }
 }
-// Método auxiliar para cargar datos desde una hoja de Excel a un modelo de tabla
-private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
-    if (sheet == null) return; // Verificar que la hoja exista
-    
-    // Limpiar la tabla antes de cargar datos
-    modelo.setRowCount(0);
 
-    // Leer filas del archivo Excel
-    for (Row row : sheet) {
-        if (row.getRowNum() == 0) continue; // Saltar encabezado
-
-        Object[] datosFila = new Object[modelo.getColumnCount()];
-        for (int i = 0; i < modelo.getColumnCount(); i++) {
-            Cell cell = row.getCell(i);
-            datosFila[i] = (cell == null) ? "" : cell.toString(); // Manejar celdas nulas
-        }
-        modelo.addRow(datosFila);
-    }
-}
 
 // Método para agregar los datos de una JTable a una hoja de Excel
     private void agregarTablaAHoja(Sheet sheet, JTable table) {
@@ -540,210 +466,8 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
             }
         }
     }
-    
-    private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
-        DefaultTableModel modeloServicios = (DefaultTableModel) tablaservicios.getModel();
-        DefaultTableModel modeloMateriales = (DefaultTableModel) RegistroT1.getModel();
 
-        int selectedRowServicios = tablaservicios.getSelectedRow();
-        int selectedRowMateriales = RegistroT1.getSelectedRow();
-        //devuelve ya que no seleccciona ninguna fila
-        if (selectedRowServicios == -1 && selectedRowMateriales == -1) 
-        return;
-
-        agregar modificar = new agregar(this, true);
-// Configurar el estado de los checkboxes o radio buttons según la fila seleccionada
-if (selectedRowServicios != -1) {
-    // Si hay una fila seleccionada en servicios, activar el checkbox correspondiente
-    modificar.servicios.setSelected(true);
-        modificar.materiales.setEnabled(false);
-} else if (selectedRowMateriales != -1) {
-    // Si hay una fila seleccionada en materiales, activar el checkbox correspondiente
-    modificar.materiales.setSelected(true);
-        modificar.servicios.setEnabled(false);
-    System.out.println("Checkbox de materiales activado.");
-}
-
-    if (selectedRowServicios != -1 && selectedRowServicios < modeloServicios.getRowCount()) {
-        Vector registro = (Vector) modeloServicios.getDataVector().elementAt(selectedRowServicios);
-                        if (registro.size() >= 4) {
-                            
-            modificar.nombre.setText(registro.elementAt(1).toString());
-            //ya que toca pasarlo a tipo String toca por el siguiente metodo
-            String fechaString = registro.elementAt(2).toString();
-                    try {
-                    modificar.fecha.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(fechaString));
-                    } catch (ParseException ex) {
-                        Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-            modificar.valor.setText(registro.elementAt(3).toString());
-            modificar.cantidad.setText(registro.elementAt(4).toString());
-            modificar.valort.setText(registro.elementAt(3).toString());
-                        }
-    }
-    // Verificar si la fila seleccionada es válida
-    if (selectedRowMateriales != -1 && selectedRowMateriales < modeloMateriales.getRowCount()) {
-
-    // Obtener la fila seleccionada
-    Vector registro2 = (Vector) modeloMateriales.getDataVector().elementAt(selectedRowMateriales);
-
-        // Verificar si el registro2 contiene los datos esperados
-        if (registro2 != null && registro2.size() >= 4) {
-
-            // Asignar valores al formulario de modificación
-            modificar.nombre.setText(registro2.elementAt(1).toString());
-            //ya que toca pasarlo a tipo String toca por el siguiente metodo
-            String fechaString = registro2.elementAt(2).toString();
-                    try {
-                            modificar.fecha.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(fechaString));
-                    } catch (ParseException ex) {
-                        Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            modificar.valor.setText(registro2.elementAt(3).toString());
-            modificar.cantidad.setText(registro2.elementAt(4).toString());
-            modificar.valort.setText(registro2.elementAt(3).toString());
-        } 
-            } 
-
-    // Mostrar la ventana de modificación
-    modificar.setVisible(true);
-    
-        if (selectedRowServicios == 0) { // Cambiado a 0 si quieres activar la primera opción
-    modificar.servicios.setSelected(true);
-} else if (selectedRowMateriales == 0) {
-    modificar.materiales.setSelected(true);
-}
-    if (modificar.getRootPane() != null) {
-        Vector v = new Vector();
-            String fecha = new SimpleDateFormat("yyyy-MM-dd").format(modificar.fecha.getDate());
-                 v.addElement(modificar.actual.getText());
-                 v.addElement(modificar.nombre.getText());
-                 v.addElement(fecha);
-                 v.addElement(modificar.valor.getText());
-                 v.addElement(modificar.cantidad.getText());
-                 v.addElement(modificar.valort.getText());
-
-        if (modificar.materiales.isSelected()) {
-            modeloMateriales.getDataVector().set(RegistroT1.getSelectedRow(), v); 
-            modificar.materiales.setSelected(true);
-            RegistroT1.updateUI();
-        } 
-
-        if (modificar.servicios.isSelected()) {
-            modeloServicios.getDataVector().set(tablaservicios.getSelectedRow(), v);
-            modificar.servicios.setSelected(true);
-            tablaservicios.updateUI();
-        }
-        ajustarAnchoColumnas(RegistroT1);
-        ajustarAnchoColumnas(tablaservicios);
-           //calcular el valor total
-            calcular();                
-
-        // Exportar los datos a Excel si la función está implementada
-        exportarAExcel();
-    
-        }
-    }//GEN-LAST:event_ModificarActionPerformed
-
-    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-                    eliminarFilaSeleccionada();
-    }//GEN-LAST:event_EliminarActionPerformed
-
-    private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
-
-    }//GEN-LAST:event_AgregarActionPerformed
-   
-    private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
-         //lamo el JDialog
-        agregar agregar1 = new agregar(this,true);
-        agregar1.setVisible(true);
-        if (agregar1.getRootPane()!=null) {
-            
-         Vector v = new Vector();
-          //lo formatero para que me lo bote en este formarto dd-MM-yyyy
-            String fecha = new SimpleDateFormat("yyyy-MM-dd").format(agregar1.fecha.getDate());
-             v.addElement(agregar1.actual.getText());
-             v.addElement(agregar1.nombre.getText());
-             v.addElement(fecha);
-             v.addElement(agregar1.valor.getText());
-             v.addElement(agregar1.cantidad.getText());
-             v.addElement(agregar1.valort.getText());
-        
-        if (agregar1.materiales.isSelected()) {
-            DefaultTableModel modeloMateriales = (DefaultTableModel) RegistroT1.getModel();
-            modeloMateriales.addRow(v);  // Agregar a tabla de materiales
-        } 
-        
-        if (agregar1.servicios.isSelected()) {
-            DefaultTableModel modeloServicios = (DefaultTableModel) tablaservicios.getModel();
-            modeloServicios.addRow(v);  // Agregar a tabla de servicios
-        }
-        calcular();
-        ajustarAnchoColumnas(RegistroT1);
-        ajustarAnchoColumnas(tablaservicios);
-        // Exportar los datos a Excel (si tienes implementada esta función)
-        exportarAExcel();
-        }
-
-    }//GEN-LAST:event_AgregarMouseClicked
-
-    private void EliminarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarTodoActionPerformed
-    // Muestra un cuadro de confirmación
-    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Quieres borrar una tabla?", "Confirmación", JOptionPane.YES_NO_OPTION);
-             
        
-    // Si el usuario confirma con "Sí"
-    if (confirmacion == JOptionPane.YES_OPTION) {
-        //cual entre las dos tablas
-                Object[] opciones = {"Materiales", "Servicios"};
-        int seleccion=JOptionPane.showOptionDialog(this, "¿Cual Quieres Borrar?", "Confirmación", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,opciones,opciones[0]);        
-       
-
-        if (seleccion == JOptionPane.YES_OPTION) {
-        DefaultTableModel modelomaterieales = (DefaultTableModel) RegistroT1.getModel();
-        modelomaterieales.setRowCount(0);
-        calcular();
-        ajustarAnchoColumnas(RegistroT1);
-        exportarAExcel();
-                JOptionPane.showMessageDialog(this, "Todas las tareas han sido eliminadas con éxito.");
-
-        } else if (seleccion == JOptionPane.NO_OPTION) {
-   DefaultTableModel modeloservicios = (DefaultTableModel) tablaservicios.getModel();   
-        
-        // Elimina todas las filas del modelo de la tabla
-        modeloservicios.setRowCount(0);
-        calcular();
-        ajustarAnchoColumnas(tablaservicios);
-        exportarAExcel();
-                JOptionPane.showMessageDialog(this, "Todas las tareas han sido eliminadas con éxito.");
-
-        } 
-    }
-    }//GEN-LAST:event_EliminarTodoActionPerformed
-
-    private void xMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xMouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_xMouseClicked
-
-    private void xMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xMouseEntered
-        x.setForeground(new Color(255,68,0));
-    }//GEN-LAST:event_xMouseEntered
-
-    private void xMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xMouseExited
-        x.setForeground(Color.white);
-    }//GEN-LAST:event_xMouseExited
-
-    private void barratituloMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barratituloMouseDragged
-        int x = evt.getXOnScreen();
-        int y = evt.getYOnScreen();
-        this.setLocation(x-xmouse, y-ymouse);
-    }//GEN-LAST:event_barratituloMouseDragged
-
-    private void barratituloMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barratituloMousePressed
-        xmouse = evt.getX();
-        ymouse = evt.getY();
-    }//GEN-LAST:event_barratituloMousePressed
-
     private void x1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_x1MouseClicked
         System.exit(0);
     }//GEN-LAST:event_x1MouseClicked
@@ -788,7 +512,7 @@ if (selectedRowServicios != -1) {
             Sheet hojaMateriales = workbook.createSheet("Materiales");
 
             // Agregar los datos de las tablas
-            agregarTablaAHoja(hojaMateriales, RegistroT1);
+            agregarTablaAHoja(hojaMateriales, tablaempleado);
 
             // Guardar el archivo
             workbook.write(fileOut);
@@ -897,6 +621,179 @@ if (selectedRowServicios != -1) {
     }).start();
     }//GEN-LAST:event_TareasActionPerformed
 
+    private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
+        //lamo el JDialog
+        agregar agregar1 = new agregar(this,true);
+        agregar1.setVisible(true);
+        if (agregar1.getRootPane()!=null) {
+
+            Vector v = new Vector();
+            //lo formatero para que me lo bote en este formarto dd-MM-yyyy
+            String fechaI  = new SimpleDateFormat("yyyy-MM-dd").format(agregar1.fechaI.getDate());
+            String fechaF = new SimpleDateFormat("yyyy-MM-dd").format(agregar1.fechaF.getDate());
+
+
+            
+            v.addElement(agregar1.actual.getText());
+            v.addElement(agregar1.nombre.getText());
+            v.addElement(agregar1.cargo.getText());
+            v.addElement(agregar1.contrato.getText());     
+            v.addElement(fechaI);
+            v.addElement(fechaF);
+            v.addElement(agregar1.proyecto.getText());
+            v.addElement(agregar1.pago.getText());
+
+                DefaultTableModel modeloServicios = (DefaultTableModel) tablaempleado.getModel();
+                modeloServicios.addRow(v);  // Agregar a tabla de servicios
+           }
+            ajustarAnchoColumnas(tablaempleado);
+            // Exportar los datos a Excel (si tienes implementada esta función)
+            exportarAExcel();
+        
+    }//GEN-LAST:event_AgregarMouseClicked
+
+    private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
+
+    }//GEN-LAST:event_AgregarActionPerformed
+
+    private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
+        DefaultTableModel modeloempleado = (DefaultTableModel) tablaempleado.getModel();
+
+        int selectedRowEmpleado = tablaempleado.getSelectedRow();
+        //devuelve ya que no seleccciona ninguna fila
+        if (selectedRowEmpleado == -1) 
+        return;
+
+        agregar modificar = new agregar(this, true);
+
+        Vector registro = (Vector) modeloempleado.getDataVector().elementAt(selectedRowEmpleado);
+                        if (registro.size() >= 4) {
+                            
+            modificar.actual.setText(registro.elementAt(0).toString());
+            modificar.nombre.setText(registro.elementAt(1).toString());
+            modificar.cargo.setText(registro.elementAt(2).toString());
+            modificar.contrato.setText(registro.elementAt(3).toString());
+            String fechaString = registro.elementAt(4).toString();
+                    try {
+                    modificar.fechaI.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(fechaString));
+                    } catch (ParseException ex) {
+                        Logger.getLogger(agregar.class.getName()).log(Level.SEVERE, null, ex);
+
+                    }
+             //ya que toca pasarlo a tipo String toca por el siguiente metodo
+            String fechaString2 = registro.elementAt(5).toString();
+                    try {
+                    modificar.fechaF.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(fechaString2));
+                    } catch (ParseException ex) {
+                        Logger.getLogger(agregar.class.getName()).log(Level.SEVERE, null, ex);
+
+                    }                  modificar.proyecto.setText(registro.elementAt(6).toString());
+            modificar.pago.setText(registro.elementAt(7).toString());
+                 
+        }
+
+   
+    
+    // Mostrar la ventana de modificación
+    modificar.setVisible(true);
+
+    if (modificar.getRootPane() != null) {
+        Vector v = new Vector();
+          //lo formatero para que me lo bote en este formarto dd-MM-yyyy
+            String fechaI  = new SimpleDateFormat("yyyy-MM-dd").format(modificar.fechaI.getDate());
+            String fechaF = new SimpleDateFormat("yyyy-MM-dd").format(modificar.fechaF.getDate());
+
+            v.addElement(modificar.actual.getText());
+            v.addElement(modificar.nombre.getText());
+            v.addElement(modificar.cargo.getText());
+            v.addElement(modificar.contrato.getText());            
+            v.addElement(fechaI);
+            v.addElement(fechaF);
+            v.addElement(modificar.proyecto.getText());
+            v.addElement(modificar.pago.getText());
+
+       
+            modeloempleado.getDataVector().set(tablaempleado.getSelectedRow(), v);
+            tablaempleado.updateUI();
+       }
+        ajustarAnchoColumnas(tablaempleado);
+
+        // Exportar los datos a Excel si la función está implementada
+        exportarAExcel();
+    
+        
+    }//GEN-LAST:event_ModificarActionPerformed
+
+    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+        eliminarFilaSeleccionada();
+    }//GEN-LAST:event_EliminarActionPerformed
+
+    private void EliminarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarTodoActionPerformed
+        // Muestra un cuadro de confirmación
+        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Quieres borrar una tabla?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+        // Si el usuario confirma con "Sí"
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            //cual entre las dos tablas
+            Object[] opciones = {"Materiales", "Servicios"};
+            int seleccion=JOptionPane.showOptionDialog(this, "¿Cual Quieres Borrar?", "Confirmación", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,opciones,opciones[0]);
+
+            if (seleccion == JOptionPane.YES_OPTION) {
+                DefaultTableModel modelomaterieales = (DefaultTableModel) tablaempleado.getModel();
+                modelomaterieales.setRowCount(0);
+                ajustarAnchoColumnas(tablaempleado);
+                exportarAExcel();
+                JOptionPane.showMessageDialog(this, "Todas las tareas han sido eliminadas con éxito.");
+
+            } else if (seleccion == JOptionPane.NO_OPTION) {
+                DefaultTableModel modeloservicios = (DefaultTableModel) tablaempleado.getModel();
+
+                // Elimina todas las filas del modelo de la tabla
+                modeloservicios.setRowCount(0);
+                
+                ajustarAnchoColumnas(tablaempleado);
+                exportarAExcel();
+                JOptionPane.showMessageDialog(this, "Todas las tareas han sido eliminadas con éxito.");
+
+            }
+        }
+    }//GEN-LAST:event_EliminarTodoActionPerformed
+
+    private void xMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_xMouseClicked
+
+    private void xMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xMouseEntered
+        x.setForeground(new Color(255,68,0));
+    }//GEN-LAST:event_xMouseEntered
+
+    private void xMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xMouseExited
+        x.setForeground(Color.white);
+    }//GEN-LAST:event_xMouseExited
+
+    private void barratituloMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barratituloMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x-xmouse, y-ymouse);
+    }//GEN-LAST:event_barratituloMouseDragged
+
+    private void barratituloMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barratituloMousePressed
+        xmouse = evt.getX();
+        ymouse = evt.getY();
+    }//GEN-LAST:event_barratituloMousePressed
+
+    private void buscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscadorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscadorActionPerformed
+
+    private void buscadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscadorKeyReleased
+
+    }//GEN-LAST:event_buscadorKeyReleased
+
+    private void buscadorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscadorKeyTyped
+
+    }//GEN-LAST:event_buscadorKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -937,22 +834,20 @@ if (selectedRowServicios != -1) {
     private javax.swing.JButton EliminarTodo;
     private javax.swing.JButton Extraer;
     private javax.swing.JButton Modificar;
-    private javax.swing.JTable RegistroT1;
     private javax.swing.JButton Reportes;
     private javax.swing.JButton Tareas;
     private javax.swing.JPanel barratitulo;
     private javax.swing.JPanel barratitulo1;
+    private javax.swing.JTextField buscador;
     private javax.swing.JButton inventario;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton pagos;
-    private javax.swing.JTable tablaservicios;
+    private javax.swing.JTable tablaempleado;
     private javax.swing.JLabel tdatos;
-    private javax.swing.JLabel tdatos1;
     private javax.swing.JLabel x;
     private javax.swing.JLabel x1;
     // End of variables declaration//GEN-END:variables
