@@ -77,6 +77,7 @@ TableRowSorter<DefaultTableModel> buscadorfinal;
         
         // Listener para la tecla Delete en la JTable
         RegistroT1.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyPressed(KeyEvent evt) {
                 if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
                     eliminarFilaSeleccionada();

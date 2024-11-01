@@ -24,15 +24,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.UIManager;
+import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableRowSorter;
 
     
 
 public class pago extends javax.swing.JFrame {
     DefaultTableModel modelo = new DefaultTableModel();
-    
+    TableRowSorter<DefaultTableModel> buscadorfinal;
    int xmouse ,ymouse;
     
     public pago() {
@@ -41,9 +44,31 @@ public class pago extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         cargarDesdeExcel();
         
+            modelo = (DefaultTableModel) tablaempleado.getModel();
+            buscadorfinal = new TableRowSorter<>(modelo);
+            tablaempleado.setRowSorter(buscadorfinal);
+        
+            buscador.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                aplicarFiltro();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                aplicarFiltro();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                aplicarFiltro();
+            }
+        });
+
         ajustarAnchoColumnas(tablaempleado);
         // Listener para la tecla Delete en la JTable
         tablaempleado.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyPressed(KeyEvent evt) {
                 if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
                     eliminarFilaSeleccionada();
@@ -349,6 +374,22 @@ public class pago extends javax.swing.JFrame {
 
     
     //Metodos
+     //filtrado
+   private void aplicarFiltro() {
+        String textoFiltro = buscador.getText().trim();
+    
+    if (textoFiltro.length() == 0) {
+                buscadorfinal.setRowFilter(null); // Restablece el filtro
+        modelo.setRowCount(0); // Limpia la tabla si no hay texto
+        cargarDesdeExcel(); // Carga nuevamente todos los datos
+        return;
+    }
+    // Crear un nuevo RowFilter con el texto de búsqueda
+    RowFilter<DefaultTableModel, Object> rf = RowFilter.regexFilter("(?i)" + textoFiltro);
+    
+    // Aplicar el filtro
+    buscadorfinal.setRowFilter(rf); 
+   }
     // Método para ajustar el ancho de las columnas
     private void ajustarAnchoColumnas(JTable tabla) {
         TableColumnModel columnModel = tabla.getColumnModel();
