@@ -170,7 +170,6 @@ public class agregarinventario extends javax.swing.JDialog {
         valort.setEditable(false);
         valort.setBackground(new java.awt.Color(222, 222, 222));
         valort.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        valort.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         valort.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 valortActionPerformed(evt);
@@ -232,7 +231,6 @@ public class agregarinventario extends javax.swing.JDialog {
         actual.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         actual.setBorder(null);
         actual.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        actual.setOpaque(false);
         actual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 actualActionPerformed(evt);

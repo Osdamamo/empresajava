@@ -179,7 +179,7 @@ TableRowSorter<DefaultTableModel> buscadorfinal;
         pagos.setBackground(new java.awt.Color(70, 70, 70));
         pagos.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         pagos.setForeground(new java.awt.Color(255, 255, 255));
-        pagos.setText("Pagos");
+        pagos.setText("Empleados");
         pagos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pagosActionPerformed(evt);
