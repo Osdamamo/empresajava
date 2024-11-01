@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Vector;
 import javax.swing.ImageIcon;
@@ -29,7 +30,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
-import javax.swing.table.TableModel;
 
     
 
@@ -398,12 +398,16 @@ TableRowSorter<DefaultTableModel> buscadorfinal;
         modelo.setRowCount(0); // Limpia la tabla si no hay texto
         cargarDesdeExcel(); // Carga nuevamente todos los datos
         return;
-    }
-    // Crear un nuevo RowFilter con el texto de búsqueda
+    }else{
+            // Crear un nuevo RowFilter con el texto de búsqueda
     RowFilter<DefaultTableModel, Object> rf = RowFilter.regexFilter("(?i)" + textoFiltro);
     
     // Aplicar el filtro
     buscadorfinal.setRowFilter(rf); 
+   
+    }
+     calcular();
+
    }
 
     //para elimnar filas
@@ -448,14 +452,15 @@ TableRowSorter<DefaultTableModel> buscadorfinal;
     private void calcular(){
         
         float suma=0;
-        float suma2=0;
         for (int i = 0; i < RegistroT1.getRowCount(); i++) {
-            float renglon;
-            renglon =Float.parseFloat(RegistroT1.getValueAt(i, 3).toString());
+            float renglon =Float.parseFloat(RegistroT1.getValueAt(i, 5).toString());
             suma=suma+renglon;
             tdatos.setText(String.valueOf(suma));
         }
        
+            // Formatear el total sin decimales
+    DecimalFormat df = new DecimalFormat("#"); // Solo enteros
+    tdatos.setText(df.format(suma)); // Actualiza el texto sin decimales
 
     }
 
@@ -666,20 +671,22 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
         return;
 
         agregarinventario modificar = new agregarinventario(this, true);
-
+        
     if (selectedRowMateriales != -1 && selectedRowMateriales < modeloMateriales.getRowCount()) {
         
     // Obtener la fila seleccionada
     Vector registro2 = (Vector) modeloMateriales.getDataVector().elementAt(selectedRowMateriales);
 
         // Verificar si el registro2 contiene los datos esperados
-        if (registro2 != null && registro2.size() >= 4) {
+        if (registro2 != null && registro2.size() >= 6) {
 
             // Asignar valores al formulario de modificación
-            modificar.nombre.setText(registro2.elementAt(0).toString());
-            modificar.valor.setText(registro2.elementAt(1).toString());
-            modificar.cantidad.setText(registro2.elementAt(2).toString());
-            modificar.valort.setText(registro2.elementAt(3).toString());
+            modificar.actual.setText(registro2.elementAt(0).toString());
+            modificar.bodega.setText(registro2.elementAt(1).toString());
+            modificar.nombre.setText(registro2.elementAt(2).toString());
+            modificar.valor.setText(registro2.elementAt(3).toString());
+            modificar.cantidad.setText(registro2.elementAt(4).toString());
+            modificar.valort.setText(registro2.elementAt(5).toString());
             } 
     
     }
@@ -688,6 +695,9 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
 
     if (modificar.getRootPane() != null) {
         Vector v = new Vector();
+        
+        v.addElement(modificar.actual.getText());
+        v.addElement(modificar.bodega.getText());
         v.addElement(modificar.nombre.getText());
         v.addElement(modificar.valor.getText());
         v.addElement(modificar.cantidad.getText());
@@ -722,10 +732,9 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
         if (agregar1.getRootPane()!=null) {
             
          Vector v = new Vector();
-         String Fecha= new SimpleDateFormat("yyyy-MM-dd").format(agregar1.fecha.getDate());
         v.addElement(agregar1.actual.getText());
+         v.addElement(agregar1.bodega.getText());
          v.addElement(agregar1.nombre.getText());
-         v.addElement(Fecha);
          v.addElement(agregar1.cantidad.getText());
          v.addElement(agregar1.valor.getText());
          v.addElement(agregar1.valort.getText());

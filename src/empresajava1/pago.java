@@ -43,6 +43,9 @@ public class pago extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/icons/logof.png")).getImage());
         setLocationRelativeTo(null);
         cargarDesdeExcel();
+                int filast = tablaempleado.getRowCount();
+        tdatos.setText("" + filast);
+
         
             modelo = (DefaultTableModel) tablaempleado.getModel();
             buscadorfinal = new TableRowSorter<>(modelo);
@@ -382,13 +385,19 @@ public class pago extends javax.swing.JFrame {
                 buscadorfinal.setRowFilter(null); // Restablece el filtro
         modelo.setRowCount(0); // Limpia la tabla si no hay texto
         cargarDesdeExcel(); // Carga nuevamente todos los datos
+        tdatos.setText("" + modelo.getRowCount()); // Actualiza el contador
+
         return;
-    }
-    // Crear un nuevo RowFilter con el texto de búsqueda
+    }else{
+          // Crear un nuevo RowFilter con el texto de búsqueda
     RowFilter<DefaultTableModel, Object> rf = RowFilter.regexFilter("(?i)" + textoFiltro);
     
     // Aplicar el filtro
     buscadorfinal.setRowFilter(rf); 
+    }
+  
+ int filast = tablaempleado.getRowCount();
+        tdatos.setText("" + filast);
    }
     // Método para ajustar el ancho de las columnas
     private void ajustarAnchoColumnas(JTable tabla) {
@@ -687,8 +696,9 @@ private void cargarDesdeExcel() {
                 DefaultTableModel modeloServicios = (DefaultTableModel) tablaempleado.getModel();
                 modeloServicios.addRow(v);  // Agregar a tabla de servicios
            }
+                    int filast = tablaempleado.getRowCount();
+                tdatos.setText("" + filast);
             ajustarAnchoColumnas(tablaempleado);
-            // Exportar los datos a Excel (si tienes implementada esta función)
             exportarAExcel();
         
     }//GEN-LAST:event_AgregarMouseClicked
@@ -758,7 +768,8 @@ private void cargarDesdeExcel() {
             tablaempleado.updateUI();
        }
         ajustarAnchoColumnas(tablaempleado);
-
+        int filast = tablaempleado.getRowCount();
+        tdatos.setText("" + filast);
         // Exportar los datos a Excel si la función está implementada
         exportarAExcel();
     
@@ -767,6 +778,8 @@ private void cargarDesdeExcel() {
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         eliminarFilaSeleccionada();
+         int filast = tablaempleado.getRowCount();
+        tdatos.setText("" + filast);
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void EliminarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarTodoActionPerformed
@@ -791,12 +804,16 @@ private void cargarDesdeExcel() {
 
                 // Elimina todas las filas del modelo de la tabla
                 modeloservicios.setRowCount(0);
-                
+                            int filast = tablaempleado.getRowCount();
+                tdatos.setText("" + filast);
                 ajustarAnchoColumnas(tablaempleado);
+                
                 exportarAExcel();
                 JOptionPane.showMessageDialog(this, "Todas las tareas han sido eliminadas con éxito.");
 
             }
+          int filast = tablaempleado.getRowCount();
+        tdatos.setText("" + filast);
         }
     }//GEN-LAST:event_EliminarTodoActionPerformed
 
