@@ -106,7 +106,6 @@ public class login extends javax.swing.JFrame {
         entrar.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         entrar.setForeground(new java.awt.Color(255, 255, 255));
         entrar.setText("ingresar");
-        entrar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/img/preesslogin.png"))); // NOI18N
         entrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 entrarActionPerformed(evt);
