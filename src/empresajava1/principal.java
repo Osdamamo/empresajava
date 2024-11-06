@@ -273,9 +273,9 @@ public class principal extends javax.swing.JFrame {
                 txttareaKeyPressed(evt);
             }
         });
-        jPanel5.add(txttarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 6, 750, 30));
+        jPanel5.add(txttarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 6, 1030, 30));
 
-        jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 880, 50));
+        jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 1160, 50));
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Todas Las Tareas"));
 
@@ -294,10 +294,10 @@ public class principal extends javax.swing.JFrame {
         RegistroT.setShowGrid(false);
         jScrollPane1.setViewportView(RegistroT);
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 960, 430));
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 1160, 430));
 
         tdatos.setBorder(javax.swing.BorderFactory.createTitledBorder("Total de Registro"));
-        jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 600, 140, 40));
+        jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 600, 140, 40));
 
         barratitulo.setBackground(new java.awt.Color(225, 153, 51));
         barratitulo.setForeground(new java.awt.Color(0, 0, 0));
@@ -328,11 +328,11 @@ public class principal extends javax.swing.JFrame {
                 xMouseExited(evt);
             }
         });
-        barratitulo.add(x, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 0, 20, 30));
+        barratitulo.add(x, new org.netbeans.lib.awtextra.AbsoluteConstraints(1380, 0, 20, 30));
 
-        jPanel4.add(barratitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-210, 0, 1180, -1));
+        jPanel4.add(barratitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-210, 0, 1410, -1));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 970, 650));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 1200, 650));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
