@@ -3,7 +3,9 @@ package empresajava1;
 
 import java.awt.Color;
 import java.awt.HeadlessException;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
@@ -38,16 +40,62 @@ public class agregar extends javax.swing.JDialog {
             @Override
             public void changedUpdate(DocumentEvent e) { validar(); }
         };
-        valor.getDocument().addDocumentListener(listener);
-         nombre.getDocument().addDocumentListener(listener); 
-        cantidad.getDocument().addDocumentListener(listener);
+        nombre.getDocument().addDocumentListener(listener);
+        cargo.getDocument().addDocumentListener(listener); 
+        contrato.getDocument().addDocumentListener(listener);
+        proyecto.getDocument().addDocumentListener(listener); 
+        pago.getDocument().addDocumentListener(listener); 
         actual.getDocument().addDocumentListener(listener); 
         
           // Inicializa el campo "actual" con la fecha actual
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd 'Hora:'  HH:mm");
         actual.setText(dateFormat.format(new java.util.Date()));
-        servicios.addItemListener(e -> validar());
-        materiales.addItemListener(e -> validar());
+        
+        
+                 //para moverlo al siguiente lugar
+         fechaI.addPropertyChangeListener("date",evt->{
+             if(fechaI.getDate()!=null){
+                     fechaI.requestFocus(); 
+             }
+         });
+           fechaF.addPropertyChangeListener("date",evt->{
+             if(fechaF.getDate()!=null){
+                     proyecto.requestFocus(); 
+             }
+         });
+                  //para que se pueda escribir de una
+          contrato.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                    fechaI.requestFocus(); // Mover el foco al JDateChooser
+                                // Asegúrate de que se pueda escribir en el JDateChooser
+            fechaI.getDateEditor().getUiComponent().requestFocus();
+
+        }
+    }
+});
+         fechaI.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                    fechaF.requestFocus(); // Mover el foco al JDateChooser
+                                // Asegúrate de que se pueda escribir en el JDateChooser
+            fechaF.getDateEditor().getUiComponent().requestFocus();
+
+        }
+    }
+});
+         // Listener para cambios en las fechas
+PropertyChangeListener dateChangeListener = evt -> {
+    if ("date".equals(evt.getPropertyName())) {
+        validar();  // Llama a tu método de validación
+    }
+};
+
+// Agregar el listener a fechaI y fechaF
+fechaI.addPropertyChangeListener(dateChangeListener);
+fechaF.addPropertyChangeListener(dateChangeListener);
 
     }
 
@@ -58,25 +106,26 @@ public class agregar extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        tdatos = new javax.swing.JLabel();
         barratitulo = new javax.swing.JPanel();
-        materiales = new javax.swing.JCheckBox();
-        servicios = new javax.swing.JCheckBox();
-        Jpago = new javax.swing.JLabel();
-        nombre = new javax.swing.JTextField();
-        Jpago1 = new javax.swing.JLabel();
-        valor = new javax.swing.JTextField();
+        JLcontrato = new javax.swing.JLabel();
+        JLcargo = new javax.swing.JLabel();
         JLnombre = new javax.swing.JLabel();
-        cantidad = new javax.swing.JTextField();
-        JLvalor = new javax.swing.JLabel();
-        valort = new javax.swing.JTextField();
         aceptar = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
-        JLvalortotal1 = new javax.swing.JLabel();
+        JLproyecto = new javax.swing.JLabel();
         jlfecha = new javax.swing.JLabel();
-        fecha = new com.toedter.calendar.JDateChooser();
+        fechaI = new com.toedter.calendar.JDateChooser();
         actual = new javax.swing.JTextField();
-        cfecha = new javax.swing.JCheckBox();
+        cfechaI = new javax.swing.JCheckBox();
+        nombre = new javax.swing.JTextField();
+        contrato = new javax.swing.JTextField();
+        proyecto = new javax.swing.JTextField();
+        cargo = new javax.swing.JTextField();
+        pago = new javax.swing.JTextField();
+        JLpago = new javax.swing.JLabel();
+        jlfechaF = new javax.swing.JLabel();
+        fechaF = new com.toedter.calendar.JDateChooser();
+        cfechaF = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Ventana");
@@ -87,9 +136,6 @@ public class agregar extends javax.swing.JDialog {
 
         jPanel4.setBackground(new java.awt.Color(225, 153, 51));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        tdatos.setBorder(javax.swing.BorderFactory.createTitledBorder("Total de Registro"));
-        jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 460, 140, 40));
 
         barratitulo.setBackground(new java.awt.Color(225, 153, 51));
         barratitulo.setForeground(new java.awt.Color(0, 0, 0));
@@ -106,120 +152,23 @@ public class agregar extends javax.swing.JDialog {
         barratitulo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel4.add(barratitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 30));
 
-        materiales.setBackground(new java.awt.Color(225, 153, 51));
-        materiales.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        materiales.setText("Material");
-        materiales.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                materialesMouseClicked(evt);
-            }
-        });
-        materiales.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                materialesActionPerformed(evt);
-            }
-        });
-        jPanel4.add(materiales, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, -1, -1));
+        JLcontrato.setBackground(new java.awt.Color(255, 255, 255));
+        JLcontrato.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        JLcontrato.setForeground(new java.awt.Color(255, 255, 255));
+        JLcontrato.setText("Contrato");
+        jPanel4.add(JLcontrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 100, 20));
 
-        servicios.setBackground(new java.awt.Color(225, 153, 51));
-        servicios.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        servicios.setText("Servicio");
-        servicios.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                serviciosMouseClicked(evt);
-            }
-        });
-        servicios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                serviciosActionPerformed(evt);
-            }
-        });
-        jPanel4.add(servicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, -1, -1));
-
-        Jpago.setBackground(new java.awt.Color(255, 255, 255));
-        Jpago.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Jpago.setForeground(new java.awt.Color(255, 255, 255));
-        Jpago.setText("Cantidad:");
-        jPanel4.add(Jpago, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 100, 20));
-
-        nombre.setBackground(new java.awt.Color(204, 204, 204));
-        nombre.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        nombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreActionPerformed(evt);
-            }
-        });
-        nombre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                nombreKeyPressed(evt);
-            }
-        });
-        jPanel4.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 300, 30));
-
-        Jpago1.setBackground(new java.awt.Color(255, 255, 255));
-        Jpago1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Jpago1.setForeground(new java.awt.Color(255, 255, 255));
-        Jpago1.setText("Seleccione:");
-        jPanel4.add(Jpago1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 100, 20));
-
-        valor.setBackground(new java.awt.Color(204, 204, 204));
-        valor.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        valor.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        valor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valorActionPerformed(evt);
-            }
-        });
-        valor.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                valorKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                valorKeyReleased(evt);
-            }
-        });
-        jPanel4.add(valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, 200, 30));
+        JLcargo.setBackground(new java.awt.Color(255, 255, 255));
+        JLcargo.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        JLcargo.setForeground(new java.awt.Color(255, 255, 255));
+        JLcargo.setText("Cargo");
+        jPanel4.add(JLcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 100, 20));
 
         JLnombre.setBackground(new java.awt.Color(255, 255, 255));
         JLnombre.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         JLnombre.setForeground(new java.awt.Color(255, 255, 255));
         JLnombre.setText("Nombre:");
-        jPanel4.add(JLnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 100, 20));
-
-        cantidad.setBackground(new java.awt.Color(204, 204, 204));
-        cantidad.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        cantidad.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        cantidad.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cantidadKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cantidadKeyReleased(evt);
-            }
-        });
-        jPanel4.add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 80, 30));
-
-        JLvalor.setBackground(new java.awt.Color(255, 255, 255));
-        JLvalor.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        JLvalor.setForeground(new java.awt.Color(255, 255, 255));
-        JLvalor.setText("Valor:");
-        jPanel4.add(JLvalor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 100, 20));
-
-        valort.setEditable(false);
-        valort.setBackground(new java.awt.Color(222, 222, 222));
-        valort.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        valort.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        valort.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valortActionPerformed(evt);
-            }
-        });
-        valort.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                valortKeyPressed(evt);
-            }
-        });
-        jPanel4.add(valort, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 200, 30));
+        jPanel4.add(JLnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 100, 20));
 
         aceptar.setBackground(new java.awt.Color(70, 70, 70));
         aceptar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -235,7 +184,7 @@ public class agregar extends javax.swing.JDialog {
                 aceptarActionPerformed(evt);
             }
         });
-        jPanel4.add(aceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 380, 90, 30));
+        jPanel4.add(aceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 410, 90, 30));
 
         cancelar.setBackground(new java.awt.Color(70, 70, 70));
         cancelar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -251,27 +200,27 @@ public class agregar extends javax.swing.JDialog {
                 cancelarActionPerformed(evt);
             }
         });
-        jPanel4.add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 380, 90, 30));
+        jPanel4.add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 410, 90, 30));
 
-        JLvalortotal1.setBackground(new java.awt.Color(255, 255, 255));
-        JLvalortotal1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        JLvalortotal1.setForeground(new java.awt.Color(255, 255, 255));
-        JLvalortotal1.setText("Valor Total:");
-        jPanel4.add(JLvalortotal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 100, 20));
+        JLproyecto.setBackground(new java.awt.Color(255, 255, 255));
+        JLproyecto.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        JLproyecto.setForeground(new java.awt.Color(255, 255, 255));
+        JLproyecto.setText("Proyecto");
+        jPanel4.add(JLproyecto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, 100, 20));
 
         jlfecha.setBackground(new java.awt.Color(255, 255, 255));
         jlfecha.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jlfecha.setForeground(new java.awt.Color(255, 255, 255));
-        jlfecha.setText("Fecha Compra:");
-        jPanel4.add(jlfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 100, 20));
+        jlfecha.setText("Fecha De Inicio:");
+        jPanel4.add(jlfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 100, 20));
 
-        fecha.setBackground(new java.awt.Color(225, 153, 51));
-        fecha.addKeyListener(new java.awt.event.KeyAdapter() {
+        fechaI.setBackground(new java.awt.Color(225, 153, 51));
+        fechaI.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                fechaKeyPressed(evt);
+                fechaIKeyPressed(evt);
             }
         });
-        jPanel4.add(fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 130, -1));
+        jPanel4.add(fechaI, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 130, -1));
 
         actual.setBackground(new java.awt.Color(225, 153, 51));
         actual.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
@@ -295,17 +244,122 @@ public class agregar extends javax.swing.JDialog {
         });
         jPanel4.add(actual, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 130, 30));
 
-        cfecha.setBackground(new java.awt.Color(225, 153, 51));
-        cfecha.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        cfecha.setText("Fecha actual");
-        cfecha.addActionListener(new java.awt.event.ActionListener() {
+        cfechaI.setBackground(new java.awt.Color(225, 153, 51));
+        cfechaI.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        cfechaI.setText("Fecha actual");
+        cfechaI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cfechaActionPerformed(evt);
+                cfechaIActionPerformed(evt);
             }
         });
-        jPanel4.add(cfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, -1, -1));
+        cfechaI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cfechaIKeyPressed(evt);
+            }
+        });
+        jPanel4.add(cfechaI, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 190, -1, -1));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 430));
+        nombre.setBackground(new java.awt.Color(204, 204, 204));
+        nombre.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        nombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreActionPerformed(evt);
+            }
+        });
+        nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nombreKeyPressed(evt);
+            }
+        });
+        jPanel4.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 300, 30));
+
+        contrato.setBackground(new java.awt.Color(204, 204, 204));
+        contrato.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        contrato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contratoActionPerformed(evt);
+            }
+        });
+        contrato.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                contratoKeyPressed(evt);
+            }
+        });
+        jPanel4.add(contrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 300, 30));
+
+        proyecto.setBackground(new java.awt.Color(204, 204, 204));
+        proyecto.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        proyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                proyectoActionPerformed(evt);
+            }
+        });
+        proyecto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                proyectoKeyPressed(evt);
+            }
+        });
+        jPanel4.add(proyecto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 300, 30));
+
+        cargo.setBackground(new java.awt.Color(204, 204, 204));
+        cargo.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        cargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargoActionPerformed(evt);
+            }
+        });
+        cargo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cargoKeyPressed(evt);
+            }
+        });
+        jPanel4.add(cargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 300, 30));
+
+        pago.setBackground(new java.awt.Color(204, 204, 204));
+        pago.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        pago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pagoActionPerformed(evt);
+            }
+        });
+        pago.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                pagoKeyPressed(evt);
+            }
+        });
+        jPanel4.add(pago, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, 300, 30));
+
+        JLpago.setBackground(new java.awt.Color(255, 255, 255));
+        JLpago.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        JLpago.setForeground(new java.awt.Color(255, 255, 255));
+        JLpago.setText("Pago");
+        jPanel4.add(JLpago, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, 100, 20));
+
+        jlfechaF.setBackground(new java.awt.Color(255, 255, 255));
+        jlfechaF.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jlfechaF.setForeground(new java.awt.Color(255, 255, 255));
+        jlfechaF.setText("Fecha de Finalizar:");
+        jPanel4.add(jlfechaF, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 100, 20));
+
+        fechaF.setBackground(new java.awt.Color(225, 153, 51));
+        fechaF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                fechaFKeyPressed(evt);
+            }
+        });
+        jPanel4.add(fechaF, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 130, -1));
+
+        cfechaF.setBackground(new java.awt.Color(225, 153, 51));
+        cfechaF.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        cfechaF.setText("Fecha actual");
+        cfechaF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cfechaFActionPerformed(evt);
+            }
+        });
+        jPanel4.add(cfechaF, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 240, -1, -1));
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 470));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -325,7 +379,16 @@ public class agregar extends javax.swing.JDialog {
     
     //metodos
     public void validar(){
-    if (valor.getText().trim().isEmpty()  || nombre.getText().trim().isEmpty() ||  cantidad.getText().trim().isEmpty()  ||   !servicios.isSelected() &&  !materiales.isSelected() || fecha.getDate() == null ){
+   if (nombre.getText().trim().isEmpty() ||
+            cargo.getText().trim().isEmpty() ||
+            contrato.getText().trim().isEmpty() || 
+            proyecto.getText().trim().isEmpty() || 
+            pago.getText().trim().isEmpty() || 
+            fechaI.getDate() == null || 
+            fechaF.getDate() == null ||
+        fechaF.getDate().before(fechaI.getDate())  //puras librerias
+           
+           ) {
         aceptar.setBackground(new Color(139, 0, 0));
         aceptar.setForeground(Color.black);
     } else {
@@ -334,103 +397,31 @@ public class agregar extends javax.swing.JDialog {
     }
 }
     
-    private void valorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_valorKeyPressed
-         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-             try{
-        if (valor.getText().trim().isEmpty() ||
-        nombre.getText().trim().isEmpty() ||
-        cantidad.getText().trim().isEmpty() ||
-        fecha.getDate() == null) {
-        
-        JOptionPane.showMessageDialog(this, 
-                "Todos los campos (Nombre, Fecha, Compra, Valor, Cantidad) deben estar llenos", 
-                "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }else if (Float.parseFloat(cantidad.getText())<=0) {
-            JOptionPane.showMessageDialog(this, "Cantidad tiene que ser mayor que cero");
-
-         //llenar valores   
-        }else if (Float.parseFloat(valor.getText())<=0) {
-            JOptionPane.showMessageDialog(this, "Valor tiene que ser mayor que cero");
-        }else{ 
-                    this.setVisible(false);
-
-        }
-        
-    }catch(HeadlessException | NumberFormatException e){
-        
-        JOptionPane.showMessageDialog(this, "Los Datos No son validos");
-    }
-         }
-    }//GEN-LAST:event_valorKeyPressed
-
-    private void cantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadKeyPressed
- if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-        valor.requestFocus(); }    }//GEN-LAST:event_cantidadKeyPressed
-
-    private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreActionPerformed
-
-    private void nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyPressed
- if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-        fecha.requestFocus(); }    }//GEN-LAST:event_nombreKeyPressed
-
-    private void materialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialesActionPerformed
-        if (materiales.isSelected()) {
-            materiales.setSelected(true);servicios.setSelected(false);
-        }else{
-            servicios.setSelected(false);  materiales.setSelected(false);
-        }
-
-    }//GEN-LAST:event_materialesActionPerformed
-
-    private void serviciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_serviciosActionPerformed
-        if (servicios.isSelected()) {
-            materiales.setSelected(false);servicios.setSelected(true);
-        }else {
-            servicios.setSelected(false);  materiales.setSelected(false);
-        }
-
-    }//GEN-LAST:event_serviciosActionPerformed
-
-    private void valorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_valorActionPerformed
-
-    private void valortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valortActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_valortActionPerformed
-
-    private void valortKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_valortKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_valortKeyPressed
-
     private void aceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aceptarMouseClicked
-    try{
-        if (valor.getText().trim().isEmpty() ||
-        nombre.getText().trim().isEmpty() ||
-        cantidad.getText().trim().isEmpty() || 
-        !servicios.isSelected() && 
-        !materiales.isSelected() || 
-         fecha.getDate() == null) {
-        
-        JOptionPane.showMessageDialog(this, 
-                "Todos los campos (Nombre, Fecha, Valor, Cantidad) deben estar llenos y seleccionar (Servicio o Material)", 
+    try {
+         if (nombre.getText().trim().isEmpty() ||
+            cargo.getText().trim().isEmpty() ||
+            contrato.getText().trim().isEmpty() || 
+            proyecto.getText().trim().isEmpty() || 
+            pago.getText().trim().isEmpty() || 
+            fechaI.getDate() == null || 
+            fechaF.getDate() == null) {
+            
+            JOptionPane.showMessageDialog(this, 
+                "Todos los campos (Nombre, Cargo, Fecha Inicio, Fecha Final, Contrato, Proyecto, Pago) deben estar llenos.", 
                 "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }else if (Float.parseFloat(cantidad.getText())<=0) {
-            JOptionPane.showMessageDialog(this, "Cantidad tiene que ser mayor que cero");
-
-         //llenar valores   
-        }else if (Float.parseFloat(valor.getText())<=0) {
-            JOptionPane.showMessageDialog(this, "Valor tiene que ser mayor que cero");
-        }else{
-                    this.setVisible(false);
-
+        } else if (Float.parseFloat(pago.getText()) <= 0) {
+            JOptionPane.showMessageDialog(this, "La cantidad tiene que ser mayor que cero.");
+        } else if (fechaF.getDate().before(fechaI.getDate())) {
+            JOptionPane.showMessageDialog(this, "La fecha final debe ser posterior a la fecha de inicio.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        } else {
+            this.setVisible(false);
         }
-        
-    }catch(HeadlessException | NumberFormatException e){
-        JOptionPane.showMessageDialog(this, "Los Datos No son validos");
+    } catch (HeadlessException | NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Los datos no son válidos.");
     }
+  
+
     }//GEN-LAST:event_aceptarMouseClicked
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
@@ -444,27 +435,6 @@ public class agregar extends javax.swing.JDialog {
         this.setRootPane(null);//lo hace inservible entonces no envia los datos
         this.dispose();//lo cierra
     }//GEN-LAST:event_cancelarMouseClicked
-
-    private void cantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadKeyReleased
-       try{
-            float cantidadValue = Float.parseFloat(cantidad.getText());
-            float valorValue = Float.parseFloat(valor.getText());
-            float totalValue = cantidadValue * valorValue;
-            valort.setText(String.valueOf(totalValue));
-           
-        }
-        catch (NumberFormatException e){
-           
-           valort.setText("0.00");
-        }
-    }//GEN-LAST:event_cantidadKeyReleased
-
-    private void valorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_valorKeyReleased
-        /*lo llamamos para que tambien saque el valor tal
-        ya que solo modifica en cantidad y en el valor tambien
-        se tiene que poder*/
-        cantidadKeyReleased(null);
-    }//GEN-LAST:event_valorKeyReleased
 
     private void barratituloMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barratituloMousePressed
         xmouse = evt.getX();
@@ -489,33 +459,103 @@ public class agregar extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_actualKeyReleased
 
-    private void cfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cfechaActionPerformed
-         if(cfecha.isSelected()){
-                    fecha.setDate(new Date());
+    private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreActionPerformed
 
-        }else if (!cfecha.isSelected()){
-                                fecha.setDate(null);
-        }
-
-    }//GEN-LAST:event_cfechaActionPerformed
-
-    private void materialesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_materialesMouseClicked
-         if(materiales.isSelected()){
-        nombre.requestFocus(); }
-    }//GEN-LAST:event_materialesMouseClicked
-
-    private void serviciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_serviciosMouseClicked
-        if (servicios.isSelected()) {
-            nombre.requestFocus();
-        }
-                                     
-    }//GEN-LAST:event_serviciosMouseClicked
-
-    private void fechaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechaKeyPressed
+    private void nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyPressed
  if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-        cantidad.requestFocus(); 
-    
-    }                              }//GEN-LAST:event_fechaKeyPressed
+        cargo.requestFocus();} 
+    }//GEN-LAST:event_nombreKeyPressed
+
+    private void cfechaIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cfechaIActionPerformed
+        if(cfechaI.isSelected()){
+            fechaI.setDate(new Date());
+
+        }else if (!cfechaI.isSelected()){
+            fechaI.setDate(null);
+        }
+    }//GEN-LAST:event_cfechaIActionPerformed
+
+    private void fechaIKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechaIKeyPressed
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            fechaF.requestFocus();
+        
+        }
+    }//GEN-LAST:event_fechaIKeyPressed
+
+    private void contratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contratoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_contratoActionPerformed
+
+    private void contratoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contratoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_contratoKeyPressed
+
+    private void proyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proyectoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_proyectoActionPerformed
+
+    private void proyectoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_proyectoKeyPressed
+ if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+        pago.requestFocus();}     }//GEN-LAST:event_proyectoKeyPressed
+
+    private void pagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pagoActionPerformed
+
+    private void pagoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pagoKeyPressed
+ if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+       try {
+        if (nombre.getText().trim().isEmpty() ||
+            cargo.getText().trim().isEmpty() ||
+            contrato.getText().trim().isEmpty() || 
+            proyecto.getText().trim().isEmpty() || 
+            pago.getText().trim().isEmpty() || 
+            fechaI.getDate() == null || 
+            fechaF.getDate() == null) {
+            
+            JOptionPane.showMessageDialog(this, 
+                "Todos los campos (Nombre, Cargo, Fecha Inicio, Fecha Final, Contrato, Proyecto, Pago) deben estar llenos.", 
+                "Advertencia", JOptionPane.WARNING_MESSAGE);
+        } else if (Float.parseFloat(pago.getText()) <= 0) {
+            JOptionPane.showMessageDialog(this, "La cantidad tiene que ser mayor que cero.");
+        } else if (fechaF.getDate().before(fechaI.getDate())) {
+            JOptionPane.showMessageDialog(this, "La fecha final debe ser posterior a la fecha de inicio.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        } else {
+            this.setVisible(false);
+        }
+    } catch (HeadlessException | NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Los datos no son válidos.");
+    }
+
+ }
+    }//GEN-LAST:event_pagoKeyPressed
+
+    private void cargoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cargoKeyPressed
+ if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+        contrato.requestFocus();} 
+    }//GEN-LAST:event_cargoKeyPressed
+
+    private void cargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cargoActionPerformed
+
+    private void fechaFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechaFKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fechaFKeyPressed
+
+    private void cfechaFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cfechaFActionPerformed
+   if(cfechaF.isSelected()){
+            fechaF.setDate(new Date());
+
+        }else if (!cfechaF.isSelected()){
+            fechaF.setDate(null);
+        }    }//GEN-LAST:event_cfechaFActionPerformed
+
+    private void cfechaIKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cfechaIKeyPressed
+                
+    }//GEN-LAST:event_cfechaIKeyPressed
 
     /**
      * @param args the command line arguments
@@ -558,27 +598,28 @@ public class agregar extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel JLcargo;
+    private javax.swing.JLabel JLcontrato;
     private javax.swing.JLabel JLnombre;
-    private javax.swing.JLabel JLvalor;
-    private javax.swing.JLabel JLvalortotal1;
-    private javax.swing.JLabel Jpago;
-    private javax.swing.JLabel Jpago1;
+    private javax.swing.JLabel JLpago;
+    private javax.swing.JLabel JLproyecto;
     private javax.swing.JButton aceptar;
     public javax.swing.JTextField actual;
     private javax.swing.JPanel barratitulo;
     private javax.swing.JButton cancelar;
-    public javax.swing.JTextField cantidad;
-    private javax.swing.JCheckBox cfecha;
-    public com.toedter.calendar.JDateChooser fecha;
+    public javax.swing.JTextField cargo;
+    private javax.swing.JCheckBox cfechaF;
+    private javax.swing.JCheckBox cfechaI;
+    public javax.swing.JTextField contrato;
+    public com.toedter.calendar.JDateChooser fechaF;
+    public com.toedter.calendar.JDateChooser fechaI;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel jlfecha;
-    public javax.swing.JCheckBox materiales;
+    private javax.swing.JLabel jlfechaF;
     public javax.swing.JTextField nombre;
-    public javax.swing.JCheckBox servicios;
-    private javax.swing.JLabel tdatos;
-    public javax.swing.JTextField valor;
-    public javax.swing.JTextField valort;
+    public javax.swing.JTextField pago;
+    public javax.swing.JTextField proyecto;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -2,6 +2,7 @@
 package empresajava1;
 
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -17,7 +18,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import javax.swing.ImageIcon;
 
-
+//cvcvcvcvxvcc
 
 public class principal extends javax.swing.JFrame {
     DefaultTableModel modelo = new DefaultTableModel();
@@ -46,6 +47,17 @@ public class principal extends javax.swing.JFrame {
             public void changedUpdate(DocumentEvent e) {
              validar();}
                 });
+         // Listener para la tecla Delete en la JTable
+        RegistroT.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+                    eliminarFilaSeleccionada();
+                }
+                if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                    eliminarFilaSeleccionada();
+}   
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -172,7 +184,7 @@ public class principal extends javax.swing.JFrame {
         pagos.setBackground(new java.awt.Color(70, 70, 70));
         pagos.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         pagos.setForeground(new java.awt.Color(255, 255, 255));
-        pagos.setText("Pagos");
+        pagos.setText("Empreados");
         pagos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pagosActionPerformed(evt);
@@ -261,9 +273,9 @@ public class principal extends javax.swing.JFrame {
                 txttareaKeyPressed(evt);
             }
         });
-        jPanel5.add(txttarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 6, 750, 30));
+        jPanel5.add(txttarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 6, 1030, 30));
 
-        jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 880, 50));
+        jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 1160, 50));
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Todas Las Tareas"));
 
@@ -282,10 +294,10 @@ public class principal extends javax.swing.JFrame {
         RegistroT.setShowGrid(false);
         jScrollPane1.setViewportView(RegistroT);
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 960, 430));
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 1160, 430));
 
         tdatos.setBorder(javax.swing.BorderFactory.createTitledBorder("Total de Registro"));
-        jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 600, 140, 40));
+        jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 600, 140, 40));
 
         barratitulo.setBackground(new java.awt.Color(225, 153, 51));
         barratitulo.setForeground(new java.awt.Color(0, 0, 0));
@@ -316,11 +328,11 @@ public class principal extends javax.swing.JFrame {
                 xMouseExited(evt);
             }
         });
-        barratitulo.add(x, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 0, 20, 30));
+        barratitulo.add(x, new org.netbeans.lib.awtextra.AbsoluteConstraints(1380, 0, 20, 30));
 
-        jPanel4.add(barratitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-210, 0, 1180, -1));
+        jPanel4.add(barratitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-210, 0, 1410, -1));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 970, 650));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 1200, 650));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -338,6 +350,22 @@ public class principal extends javax.swing.JFrame {
 
     
     //Metodos
+       //para elimnar filas
+    private void eliminarFilaSeleccionada() {
+        int filaSeleccionada = RegistroT.getSelectedRow();
+        if (filaSeleccionada >= 0) {
+            int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar esta tarea?", "Confirmación", JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                DefaultTableModel modelo = (DefaultTableModel) RegistroT.getModel();
+                modelo.removeRow(filaSeleccionada);
+
+                JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
+                exportarAExcel();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una tarea para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     public void limpiar(){
         txttarea.setText("");
     }
@@ -405,7 +433,7 @@ private void cargarDesdeExcel() {
     }
 }
 
-    
+    ///mas comentarios a ver que paso por que que
     private void ExtraerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExtraerActionPerformed
 XSSFWorkbook workbook = new XSSFWorkbook();
     XSSFSheet sheet = workbook.createSheet("Tareas");
@@ -466,26 +494,8 @@ XSSFWorkbook workbook = new XSSFWorkbook();
     }//GEN-LAST:event_ModificarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-        int filaSeleccionada = RegistroT.getSelectedRow();
-    if (filaSeleccionada >= 0) {
-         // Muestra un cuadro de confirmación
-    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar esta tarea?", "Confirmación", JOptionPane.YES_NO_OPTION);
-    // Si el usuario confirma con "Sí", procede a eliminar
-    if (confirmacion == JOptionPane.YES_OPTION) {
-        DefaultTableModel modelo = (DefaultTableModel) RegistroT.getModel();
-        modelo.removeRow(filaSeleccionada);
-        
-        // Actualiza el contador de tareas
-        int filast = RegistroT.getRowCount();
-        tdatos.setText("" + filast);
-        
-        JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
-        exportarAExcel();
-    }
-        
-    } else {
-        JOptionPane.showMessageDialog(this, "Seleccione una tarea para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
-    }    
+                         eliminarFilaSeleccionada();
+
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed

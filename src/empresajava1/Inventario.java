@@ -2,6 +2,9 @@
 package empresajava1;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -15,33 +18,80 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableRowSorter;
 
     
 
 public class Inventario extends javax.swing.JFrame {
     DefaultTableModel modelo = new DefaultTableModel();
+TableRowSorter<DefaultTableModel> buscadorfinal;
+    
     
    int xmouse ,ymouse;
     
     public Inventario() {
         initComponents();
+        configurarFiltros();
         setIconImage(new ImageIcon(getClass().getResource("/icons/logof.png")).getImage());
         setLocationRelativeTo(null);
         cargarDesdeExcel();
        //calcular el valor total
         calcular();                
+        ajustarAnchoColumnas(RegistroT1);
+        
+            modelo = (DefaultTableModel) RegistroT1.getModel();
+            buscadorfinal = new TableRowSorter<>(modelo);
+            RegistroT1.setRowSorter(buscadorfinal);
 
-        Agregar.setBackground(new Color(139,0,0));
-        Agregar.setForeground(Color.black); 
+          /*
+        Esta libreria ofrece una forma de detectar cambios en tiempo real, como si estuvieras constantemente
+        revisando el campo de texto con if-else, pero de manera automática y continua.        
+        */
+          // Listener para campos de texto
+          buscadorColumna6.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                aplicarFiltro();
+            }
 
-    }  
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                aplicarFiltro();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                aplicarFiltro();
+            }
+        });
+        
+        // Listener para la tecla Delete en la JTable
+        RegistroT1.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+                    eliminarFilaSeleccionada();
+                }
+                if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                    eliminarFilaSeleccionada();
+}   
+            }
+        });                
+                }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -66,8 +116,13 @@ public class Inventario extends javax.swing.JFrame {
         x = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         RegistroT1 = new javax.swing.JTable();
-        buscador = new javax.swing.JTextField();
+        buscadorColumna6 = new javax.swing.JTextField();
         tdatos = new javax.swing.JLabel();
+        buscadorColumna1 = new javax.swing.JTextField();
+        buscadorColumna2 = new javax.swing.JTextField();
+        buscadorColumna3 = new javax.swing.JTextField();
+        buscadorColumna4 = new javax.swing.JTextField();
+        buscadorColumna5 = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -132,7 +187,7 @@ public class Inventario extends javax.swing.JFrame {
         pagos.setBackground(new java.awt.Color(70, 70, 70));
         pagos.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         pagos.setForeground(new java.awt.Color(255, 255, 255));
-        pagos.setText("Pagos");
+        pagos.setText("Empleados");
         pagos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pagosActionPerformed(evt);
@@ -203,7 +258,7 @@ public class Inventario extends javax.swing.JFrame {
                 AgregarActionPerformed(evt);
             }
         });
-        jPanel4.add(Agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, 80, 20));
+        jPanel4.add(Agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 40, 80, 20));
 
         Modificar.setBackground(new java.awt.Color(70, 70, 70));
         Modificar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -214,7 +269,7 @@ public class Inventario extends javax.swing.JFrame {
                 ModificarActionPerformed(evt);
             }
         });
-        jPanel4.add(Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, 80, 20));
+        jPanel4.add(Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 40, 120, 20));
 
         Eliminar.setBackground(new java.awt.Color(70, 70, 70));
         Eliminar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -225,7 +280,12 @@ public class Inventario extends javax.swing.JFrame {
                 EliminarActionPerformed(evt);
             }
         });
-        jPanel4.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 60, 80, 20));
+        Eliminar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                EliminarKeyPressed(evt);
+            }
+        });
+        jPanel4.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 70, 80, 20));
 
         EliminarTodo.setBackground(new java.awt.Color(70, 70, 70));
         EliminarTodo.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -236,7 +296,7 @@ public class Inventario extends javax.swing.JFrame {
                 EliminarTodoActionPerformed(evt);
             }
         });
-        jPanel4.add(EliminarTodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 60, 120, 20));
+        jPanel4.add(EliminarTodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 70, 120, 20));
 
         barratitulo.setBackground(new java.awt.Color(225, 153, 51));
         barratitulo.setForeground(new java.awt.Color(0, 0, 0));
@@ -267,9 +327,9 @@ public class Inventario extends javax.swing.JFrame {
                 xMouseExited(evt);
             }
         });
-        barratitulo.add(x, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 0, 20, 30));
+        barratitulo.add(x, new org.netbeans.lib.awtextra.AbsoluteConstraints(1390, 0, 20, 30));
 
-        jPanel4.add(barratitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-210, 0, 1190, -1));
+        jPanel4.add(barratitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-210, 0, 1420, -1));
 
         jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -281,7 +341,7 @@ public class Inventario extends javax.swing.JFrame {
 
             },
             new String [] {
-                "FechaIngreso", "Nombre", "FechaCompra", "Cantidad", "ValorUnitario", "ValorTotal"
+                "FechaIngreso", "Bodegas", "Nombre", "Cantidad", "ValorUnitario", "ValorTotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -296,28 +356,128 @@ public class Inventario extends javax.swing.JFrame {
         RegistroT1.setShowGrid(false);
         jScrollPane2.setViewportView(RegistroT1);
 
-        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 930, 490));
+        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 1160, 490));
 
-        buscador.setBackground(new java.awt.Color(225, 153, 51));
-        buscador.setForeground(new java.awt.Color(0, 0, 0));
-        buscador.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscador"));
-        buscador.addActionListener(new java.awt.event.ActionListener() {
+        buscadorColumna6.setBackground(new java.awt.Color(225, 153, 51));
+        buscadorColumna6.setForeground(new java.awt.Color(0, 0, 0));
+        buscadorColumna6.setBorder(javax.swing.BorderFactory.createTitledBorder("Valor Total"));
+        buscadorColumna6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscadorActionPerformed(evt);
+                buscadorColumna6ActionPerformed(evt);
             }
         });
-        jPanel4.add(buscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 290, 50));
+        buscadorColumna6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                buscadorColumna6KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                buscadorColumna6KeyTyped(evt);
+            }
+        });
+        jPanel4.add(buscadorColumna6, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 30, 110, 60));
 
         tdatos.setBorder(javax.swing.BorderFactory.createTitledBorder("Valor Total"));
-        jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 590, 140, 40));
+        jPanel4.add(tdatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 600, 140, 40));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 980, 650));
+        buscadorColumna1.setBackground(new java.awt.Color(225, 153, 51));
+        buscadorColumna1.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        buscadorColumna1.setForeground(new java.awt.Color(0, 0, 0));
+        buscadorColumna1.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha"));
+        buscadorColumna1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscadorColumna1ActionPerformed(evt);
+            }
+        });
+        buscadorColumna1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                buscadorColumna1KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                buscadorColumna1KeyTyped(evt);
+            }
+        });
+        jPanel4.add(buscadorColumna1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 110, 60));
+
+        buscadorColumna2.setBackground(new java.awt.Color(225, 153, 51));
+        buscadorColumna2.setForeground(new java.awt.Color(0, 0, 0));
+        buscadorColumna2.setBorder(javax.swing.BorderFactory.createTitledBorder("Bodega"));
+        buscadorColumna2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscadorColumna2ActionPerformed(evt);
+            }
+        });
+        buscadorColumna2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                buscadorColumna2KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                buscadorColumna2KeyTyped(evt);
+            }
+        });
+        jPanel4.add(buscadorColumna2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 110, 60));
+
+        buscadorColumna3.setBackground(new java.awt.Color(225, 153, 51));
+        buscadorColumna3.setForeground(new java.awt.Color(0, 0, 0));
+        buscadorColumna3.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre"));
+        buscadorColumna3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscadorColumna3ActionPerformed(evt);
+            }
+        });
+        buscadorColumna3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                buscadorColumna3KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                buscadorColumna3KeyTyped(evt);
+            }
+        });
+        jPanel4.add(buscadorColumna3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 110, 60));
+
+        buscadorColumna4.setBackground(new java.awt.Color(225, 153, 51));
+        buscadorColumna4.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        buscadorColumna4.setForeground(new java.awt.Color(0, 0, 0));
+        buscadorColumna4.setBorder(javax.swing.BorderFactory.createTitledBorder("Cantidad"));
+        buscadorColumna4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscadorColumna4ActionPerformed(evt);
+            }
+        });
+        buscadorColumna4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                buscadorColumna4KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                buscadorColumna4KeyTyped(evt);
+            }
+        });
+        jPanel4.add(buscadorColumna4, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 30, 110, 60));
+
+        buscadorColumna5.setBackground(new java.awt.Color(225, 153, 51));
+        buscadorColumna5.setForeground(new java.awt.Color(0, 0, 0));
+        buscadorColumna5.setBorder(javax.swing.BorderFactory.createTitledBorder("Valor Unidad"));
+        buscadorColumna5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscadorColumna5ActionPerformed(evt);
+            }
+        });
+        buscadorColumna5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                buscadorColumna5KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                buscadorColumna5KeyTyped(evt);
+            }
+        });
+        jPanel4.add(buscadorColumna5, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, 110, 60));
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 1210, 650));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1194, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -329,17 +489,122 @@ public class Inventario extends javax.swing.JFrame {
 
     
     //Metodos
+       //filtrado
+    
+    
+    private void configurarFiltros() {
+    // Definir el arreglo de JTextFields correctamente
+    JTextField[] camposBuscadores = { 
+        buscadorColumna1, buscadorColumna2, buscadorColumna3, 
+        buscadorColumna4, buscadorColumna5,buscadorColumna6,  };
+
+    for (JTextField campo : camposBuscadores) {
+        campo.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                aplicarFiltro();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                aplicarFiltro();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                aplicarFiltro();
+            }
+        });
+    }
+}
+   private void aplicarFiltro() {
+    RowFilter<DefaultTableModel, Object> rowFilter = null;
+    ArrayList<RowFilter<Object, Object>> filtros = new ArrayList<>();
+
+    // Añadir filtros para cada JTextField
+    if (!buscadorColumna1.getText().trim().isEmpty()) {
+        filtros.add(RowFilter.regexFilter("(?i)" + buscadorColumna1.getText(), 0));
+    }
+    if (!buscadorColumna2.getText().trim().isEmpty()) {
+        filtros.add(RowFilter.regexFilter("(?i)" + buscadorColumna2.getText(), 1));
+    }
+    if (!buscadorColumna3.getText().trim().isEmpty()) {
+        filtros.add(RowFilter.regexFilter("(?i)" + buscadorColumna3.getText(), 2));
+    }
+    if (!buscadorColumna4.getText().trim().isEmpty()) {
+        filtros.add(RowFilter.regexFilter("(?i)" + buscadorColumna4.getText(), 3));
+    }
+    if (!buscadorColumna5.getText().trim().isEmpty()) {
+        filtros.add(RowFilter.regexFilter("(?i)" + buscadorColumna5.getText(), 4));
+    }
+    if (!buscadorColumna6.getText().trim().isEmpty()) {
+        filtros.add(RowFilter.regexFilter("(?i)" + buscadorColumna6.getText(), 5));
+    }
+
+    rowFilter = RowFilter.andFilter(filtros);
+    buscadorfinal.setRowFilter(rowFilter);
+}
+
+    //para elimnar filas
+    private void eliminarFilaSeleccionada() {
+        int selectedRow = RegistroT1.getSelectedRow(); // Índice en la vista
+
+    if (selectedRow != -1) {
+        // Convertir el índice de la vista al índice del modelo
+        int modelRow = RegistroT1.convertRowIndexToModel(selectedRow);
+
+        // Confirmar eliminación
+        int confirm = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar esta fila?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            // Desactivar temporalmente el sorter para evitar el error
+            TableRowSorter<?> sorter = (TableRowSorter<?>) RegistroT1.getRowSorter();
+            RegistroT1.setRowSorter(null);
+
+            // Eliminar la fila en el modelo
+            modelo.removeRow(modelRow);
+
+            // Reactivar el sorter después de la eliminación
+            RegistroT1.setRowSorter(sorter);
+
+            // Reaplicar el filtro después de eliminar la fila
+            aplicarFiltro();
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "No hay ninguna fila seleccionada para eliminar.");
+    }
+    }
+
+ // Método para ajustar el ancho de las columnas
+    private void ajustarAnchoColumnas(JTable tabla) {
+        TableColumnModel columnModel = tabla.getColumnModel();
+        int maxWidth = 200; // Establece un ancho máximo
+        for (int column = 0; column < columnModel.getColumnCount(); column++) {
+            int width = 0; // Inicializa el ancho de la columna
+            for (int row = 0; row < tabla.getRowCount(); row++) {
+                // Obtiene el tamaño del valor de cada celda
+                int cellWidth = tabla.getCellRenderer(row, column).getTableCellRendererComponent(tabla,  tabla.getValueAt(row, column), false, false, row,column).getPreferredSize().width;
+                if (cellWidth > width) {
+                    width = cellWidth; // Actualiza el ancho si es mayor
+                }
+            }
+            width += tabla.getIntercellSpacing().width; // Añade espacio entre celdas
+        columnModel.getColumn(column).setPreferredWidth(Math.min(width, maxWidth));
+        }
+        
+    }
+    //Metodo para sacar el total
     private void calcular(){
         
         float suma=0;
-        float suma2=0;
         for (int i = 0; i < RegistroT1.getRowCount(); i++) {
-            float renglon;
-            renglon =Float.parseFloat(RegistroT1.getValueAt(i, 3).toString());
+            float renglon =Float.parseFloat(RegistroT1.getValueAt(i, 5).toString());
             suma=suma+renglon;
             tdatos.setText(String.valueOf(suma));
         }
        
+            // Formatear el total sin decimales
+    DecimalFormat df = new DecimalFormat("#"); // Solo enteros
+    tdatos.setText(df.format(suma)); // Actualiza el texto sin decimales
 
     }
 
@@ -347,20 +612,20 @@ public class Inventario extends javax.swing.JFrame {
         Workbook workbook = new XSSFWorkbook();
 
     // Crear las hojas para Materiales y Servicios
-    Sheet sheetMateriales = workbook.createSheet("Materiales");
+    Sheet sheetMateriales = workbook.createSheet("Inventario");
 
     // Exportar los datos de ambas tablas
     agregarTablaAHoja(sheetMateriales, RegistroT1);
 
     // Guardar el archivo en el sistema
-    try (FileOutputStream fileOut = new FileOutputStream("Pagos.xlsx")) {
+    try (FileOutputStream fileOut = new FileOutputStream("Inventario.xlsx")) {
         workbook.write(fileOut);
     } catch (IOException e) {
         e.printStackTrace();
     }
 }
 private void cargarDesdeExcel() {
-    File archivo = new File("Pagos.xlsx");
+    File archivo = new File("Inventario.xlsx");
     if (!archivo.exists()) return; // Verificar si el archivo existe
 
     try (FileInputStream fileIn = new FileInputStream(archivo)) {
@@ -368,7 +633,7 @@ private void cargarDesdeExcel() {
           // Limpiar la tabla antes de cargar
         modelo.setRowCount(0);
         
-        Sheet sheetMateriales = workbook.getSheet("Materiales");
+        Sheet sheetMateriales = workbook.getSheet("Inventario");
         DefaultTableModel modelomaterieales = (DefaultTableModel) RegistroT1.getModel();
         cargarDatosDesdeHoja(sheetMateriales, modelomaterieales);
           
@@ -549,21 +814,23 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
         if ( selectedRowMateriales == -1) 
         return;
 
-        agregar modificar = new agregar(this, true);
-
+        agregarinventario modificar = new agregarinventario(this, true);
+        
     if (selectedRowMateriales != -1 && selectedRowMateriales < modeloMateriales.getRowCount()) {
         
     // Obtener la fila seleccionada
     Vector registro2 = (Vector) modeloMateriales.getDataVector().elementAt(selectedRowMateriales);
 
         // Verificar si el registro2 contiene los datos esperados
-        if (registro2 != null && registro2.size() >= 4) {
+        if (registro2 != null && registro2.size() >= 6) {
 
             // Asignar valores al formulario de modificación
-            modificar.nombre.setText(registro2.elementAt(0).toString());
-            modificar.valor.setText(registro2.elementAt(1).toString());
-            modificar.cantidad.setText(registro2.elementAt(2).toString());
-            modificar.valort.setText(registro2.elementAt(3).toString());
+            modificar.actual.setText(registro2.elementAt(0).toString());
+            modificar.bodega.setText(registro2.elementAt(1).toString());
+            modificar.nombre.setText(registro2.elementAt(2).toString());
+            modificar.valor.setText(registro2.elementAt(3).toString());
+            modificar.cantidad.setText(registro2.elementAt(4).toString());
+            modificar.valort.setText(registro2.elementAt(5).toString());
             } 
     
     }
@@ -572,18 +839,20 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
 
     if (modificar.getRootPane() != null) {
         Vector v = new Vector();
+        
+        v.addElement(modificar.actual.getText());
+        v.addElement(modificar.bodega.getText());
         v.addElement(modificar.nombre.getText());
         v.addElement(modificar.valor.getText());
         v.addElement(modificar.cantidad.getText());
         v.addElement(modificar.valort.getText());
         
         modeloMateriales.getDataVector().set(RegistroT1.getSelectedRow(), v); 
-            modificar.materiales.setSelected(true);
             RegistroT1.updateUI();
             
            //calcular el valor total
             calcular();                
-
+            ajustarAnchoColumnas(RegistroT1);
         // Exportar los datos a Excel si la función está implementada
         exportarAExcel();
     
@@ -591,69 +860,39 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     }//GEN-LAST:event_ModificarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-      int filaSeleccionada2 = RegistroT1.getSelectedRow();
-      
-     if (filaSeleccionada2 >= 0) {
-                     // Muestra un cuadro de confirmación
-                     int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar esta tarea?", "Confirmación", JOptionPane.YES_NO_OPTION);
-                                // Si el usuario confirma con "Sí", procede a eliminar
-                                if (confirmacion == JOptionPane.YES_OPTION) {
-                                    DefaultTableModel modelo = (DefaultTableModel) RegistroT1.getModel();
-                                    modelo.removeRow(filaSeleccionada2);
-
-                                    //calcular el valor total
-                                    calcular();
-
-                                    JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
-                                    exportarAExcel();
-                                    }
-                }else {
-                    JOptionPane.showMessageDialog(this, "Seleccione una tarea para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
-                }    
+      eliminarFilaSeleccionada();
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
-        //lamo el JDialog
-        agregar agregar1 = new agregar(this,true);
-        agregar1.setVisible(true);
-        if (agregar1.getRootPane()!=null) {
-            
-                 Vector v = new Vector();
-                 v.addElement(agregar1.nombre.getText());
-                 v.addElement(agregar1.valor.getText());
-                 v.addElement(agregar1.cantidad.getText());
-                 v.addElement(agregar1.valort.getText());
-                 
-                 //para agregar la informacion
-                    DefaultTableModel modeloMateriales = (DefaultTableModel) RegistroT1.getModel();
-                    modeloMateriales.addRow(v);  
-     
-                //calcular el valor total
-                calcular();                
-                
-                // Exportar los datos a Excel (si tienes implementada esta función)
-                exportarAExcel();
-                }
-
+        
     }//GEN-LAST:event_AgregarActionPerformed
    
     private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
-         //lamo el JDialog
-        agregar agregar1 = new agregar(this,true);
+        // Desactiva temporalmente el TableRowSorter
+    RegistroT1.setRowSorter(null);
+        //lamo el JDialog
+        agregarinventario agregar1 = new agregarinventario(this,true);
         agregar1.setVisible(true);
         if (agregar1.getRootPane()!=null) {
             
          Vector v = new Vector();
+        v.addElement(agregar1.actual.getText());
+         v.addElement(agregar1.bodega.getText());
          v.addElement(agregar1.nombre.getText());
-         v.addElement(agregar1.valor.getText());
          v.addElement(agregar1.cantidad.getText());
+         v.addElement(agregar1.valor.getText());
          v.addElement(agregar1.valort.getText());
+
         
            DefaultTableModel modeloMateriales = (DefaultTableModel) RegistroT1.getModel();
             modeloMateriales.addRow(v);  // Agregar a tabla de materiales
+                ajustarAnchoColumnas(RegistroT1);
+                calcular();
+    RegistroT1.setRowSorter(buscadorfinal);
 
-        // Exportar los datos a Excel (si tienes implementada esta función)
+        // Exportar los datos a Excel (si tienes implementada esta función
         exportarAExcel();
+        // Reactiva el TableRowSorter después de la modificación
         }
 
     }//GEN-LAST:event_AgregarMouseClicked
@@ -700,7 +939,8 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
        
         // Actualiza el contador de tareas a 0
         tdatos.setText("0");
-        
+        ajustarAnchoColumnas(RegistroT1);
+
         JOptionPane.showMessageDialog(this, "Todas las tareas han sido eliminadas con éxito.");
         exportarAExcel();
     }
@@ -756,9 +996,81 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
         // TODO add your handling code here:
     }//GEN-LAST:event_inventarioActionPerformed
 
-    private void buscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscadorActionPerformed
+    private void buscadorColumna6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscadorColumna6ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_buscadorActionPerformed
+    }//GEN-LAST:event_buscadorColumna6ActionPerformed
+
+    private void EliminarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EliminarKeyPressed
+
+    }//GEN-LAST:event_EliminarKeyPressed
+
+    private void buscadorColumna6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscadorColumna6KeyTyped
+        
+    }//GEN-LAST:event_buscadorColumna6KeyTyped
+
+    private void buscadorColumna6KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscadorColumna6KeyReleased
+       
+    }//GEN-LAST:event_buscadorColumna6KeyReleased
+
+    private void buscadorColumna1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscadorColumna1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscadorColumna1ActionPerformed
+
+    private void buscadorColumna1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscadorColumna1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscadorColumna1KeyReleased
+
+    private void buscadorColumna1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscadorColumna1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscadorColumna1KeyTyped
+
+    private void buscadorColumna2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscadorColumna2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscadorColumna2ActionPerformed
+
+    private void buscadorColumna2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscadorColumna2KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscadorColumna2KeyReleased
+
+    private void buscadorColumna2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscadorColumna2KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscadorColumna2KeyTyped
+
+    private void buscadorColumna3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscadorColumna3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscadorColumna3ActionPerformed
+
+    private void buscadorColumna3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscadorColumna3KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscadorColumna3KeyReleased
+
+    private void buscadorColumna3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscadorColumna3KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscadorColumna3KeyTyped
+
+    private void buscadorColumna4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscadorColumna4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscadorColumna4ActionPerformed
+
+    private void buscadorColumna4KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscadorColumna4KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscadorColumna4KeyReleased
+
+    private void buscadorColumna4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscadorColumna4KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscadorColumna4KeyTyped
+
+    private void buscadorColumna5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscadorColumna5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscadorColumna5ActionPerformed
+
+    private void buscadorColumna5KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscadorColumna5KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscadorColumna5KeyReleased
+
+    private void buscadorColumna5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscadorColumna5KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscadorColumna5KeyTyped
 
     /**
      * @param args the command line arguments
@@ -807,7 +1119,12 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
     private javax.swing.JButton Tareas;
     private javax.swing.JPanel barratitulo;
     private javax.swing.JPanel barratitulo1;
-    private javax.swing.JTextField buscador;
+    private javax.swing.JTextField buscadorColumna1;
+    private javax.swing.JTextField buscadorColumna2;
+    private javax.swing.JTextField buscadorColumna3;
+    private javax.swing.JTextField buscadorColumna4;
+    private javax.swing.JTextField buscadorColumna5;
+    private javax.swing.JTextField buscadorColumna6;
     private javax.swing.JButton inventario;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

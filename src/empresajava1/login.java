@@ -106,7 +106,6 @@ public class login extends javax.swing.JFrame {
         entrar.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         entrar.setForeground(new java.awt.Color(255, 255, 255));
         entrar.setText("ingresar");
-        entrar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/img/preesslogin.png"))); // NOI18N
         entrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 entrarActionPerformed(evt);
@@ -162,23 +161,9 @@ public class login extends javax.swing.JFrame {
     private void entrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_entrarKeyPressed
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
             String user = usuario.getText();
-            String passw = contraseña.getText();
-            if (user.isEmpty() || passw.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "algun campo esta vacio");
-            }else{
-                if(user.equals("admin")&& passw.equals("12345")){
-                    principal pc = new principal();
-                    pc.setVisible(true);
-                    this.dispose();
-                } else{JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");}
-            }
-
-        }
-    }//GEN-LAST:event_entrarKeyPressed
-
-    private void entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrarActionPerformed
-        String user = usuario.getText();
-        String passw = contraseña.getText();
+        char[] passwordArray = contraseña.getPassword(); // Usa getPassword()
+        String passw = new String(passwordArray); // Convierte a String
+        
         if (user.isEmpty() || passw.isEmpty()) {
             JOptionPane.showMessageDialog(null, "algun campo esta vacio");
         }else{
@@ -188,20 +173,51 @@ public class login extends javax.swing.JFrame {
                 this.dispose();
             } else{JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");}
         }
+                // Limpia el arreglo de caracteres
+        java.util.Arrays.fill(passwordArray, '0');
 
-    }//GEN-LAST:event_entrarActionPerformed
+        }
+    }//GEN-LAST:event_entrarKeyPressed
 
-    private void contraseñaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contraseñaKeyPressed
-        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
- String user = usuario.getText();
-        String passw = contraseña.getText();
+    private void entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrarActionPerformed
+        String user = usuario.getText();
+        char[] passwordArray = contraseña.getPassword(); // Usa getPassword()
+        String passw = new String(passwordArray); // Convierte a String
+        
         if (user.isEmpty() || passw.isEmpty()) {
             JOptionPane.showMessageDialog(null, "algun campo esta vacio");
         }else{
             if(user.equals("admin")&& passw.equals("12345")){
+                principal pc = new principal();
+                pc.setVisible(true);
+                this.dispose();
             } else{JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");}
         }
+                // Limpia el arreglo de caracteres
+        java.util.Arrays.fill(passwordArray, '0');
+
+    }//GEN-LAST:event_entrarActionPerformed
+    
+    private void contraseñaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contraseñaKeyPressed
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+       String user = usuario.getText();
+        char[] passwordArray = contraseña.getPassword(); // Usa getPassword()
+        String passw = new String(passwordArray); // Convierte a String
+        
+        if (user.isEmpty() || passw.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "algun campo esta vacio");
+        }else{
+            if(user.equals("admin")&& passw.equals("12345")){
+                principal pc = new principal();
+                pc.setVisible(true);
+                this.dispose();
+            } else{JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");}
         }
+                // Limpia el arreglo de caracteres
+        java.util.Arrays.fill(passwordArray, '0');
+
+        }
+        
     }//GEN-LAST:event_contraseñaKeyPressed
 
     private void contraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contraseñaActionPerformed

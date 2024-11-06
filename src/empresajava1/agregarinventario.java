@@ -3,7 +3,9 @@ package empresajava1;
 
 import java.awt.Color;
 import java.awt.HeadlessException;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
@@ -22,16 +24,7 @@ public class agregarinventario extends javax.swing.JDialog {
         initComponents();
         aceptar.setBackground(new Color(139, 0, 0));
         aceptar.setForeground(Color.black);
-        //para moverlo al siguiente
-         fecha.addPropertyChangeListener("date",evt->{
-             if(fecha.getDate()!=null){
-                     cantidad.requestFocus(); 
-             }
-         });
- 
         setIconImage(new ImageIcon(getClass().getResource("/icons/logof.png")).getImage());
-
-        
          /*
         Esta libreria ofrece una forma de detectar cambios en tiempo real, como si estuvieras constantemente
         revisando el campo de texto con if-else, pero de manera automática y continua.        
@@ -53,6 +46,7 @@ public class agregarinventario extends javax.swing.JDialog {
           // Inicializa el campo "actual" con la fecha actual
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd  'Hora:'  HH:mm");
                 actual.setText(dateFormat.format(new java.util.Date()));
+                 
 
     }
     
@@ -75,9 +69,8 @@ public class agregarinventario extends javax.swing.JDialog {
         aceptar = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
         JLvalortotal1 = new javax.swing.JLabel();
-        fecha = new com.toedter.calendar.JDateChooser();
         actual = new javax.swing.JTextField();
-        cfecha = new javax.swing.JCheckBox();
+        bodega = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Ventana");
@@ -125,17 +118,16 @@ public class agregarinventario extends javax.swing.JDialog {
                 nombreKeyPressed(evt);
             }
         });
-        jPanel4.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 300, 30));
+        jPanel4.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 300, 30));
 
         jlfecha.setBackground(new java.awt.Color(255, 255, 255));
         jlfecha.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jlfecha.setForeground(new java.awt.Color(255, 255, 255));
-        jlfecha.setText("Fecha Compra:");
-        jPanel4.add(jlfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 100, 20));
+        jlfecha.setText("Bodega");
+        jPanel4.add(jlfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 100, 20));
 
         valor.setBackground(new java.awt.Color(204, 204, 204));
         valor.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        valor.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         valor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 valorActionPerformed(evt);
@@ -155,11 +147,10 @@ public class agregarinventario extends javax.swing.JDialog {
         JLnombre.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         JLnombre.setForeground(new java.awt.Color(255, 255, 255));
         JLnombre.setText("Nombre:");
-        jPanel4.add(JLnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 100, 20));
+        jPanel4.add(JLnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 100, 20));
 
         cantidad.setBackground(new java.awt.Color(204, 204, 204));
         cantidad.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        cantidad.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         cantidad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 cantidadKeyPressed(evt);
@@ -168,7 +159,7 @@ public class agregarinventario extends javax.swing.JDialog {
                 cantidadKeyReleased(evt);
             }
         });
-        jPanel4.add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 80, 30));
+        jPanel4.add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 200, 30));
 
         JLvalor.setBackground(new java.awt.Color(255, 255, 255));
         JLvalor.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -179,7 +170,6 @@ public class agregarinventario extends javax.swing.JDialog {
         valort.setEditable(false);
         valort.setBackground(new java.awt.Color(222, 222, 222));
         valort.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        valort.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         valort.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 valortActionPerformed(evt);
@@ -235,26 +225,12 @@ public class agregarinventario extends javax.swing.JDialog {
         JLvalortotal1.setText("Valor Total:");
         jPanel4.add(JLvalortotal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 100, 20));
 
-        fecha.setBackground(new java.awt.Color(225, 153, 51));
-        fecha.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                fechaMouseClicked(evt);
-            }
-        });
-        fecha.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                fechaKeyPressed(evt);
-            }
-        });
-        jPanel4.add(fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 130, -1));
-
         actual.setBackground(new java.awt.Color(225, 153, 51));
         actual.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         actual.setForeground(new java.awt.Color(225, 153, 51));
         actual.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         actual.setBorder(null);
         actual.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        actual.setOpaque(false);
         actual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 actualActionPerformed(evt);
@@ -270,15 +246,22 @@ public class agregarinventario extends javax.swing.JDialog {
         });
         jPanel4.add(actual, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 130, 30));
 
-        cfecha.setBackground(new java.awt.Color(225, 153, 51));
-        cfecha.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        cfecha.setText("Fecha actual");
-        cfecha.addActionListener(new java.awt.event.ActionListener() {
+        bodega.setBackground(new java.awt.Color(204, 204, 204));
+        bodega.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        bodega.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cfechaActionPerformed(evt);
+                bodegaActionPerformed(evt);
             }
         });
-        jPanel4.add(cfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, -1, -1));
+        bodega.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                bodegaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                bodegaKeyReleased(evt);
+            }
+        });
+        jPanel4.add(bodega, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 200, 30));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 410));
 
@@ -300,7 +283,7 @@ public class agregarinventario extends javax.swing.JDialog {
     
     //metodos
     public void validar(){
-    if (valor.getText().trim().isEmpty()  || nombre.getText().trim().isEmpty() ||  cantidad.getText().trim().isEmpty() || fecha.getDate() == null ){
+    if (valor.getText().trim().isEmpty()  || nombre.getText().trim().isEmpty() ||  cantidad.getText().trim().isEmpty() ||bodega.getText().trim().isEmpty()){
         aceptar.setBackground(new Color(139, 0, 0));
         aceptar.setForeground(Color.black);
     } else {
@@ -312,13 +295,14 @@ public class agregarinventario extends javax.swing.JDialog {
     private void valorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_valorKeyPressed
          if(evt.getKeyCode()== KeyEvent.VK_ENTER){
              try{
-        if (valor.getText().trim().isEmpty() ||
+        if (bodega.getText().trim().isEmpty() ||
         nombre.getText().trim().isEmpty() ||
-        cantidad.getText().trim().isEmpty() ||
-        fecha.getDate() == null) {
+        valor.getText().trim().isEmpty() ||
+        cantidad.getText().trim().isEmpty()  
+                ){
         
         JOptionPane.showMessageDialog(this, 
-                "Todos los campos (Nombre, Fecha, Compra, Valor, Cantidad) deben estar llenos", 
+                "Todos los campos (Bodega, Nombre, Compra, Valor, Cantidad) deben estar llenos", 
                 "Advertencia", JOptionPane.WARNING_MESSAGE);
         }else if (Float.parseFloat(cantidad.getText())<=0) {
             JOptionPane.showMessageDialog(this, "Cantidad tiene que ser mayor que cero");
@@ -348,8 +332,7 @@ public class agregarinventario extends javax.swing.JDialog {
     }//GEN-LAST:event_nombreActionPerformed
 
     private void nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyPressed
-    if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-        fecha.requestFocus(); }
+        
     }//GEN-LAST:event_nombreKeyPressed
 
     private void valorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorActionPerformed
@@ -365,14 +348,15 @@ public class agregarinventario extends javax.swing.JDialog {
     }//GEN-LAST:event_valortKeyPressed
 
     private void aceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aceptarMouseClicked
-    try{
-        if (valor.getText().trim().isEmpty() ||
+     try{
+        if (bodega.getText().trim().isEmpty() ||
         nombre.getText().trim().isEmpty() ||
-        cantidad.getText().trim().isEmpty() ||
-        fecha.getDate() == null) {
+        valor.getText().trim().isEmpty() ||
+        cantidad.getText().trim().isEmpty()  
+                ){
         
         JOptionPane.showMessageDialog(this, 
-                "Todos los campos (Nombre, Fecha, Compra, Valor, Cantidad) deben estar llenos", 
+                "Todos los campos (Bodega, Nombre, Compra, Valor, Cantidad) deben estar llenos", 
                 "Advertencia", JOptionPane.WARNING_MESSAGE);
         }else if (Float.parseFloat(cantidad.getText())<=0) {
             JOptionPane.showMessageDialog(this, "Cantidad tiene que ser mayor que cero");
@@ -408,12 +392,16 @@ public class agregarinventario extends javax.swing.JDialog {
             float cantidadValue = Float.parseFloat(cantidad.getText());
             float valorValue = Float.parseFloat(valor.getText());
             float totalValue = cantidadValue * valorValue;
-            valort.setText(String.valueOf(totalValue));
+            
+                // Formatear el total sin decimales
+    DecimalFormat df = new DecimalFormat("#"); // Solo enteros
+    valort.setText(df.format(totalValue)); // Actualiza el texto sin decimales
+
            
         }
         catch (NumberFormatException e){
            
-           valort.setText("0.00");
+           valort.setText("0");
         }
     }//GEN-LAST:event_cantidadKeyReleased
 
@@ -448,57 +436,20 @@ public class agregarinventario extends javax.swing.JDialog {
     }//GEN-LAST:event_actualActionPerformed
 
     private void aceptarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_aceptarKeyPressed
- if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-     try{
-        if (valor.getText().trim().isEmpty() ||
-        nombre.getText().trim().isEmpty() ||
-        cantidad.getText().trim().isEmpty() ||
-        fecha.getDate() == null) {
-        
-        JOptionPane.showMessageDialog(this, 
-                "Todos los campos (Nombre, Fecha, Compra, Valor, Cantidad) deben estar llenos", 
-                "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }else if (Float.parseFloat(cantidad.getText())<=0) {
-            JOptionPane.showMessageDialog(this, "Cantidad tiene que ser mayor que cero");
-
-         //llenar valores   
-        }else if (Float.parseFloat(valor.getText())<=0) {
-            JOptionPane.showMessageDialog(this, "Valor tiene que ser mayor que cero");
-        }else{ 
-                    this.setVisible(false);
-
-        }
-        
-    }catch(HeadlessException | NumberFormatException e){
-        
-        JOptionPane.showMessageDialog(this, "Los Datos No son validos");
-    }
- }
-
-
-     
+ 
     }//GEN-LAST:event_aceptarKeyPressed
 
-    private void fechaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechaKeyPressed
-    if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-        cantidad.requestFocus(); 
-    
-    }
-    }//GEN-LAST:event_fechaKeyPressed
+    private void bodegaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bodegaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bodegaActionPerformed
 
-    private void fechaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fechaMouseClicked
- 
-    }//GEN-LAST:event_fechaMouseClicked
+    private void bodegaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bodegaKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bodegaKeyPressed
 
-    private void cfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cfechaActionPerformed
-        if(cfecha.isSelected()){
-                    fecha.setDate(new Date());
-
-        }else if (!cfecha.isSelected()){
-                                fecha.setDate(null);
-        }
-            
-    }//GEN-LAST:event_cfechaActionPerformed
+    private void bodegaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bodegaKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bodegaKeyReleased
 
     /**
      * @param args the command line arguments
@@ -546,10 +497,9 @@ public class agregarinventario extends javax.swing.JDialog {
     private javax.swing.JButton aceptar;
     public javax.swing.JTextField actual;
     private javax.swing.JPanel barratitulo;
+    public javax.swing.JTextField bodega;
     private javax.swing.JButton cancelar;
     public javax.swing.JTextField cantidad;
-    private javax.swing.JCheckBox cfecha;
-    public com.toedter.calendar.JDateChooser fecha;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel jlfecha;
