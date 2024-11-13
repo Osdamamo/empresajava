@@ -362,6 +362,8 @@ public class reportes extends javax.swing.JFrame {
 
                 JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
                 exportarAExcel();
+                 int filast = RegistroT.getRowCount();
+         tdatos.setText(""+filast);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione una tarea para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
