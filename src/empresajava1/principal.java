@@ -361,10 +361,13 @@ public class principal extends javax.swing.JFrame {
 
                 JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
                 exportarAExcel();
+                 int filast = RegistroT.getRowCount();
+         tdatos.setText(""+filast);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione una tarea para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        
     }
     public void limpiar(){
         txttarea.setText("");
@@ -433,7 +436,6 @@ private void cargarDesdeExcel() {
     }
 }
 
-    ///mas comentarios a ver que paso por que que
     private void ExtraerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExtraerActionPerformed
 XSSFWorkbook workbook = new XSSFWorkbook();
     XSSFSheet sheet = workbook.createSheet("Tareas");
