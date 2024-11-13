@@ -488,11 +488,11 @@ XSSFWorkbook workbook = new XSSFWorkbook();
         String tareaModificada = ventana.getTareaModificada();
         if (tareaModificada != null) {
             RegistroT.setValueAt(tareaModificada, filaSeleccionada, 0);
-            JOptionPane.showMessageDialog(this, "Tarea modificada con éxito.");
+            JOptionPane.showMessageDialog(this, "Reporte modificado con éxito.");
             exportarAExcel();
         }
     } else {
-        JOptionPane.showMessageDialog(this, "Seleccione una tarea para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Seleccione un Reporte para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
     }
     
     }//GEN-LAST:event_ModificarActionPerformed
@@ -508,7 +508,7 @@ XSSFWorkbook workbook = new XSSFWorkbook();
     
     private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
          if (txttarea.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(this, "El campo de tarea no puede estar vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El campo de Reporte no puede estar vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }else{
         DefaultTableModel modelo = (DefaultTableModel) RegistroT.getModel();
         Object [] Dato = new Object [1];
@@ -527,7 +527,7 @@ XSSFWorkbook workbook = new XSSFWorkbook();
 
     private void EliminarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarTodoActionPerformed
     // Muestra un cuadro de confirmación
-    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar todas las tareas?", "Confirmación", JOptionPane.YES_NO_OPTION);
+    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar todos los Reportes?", "Confirmación", JOptionPane.YES_NO_OPTION);
     
     // Si el usuario confirma con "Sí", procede a eliminar
     if (confirmacion == JOptionPane.YES_OPTION) {
@@ -539,7 +539,7 @@ XSSFWorkbook workbook = new XSSFWorkbook();
         // Actualiza el contador de tareas a 0
         tdatos.setText("0");
         
-        JOptionPane.showMessageDialog(this, "Todas las tareas han sido eliminadas con éxito.");
+        JOptionPane.showMessageDialog(this, "Todas los Reportes han sido eliminados con éxito.");
         exportarAExcel();
     }
     }//GEN-LAST:event_EliminarTodoActionPerformed
@@ -593,7 +593,7 @@ XSSFWorkbook workbook = new XSSFWorkbook();
     private void txttareaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttareaKeyPressed
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
  if (txttarea.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(this, "El campo de tarea no puede estar vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El campo de Reporte no puede estar vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }else{
         DefaultTableModel modelo = (DefaultTableModel) RegistroT.getModel();
         Object [] Dato = new Object [1];
