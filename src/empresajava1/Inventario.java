@@ -882,7 +882,6 @@ private void cargarDatosDesdeHoja(Sheet sheet, DefaultTableModel modelo) {
          v.addElement(agregar1.cantidad.getText());
          v.addElement(agregar1.valor.getText());
          v.addElement(agregar1.valort.getText());
-
         
            DefaultTableModel modeloMateriales = (DefaultTableModel) RegistroT1.getModel();
             modeloMateriales.addRow(v);  // Agregar a tabla de materiales

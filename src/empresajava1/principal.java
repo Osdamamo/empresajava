@@ -49,6 +49,7 @@ public class principal extends javax.swing.JFrame {
                 });
          // Listener para la tecla Delete en la JTable
         RegistroT.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyPressed(KeyEvent evt) {
                 if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
                     eliminarFilaSeleccionada();
@@ -67,7 +68,6 @@ public class principal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        Extraer = new javax.swing.JButton();
         barratitulo1 = new javax.swing.JPanel();
         x1 = new javax.swing.JLabel();
         Tareas = new javax.swing.JButton();
@@ -109,17 +109,6 @@ public class principal extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(54, 57, 63));
         jPanel3.setToolTipText("");
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        Extraer.setBackground(new java.awt.Color(70, 70, 70));
-        Extraer.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Extraer.setForeground(new java.awt.Color(255, 255, 255));
-        Extraer.setText("Extraer");
-        Extraer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExtraerActionPerformed(evt);
-            }
-        });
-        jPanel3.add(Extraer, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 110, 40));
 
         barratitulo1.setBackground(new java.awt.Color(54, 57, 63));
         barratitulo1.setForeground(new java.awt.Color(0, 0, 0));
@@ -436,41 +425,6 @@ private void cargarDesdeExcel() {
     }
 }
 
-    private void ExtraerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExtraerActionPerformed
-XSSFWorkbook workbook = new XSSFWorkbook();
-    XSSFSheet sheet = workbook.createSheet("Tareas");
-
-    // Agregar los encabezados a la primera fila
-    Row headerRow = sheet.createRow(0);
-    for (int i = 0; i < RegistroT.getColumnCount(); i++) {
-        Cell cell = headerRow.createCell(i);
-        cell.setCellValue(RegistroT.getColumnName(i));
-    }
-
-    // Llenar el archivo con los datos de la tabla
-    for (int i = 0; i < RegistroT.getRowCount(); i++) {
-        Row row = sheet.createRow(i + 1);
-        for (int j = 0; j < RegistroT.getColumnCount(); j++) {
-            Cell cell = row.createCell(j);
-            cell.setCellValue(RegistroT.getValueAt(i, j).toString());
-        }
-    }
-
-    try (FileOutputStream fileOut = new FileOutputStream("Tareas.xlsx")) {
-        workbook.write(fileOut);
-        JOptionPane.showMessageDialog(this, "Datos exportados exitosamente a Tareas.xlsx");
-    } catch (IOException e) {
-        JOptionPane.showMessageDialog(this, "Error al exportar los datos: " + e.getMessage());
-    } finally {
-        try {
-            workbook.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    }//GEN-LAST:event_ExtraerActionPerformed
-
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
       int filaSeleccionada = RegistroT.getSelectedRow();
        if (filaSeleccionada >= 0) {
@@ -765,7 +719,6 @@ XSSFWorkbook workbook = new XSSFWorkbook();
     private javax.swing.JButton Agregar;
     private javax.swing.JButton Eliminar;
     private javax.swing.JButton EliminarTodo;
-    private javax.swing.JButton Extraer;
     private javax.swing.JButton Modificar;
     private javax.swing.JTable RegistroT;
     private javax.swing.JButton Reportes;
