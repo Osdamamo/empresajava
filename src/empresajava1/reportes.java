@@ -10,7 +10,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.table.DefaultTableModel;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -38,12 +37,15 @@ public class reportes extends javax.swing.JFrame {
         revisando el campo de texto con if-else, pero de manera automática y continua.        
         */
         txttarea.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
             public void insertUpdate(DocumentEvent e) {
             validar();}
 
+            @Override
             public void removeUpdate(DocumentEvent e) {
             validar();}
 
+            @Override
             public void changedUpdate(DocumentEvent e) {
              validar();}
                 });
@@ -67,7 +69,6 @@ public class reportes extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        Extraer = new javax.swing.JButton();
         barratitulo1 = new javax.swing.JPanel();
         x1 = new javax.swing.JLabel();
         Tareas = new javax.swing.JButton();
@@ -109,17 +110,6 @@ public class reportes extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(54, 57, 63));
         jPanel3.setToolTipText("");
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        Extraer.setBackground(new java.awt.Color(70, 70, 70));
-        Extraer.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Extraer.setForeground(new java.awt.Color(255, 255, 255));
-        Extraer.setText("Extraer");
-        Extraer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExtraerActionPerformed(evt);
-            }
-        });
-        jPanel3.add(Extraer, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 110, 40));
 
         barratitulo1.setBackground(new java.awt.Color(54, 57, 63));
         barratitulo1.setForeground(new java.awt.Color(0, 0, 0));
@@ -362,6 +352,8 @@ public class reportes extends javax.swing.JFrame {
 
                 JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito.");
                 exportarAExcel();
+                 int filast = RegistroT.getRowCount();
+         tdatos.setText(""+filast);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione una tarea para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -436,41 +428,6 @@ private void cargarDesdeExcel() {
 }
 
     
-    private void ExtraerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExtraerActionPerformed
-XSSFWorkbook workbook = new XSSFWorkbook();
-    XSSFSheet sheet = workbook.createSheet("Reportes");
-
-    // Agregar los encabezados a la primera fila
-    Row headerRow = sheet.createRow(0);
-    for (int i = 0; i < RegistroT.getColumnCount(); i++) {
-        Cell cell = headerRow.createCell(i);
-        cell.setCellValue(RegistroT.getColumnName(i));
-    }
-
-    // Llenar el archivo con los datos de la tabla
-    for (int i = 0; i < RegistroT.getRowCount(); i++) {
-        Row row = sheet.createRow(i + 1);
-        for (int j = 0; j < RegistroT.getColumnCount(); j++) {
-            Cell cell = row.createCell(j);
-            cell.setCellValue(RegistroT.getValueAt(i, j).toString());
-        }
-    }
-
-    try (FileOutputStream fileOut = new FileOutputStream("Reportes.xlsx")) {
-        workbook.write(fileOut);
-        JOptionPane.showMessageDialog(this, "Datos exportados exitosamente a Reportes.xlsx");
-    } catch (IOException e) {
-        JOptionPane.showMessageDialog(this, "Error al exportar los datos: " + e.getMessage());
-    } finally {
-        try {
-            workbook.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    }//GEN-LAST:event_ExtraerActionPerformed
-
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
       int filaSeleccionada = RegistroT.getSelectedRow();
     if (filaSeleccionada >= 0) {
@@ -486,11 +443,11 @@ XSSFWorkbook workbook = new XSSFWorkbook();
         String tareaModificada = ventana.getTareaModificada();
         if (tareaModificada != null) {
             RegistroT.setValueAt(tareaModificada, filaSeleccionada, 0);
-            JOptionPane.showMessageDialog(this, "Tarea modificada con éxito.");
+            JOptionPane.showMessageDialog(this, "Reporte modificado con éxito.");
             exportarAExcel();
         }
     } else {
-        JOptionPane.showMessageDialog(this, "Seleccione una tarea para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Seleccione un Reporte para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
     }
     
     }//GEN-LAST:event_ModificarActionPerformed
@@ -506,7 +463,7 @@ XSSFWorkbook workbook = new XSSFWorkbook();
     
     private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
          if (txttarea.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(this, "El campo de tarea no puede estar vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El campo de Reporte no puede estar vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }else{
         DefaultTableModel modelo = (DefaultTableModel) RegistroT.getModel();
         Object [] Dato = new Object [1];
@@ -525,7 +482,7 @@ XSSFWorkbook workbook = new XSSFWorkbook();
 
     private void EliminarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarTodoActionPerformed
     // Muestra un cuadro de confirmación
-    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar todas las tareas?", "Confirmación", JOptionPane.YES_NO_OPTION);
+    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar todos los Reportes?", "Confirmación", JOptionPane.YES_NO_OPTION);
     
     // Si el usuario confirma con "Sí", procede a eliminar
     if (confirmacion == JOptionPane.YES_OPTION) {
@@ -537,7 +494,7 @@ XSSFWorkbook workbook = new XSSFWorkbook();
         // Actualiza el contador de tareas a 0
         tdatos.setText("0");
         
-        JOptionPane.showMessageDialog(this, "Todas las tareas han sido eliminadas con éxito.");
+        JOptionPane.showMessageDialog(this, "Todas los Reportes han sido eliminados con éxito.");
         exportarAExcel();
     }
     }//GEN-LAST:event_EliminarTodoActionPerformed
@@ -590,8 +547,8 @@ XSSFWorkbook workbook = new XSSFWorkbook();
 
     private void txttareaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttareaKeyPressed
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
- if (txttarea.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(this, "El campo de tarea no puede estar vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
+ if (txttarea.getText().trim().isEmpty()){  
+            JOptionPane.showMessageDialog(this, "El campo de Reporte no puede estar vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }else{
         DefaultTableModel modelo = (DefaultTableModel) RegistroT.getModel();
         Object [] Dato = new Object [1];
@@ -765,7 +722,6 @@ JFrame actual = this;  // Referencia a la ventana actual.
     private javax.swing.JButton Agregar;
     private javax.swing.JButton Eliminar;
     private javax.swing.JButton EliminarTodo;
-    private javax.swing.JButton Extraer;
     private javax.swing.JButton Modificar;
     private javax.swing.JTable RegistroT;
     private javax.swing.JButton Reportes;
